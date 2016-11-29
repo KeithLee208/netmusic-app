@@ -31,6 +31,12 @@ Page({
       curplay: appInstance.globalData.curplay.id
     })
   },
+  userplaylist:function(e){
+    var userid=e.currentTarget.dataset.userid;
+    wx.redirectTo({
+      url: '../index?id='+userid
+    })
+  },
   playall: function (event) {
     var that = this;
     var playlist = that.data.list.tracks

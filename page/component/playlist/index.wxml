@@ -12,7 +12,7 @@
       </view>
       <view id="plh-cnt">
         <text id="music_h_name">{{list.name||""}}</text>
-        <view data-userid="{{list.userid}}">
+        <view data-userid="{{list.userId}}" bindtap="userplaylist">
           <image id="user_ava" class="user_avator" src="{{list.creator.avatarUrl}}" />
           <text>{{list.creator.nickname}}</text>
         </view>

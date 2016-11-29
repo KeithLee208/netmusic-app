@@ -3,10 +3,11 @@ Page({
     list: [],
     user: {}
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    var id=options.id||'177018'
     var that = this
     wx.request({
-      url: 'https://n.sqaiyan.com/userplaylists?id=177018',
+      url: 'https://n.sqaiyan.com/userplaylists?id='+id,
       success: function (res) {
         that.setData({
           list: res.data.playlist,
