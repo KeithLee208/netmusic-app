@@ -71,6 +71,32 @@ Page({
   onHide: function () {
     clearInterval(seek)
   },
+  downmusic:function(){
+    var url=this.data.music.mp3Url;
+    var that=this;
+    wx.downloadFile({
+      url:url, 
+      success: function(res) {
+        wx.saveFile({
+          tempFilePath:res.tempFilePath,
+          success: function(res){
+            console.log("下载成功");
+            var saved=wx.getStorageSync('downmusic');
+            saved[this.data.music.id]=res.tempFilePath;
+            wx.setStorage({
+              key: 'downmusic',
+              data:saved,
+              success: function(res){
+                console.log("保存成功");
+              }
+            })
+          }
+        })
+      
+       
+      }
+    })
+  },
   onLoad: function (options) {
     var that = this;
     this.setData({

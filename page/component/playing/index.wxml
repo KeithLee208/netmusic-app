@@ -15,7 +15,7 @@
       <view class="pi-act">
         <image src="../../../image/a_r.png" />
       </view>
-      <view class="pi-act">
+      <view class="pi-act" bindtap="downmusic">
         <image src="../../../image/a_i.png" />
       </view>
       <view class="pi-act commentscount">

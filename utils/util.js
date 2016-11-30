@@ -137,7 +137,12 @@ function playAlrc(that, app) {
 };
 function loadrec(offset, limit, id, cb) {
   wx.request({
-    url: 'https://n.sqaiyan.com/recommend?id=' + id + "&limit=" + limit + "&offset=" + offset,
+    url: 'https://n.sqaiyan.com/recommend',
+    data:{
+      id:id,
+      limit:limit,
+      offset:offset
+    },
     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
       var data = res.data;
@@ -170,14 +175,10 @@ function loadlrc(that) {
       success: function (res) {
         var lrc = parse_lrc(res.data.lrc && res.data.lrc.lyric ? res.data.lrc.lyric : '');
         res.data.lrc = lrc.now_lrc;
-        console.log(lrc.scroll)
         res.data.scroll = lrc.scroll ? 1 : 0
         that.setData({
           lrc: res.data
         });
-      },
-      fail: function () {
-        // fail
       }
     })
   }

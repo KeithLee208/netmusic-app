@@ -1,5 +1,5 @@
 #recpage{background-color: #fbfcfd}
-#rec_header{padding: 20rpx;display: flex; align-items: center}
+#rec_header{padding: 20rpx;display: flex; align-items: center;display: none}
 #rch_img,#rch_img image{width: 160rpx;height:160rpx;}
 #rch_arrow{width:40rpx;text-align: center;}
 #rch_arrow image{width: 24rpx;height:42rpx;}

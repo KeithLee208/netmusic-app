@@ -77,6 +77,7 @@ App({
     })
   },
   seekmusic: function (type, cb, seek) {
+    console.log("type:",type)
     var that = this;
     var m = this.globalData.curplay;
     this.globalData.playtype = type;
@@ -134,11 +135,8 @@ App({
     }
   },
   onShow: function () {
-    this.globalData.globalStop = false;
-    //console.log(this.globalData.globalStop)
   },
   onHide: function () {
-    this.globalData.globalStop = true;
     wx.setStorageSync('globalData', this.globalData);
   },
   globalData: {
@@ -151,7 +149,7 @@ App({
     playtype: 1,
     curplay: {},
     shuffle: 1,
-    globalStop: false,
+    globalStop: true,
     currentPosition: 0
   }
 })

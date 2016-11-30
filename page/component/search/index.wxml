@@ -1,0 +1,52 @@
+<view id="searchpage">
+  <view id="search_input">
+    <form bindsubmit="search">
+      <view class="form">
+        <view>
+          <input type="text" name="name" auto-focus="true" bindinput="inputext" placeholder="搜索单曲、歌手、专辑等" value="{{value}}" />
+        </view>
+        <view class="button">
+          <button form-type="submit">
+            <icon type="search" size="20"></icon>
+          </button>
+        </view>
+      </view>
+    </form>
+  </view>
+  
+  <view id="search_tab" hidden="{{!value}}">
+    <scroll-view scroll-x="true">
+      <view class="tab" style="width:180%">
+        <view class="tab-item {{tab.tab==item.type?'tbi-cur':''}}" wx:for-items="{{tabs}}" wx:for-index="idx" bindtap="tabtype" data-index="{{idx}}" data-tab="{{item.type}}">
+          <text class="tbi-text">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+
+  <view id="search_result">
+    <view hidden="{{value}}">
+    <scroll-view scroll-y="true">
+      <view id="search_recent">
+         <text>历史搜索</text>
+         <view class="sr_lists" wx:for="{{recent}}"><icon type="waiting" color="#ddd"></icon><text>{{item}}</text><icon type="clear" color="#ddd"></icon></view>
+      </view>
+    </scroll-view>
+    </view>
+    
+    <view>
+      <scroll-view class="search_relist" scroll-y="true">
+       <view wx:for="{{tabs[0].relist.songs}}" wx:for-item="re" wx:key="{{re}}">
+          <view class="song">
+            <text></text>
+            <view>{{re.name}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+
+
+  </view>
+</view>

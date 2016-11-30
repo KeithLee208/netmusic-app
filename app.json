@@ -7,7 +7,8 @@
    "page/component/login/index",
    "page/component/fm/index",
    "page/component/toplist/index",
-   "page/component/recommend/index"
+   "page/component/recommend/index",
+   "page/component/search/index"
 ],
   "window": {
     "navigationBarTextStyle": "#fff",
@@ -36,7 +37,7 @@
       "selectedIconPath": "image/tb2-on.png",
       "text":"我的音乐"
     },{
-      "pagePath": "page/component/toplist/index",
+      "pagePath": "page/component/search/index",
       "iconPath": "image/tb4-off.png",
       "selectedIconPath": "image/tb4-on.png",
       "text":"账号"

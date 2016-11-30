@@ -39,8 +39,8 @@ border-radius: 3rpx;animation: cnloading .9s linear infinite; transform-origin: 
 border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,-50%,0)}
 #playing-status .time{width:80rpx ;text-align:center;display: block;font-size: 24rpx;}
 
-.tab{display: flex;border-bottom: 1rpx solid #ddd; background: #f6f6f7;height: 81rpx;line-height: 80rpx;}
-.tab .tab-item{text-align: center; flex: 1;}
+.tab{display: flex;border-bottom: 1rpx solid #dfdfdf; background: #f8f8f8;height: 80rpx;line-height: 80rpx;}
+.tab .tab-item{text-align: center; flex:1; word-break: keep-all}
 .tab .tab-item text{display: inline-block;padding: 0 .3em;}
 .tab .tab-item .tbi-des{display: inline;color: #999; border-bottom: none;font-size: 24rpx;line-height: 1}
 .tbi-cur text{color: #d33a31;border-bottom: 4rpx solid #d33a31; line-height: 77rpx;height: 77rpx; margin-bottom: -1rpx}

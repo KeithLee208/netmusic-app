@@ -1,0 +1,12 @@
+#searchpage{padding-top: 171rpx;height: 100%;box-sizing: border-box;}
+#search_input{padding: 25rpx 25rpx;background-color: #f8f8f8;margin-top: -171rpx;height:50rpx;}
+#search_input .form{display: flex;}
+#search_input .form view{width:100%}
+#search_input input{border:1rpx solid #ddd;color: #666;background-color: #dfdfdf;
+border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;height: 50rpx;line-height: 48rpx;display: block;}
+#search_input .button{width: 50rpx; flex: 0 0 50rpx;line-height: 80rpx;}
+.button button{padding: 0;background-color: none;height:50rpx;border: none;position: static;line-height: 1;padding-left: 15rpx;}
+
+#search_tab{margin-top: -15rpx;}
+#search_result{height: 100%;position: relative;}
+#search_result scroll-view{height: 100%;}
