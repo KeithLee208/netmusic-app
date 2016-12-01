@@ -52,16 +52,18 @@ Page({
             },
             method: 'GET',
             success: function (res) {
-               cb && cb(res.data.result)
+               cb && cb(res.data)
             }
         })
     },
     tabtype: function (e) {
+        var index=e.currentTarget.dataset.index
         this.setData({
             tab:{
                 tab:e.currentTarget.dataset.tab,
-                index:e.currentTarget.dataset.index
-            }
+                index:index
+            },
+            scroll:index<2?0:index
         })
     }
 })

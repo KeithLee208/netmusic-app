@@ -12,6 +12,9 @@ Page({
         that.setData({
           list: res.data.playlist,
           user: res.data.playlist[0].creator
+        });
+        wx.setNavigationBarTitle({
+          title: res.data.playlist[0].creator.nickname
         })
       }
     });

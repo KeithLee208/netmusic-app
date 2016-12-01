@@ -41,7 +41,7 @@ Page({
         }
         seek = setInterval(function () {
             common.playAlrc(that, app)
-        }, 500);
+        }, 1000);
       //  wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name || "" });
     },
     onHide: function () {

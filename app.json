@@ -8,7 +8,8 @@
    "page/component/fm/index",
    "page/component/toplist/index",
    "page/component/recommend/index",
-   "page/component/search/index"
+   "page/component/search/index",
+   "page/component/album/index"
 ],
   "window": {
     "navigationBarTextStyle": "#fff",
@@ -32,7 +33,7 @@
       "selectedIconPath": "image/tbfm-on.png",
       "text":"私人Fm"
     },{
-      "pagePath": "page/component/login/index",
+      "pagePath": "page/component/playing/index",
       "iconPath": "image/tb2-off.png",
       "selectedIconPath": "image/tb2-on.png",
       "text":"我的音乐"

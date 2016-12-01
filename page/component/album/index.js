@@ -1,23 +1,23 @@
-var appInstance = getApp()
+var appInstance = getApp();
+var common = require('../../../utils/util.js');
 Page({
   data: {
-    list: [],
-    curplay: {},
-    pid: 0,
-    loading: true,
-    toplist: false
+    result:{},
+    curplay:0,
+    loading: true
   },
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'https://n.sqaiyan.com/playlists?id=' + options.pid,
+      url: 'https://n.sqaiyan.com/album?id=' + options.pid,
       success: function (res) {
+        var re=res.data.album;
+        re.publishTime=common.formatTime(re.publishTime)
         that.setData({
-          list: res.data.result,
-          toplist: (options.from == 'toplist' ? true : false)
+          result:re
         });
         wx.setNavigationBarTitle({
-          title: res.data.result.name
+          title: res.data.name
         })
       }, fail: function (res) {
         wx.navigateBack({
@@ -31,15 +31,15 @@ Page({
       curplay: appInstance.globalData.curplay.id
     })
   },
-  userplaylist: function (e) {
-    var userid = e.currentTarget.dataset.userid;
+  userplaylist:function(e){
+    var userid=e.currentTarget.dataset.userid;
     wx.redirectTo({
-      url: '../index?id=' + userid
+      url: '../index?id='+userid
     })
   },
   playall: function (event) {
     var that = this;
-    var playlist = that.data.list.tracks
+    var playlist = that.data.result.songs
     wx.playBackgroundAudio({
       dataUrl: playlist[0].mp3Url,
       title: playlist[0].name,
@@ -71,7 +71,7 @@ Page({
   playmusic: function (event) {
     var that = this;
     let music = event.currentTarget.dataset.idx;
-    music = this.data.list.tracks[music];
+    music = this.data.result.songs[music];
     if (music.id == appInstance.globalData.curplay.id) {
       wx.navigateTo({ url: '../playing/index?id=' + music.id })
     } else {
@@ -82,7 +82,7 @@ Page({
         coverImgUrl: music.album.picUrl,
         success: function () {
           console.log("开始播放", music.name);
-          that.setplaylist(that.data.list.tracks, music, event.currentTarget.dataset.idx)
+          that.setplaylist(that.data.result.songs, music, event.currentTarget.dataset.idx)
           wx.navigateTo({
             url: '../playing/index?id=' + music.id
           });

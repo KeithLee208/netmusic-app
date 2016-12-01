@@ -1,13 +1,16 @@
 <view class='listheader'>云音乐官方榜</view>
 
-<view class='toplist'>
+<view class='flex-boxlist'>
    <view class="tl_cnt"  wx:for-items="{{toplist.toplist1}}">
     <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
-        <view >
+        <view class="cover">
             <image  class="music_cover" src="{{item.src}}"/>
             <text>{{item.updatetime}}</text>
         </view>
-        <text>{{item.name}}</text>
+        <view class="tl_info">
+            <view><text>{{item.name}}</text></view>
+        </view>
+        
         </navigator>
     </view>
     
@@ -16,7 +19,7 @@
 <view class='listheader'>全球榜</view>
 
 
-<view class='toplist'>
+<view class='flex-boxlist'>
     <view class="tl_cnt" wx:for-items="{{toplist.toplist2}}">
     <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
         <view class="music_cover">

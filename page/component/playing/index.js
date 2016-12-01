@@ -33,7 +33,7 @@ Page({
             dataUrl: res.data.songs[0].mp3Url,
             title: res.data.songs[0].name,
             success: function (res) {
-              console.log("播放")
+              app.globalData.globalStop = false;
             }
           });
           wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name });
@@ -63,7 +63,7 @@ Page({
     var that = this;
     seek = setInterval(function () {
       common.playAlrc(that, app);
-    }, 500)
+    },1000)
   },
   onUnload: function () {
     clearInterval(seek)

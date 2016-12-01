@@ -11,7 +11,7 @@
   <view class="playlist" wx:if="{{list.length}}">
     <text class="sm_title">{{user.nickname}}创建的歌单</text>
     <block wx:for-items="{{list}}" wx:key="{{item.id}}">
-      <view class="widgets__item" wx:if="{{item.userId==177018}}">
+      <view class="widgets__item" wx:if="{{item.userId==user.userId}}">
         <navigator url="playlist/index?pid={{item.id}}&name={{item.name}}" class="widget">
           <view id="{{item.id}}" class="widgets__info">
             <image class="widgets__info-img music_cover" src="{{item.coverImgUrl}}" mode="aspectFill" />
@@ -23,7 +23,7 @@
     </block>
     <text class="sm_title">{{user.nickname}}收藏的歌单</text>
     <block wx:for-items="{{list}}" wx:key="{{item.id}}">
-      <view class="widgets__item" wx:if="{{item.userId!=177018}}">
+      <view class="widgets__item" wx:if="{{item.userId!=user.userId}}">
         <navigator url="playlist/index?pid={{item.id}}&name={{item.name}}" class="widget">
           <view id="{{item.id}}" class="widgets__info">
             <image class="widgets__info-img music_cover" src="{{item.coverImgUrl}}" mode="aspectFill" />

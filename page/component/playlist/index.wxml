@@ -39,8 +39,7 @@
     <block wx:if="{{!list.tracks.length}}" wx:if="{{list.tracks.length}}">
       <view id="playall" bindtap="playall">
         <image src="../../../image/pl-playall.png" />
-        <text id="pa-count">播放全部
-          <text> (共{{list.tracks.length}}首)</text>
+        <text id="pa-count">播放全部<text> (共{{list.tracks.length}}首)</text>
         </text>
       </view>
       <block wx:for-items="{{list.tracks}}" wx:for-index="idx" wx:key="{{item.id}}">
@@ -58,8 +57,7 @@
                       <image src="../../../image/wu.png" wx:if="{{idx>item.lastRank}}" />
                       <image src="../../../image/xu.png" wx:if="{{item.lastRank>idx}}" />
                       <image src="../../../image/xr.png" wx:if="{{item.lastRank==idx}}" />
-                      <text>{{item.lastRank
-                        <idx?(idx-item.lastRank):(item.lastRank-idx)}}</text>
+                      <text>{{item.lastRank <idx?(idx-item.lastRank):(item.lastRank-idx)}}</text>
                     </view>
                     <view class="ftp" wx:if="{{item.ratio==undefined&&item.lastRank==undefined}}">
                       <image src="../../../image/xy.png" class="tpnew" />

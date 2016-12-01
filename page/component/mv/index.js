@@ -30,7 +30,7 @@ Page({
             tab: t
         });
         var that = this;
-        if (this.data.tab && !this.data.rec.code) {
+        if (this.data.tab && this.data.rec.code!=200) {
             common.loadrec(this.data.offset, this.data.limit, this.data.recid, function (data) {
                 that.setData({
                     loading: false,

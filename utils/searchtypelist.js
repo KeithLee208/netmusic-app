@@ -20,24 +20,17 @@ module.exports=[{
             offset:0,
             limit:20
         },{
-            type:1004,
-            name:"MV",
-            relist:[],
-            klass:'mv',
-            offset:0,
-            limit:20
-        },{
-            type:1006,
-            name:"歌词",
-            relist:[],
-            klass:'lrc',
-            offset:0,
-            limit:20
-        },{
             type:1000,
             name:"歌单",
             relist:[],
             klass:'playlist',
+            offset:0,
+            limit:20
+        },{
+            type:1004,
+            name:"MV",
+            relist:[],
+            klass:'mv',
             offset:0,
             limit:20
         },{
