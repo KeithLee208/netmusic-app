@@ -29,6 +29,7 @@ Page({
         })
         this.httpsearch(name,curtab.offset,this.data.tab.tab, function (res) {
             curtab.relist = res;
+            curtab.loading=true;
             var tl=typelist;
             tl[index]=curtab;
             that.setData({
@@ -57,13 +58,25 @@ Page({
         })
     },
     tabtype: function (e) {
-        var index=e.currentTarget.dataset.index
+        var index=e.currentTarget.dataset.index;
+        var curtab=this.data.tabs[index];
+        var that=this;
+        if(!curtab.loading){
+            this.httpsearch(this.data.value,curtab.offset,this.data.tab.tab, function (res) {
+                curtab.relist = res;
+                curtab.loading=true;
+                var tl=typelist;
+                tl[index]=curtab;
+                that.setData({
+                    tabs:tl
+                })
+            })
+        }
         this.setData({
             tab:{
                 tab:e.currentTarget.dataset.tab,
-                index:index
-            },
-            scroll:index<2?0:index
+                index:1+index
+            }
         })
     }
 })
