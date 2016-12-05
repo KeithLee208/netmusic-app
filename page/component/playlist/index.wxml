@@ -10,14 +10,16 @@
           <image src="../../../image/icon-err.png" />
         </view>
       </view>
+
       <view id="plh-cnt">
-        <text id="music_h_name">{{list.name||""}}</text>
-        <view data-userid="{{list.userId}}" bindtap="userplaylist">
+        <text id="music_h_name">{{list.name||" "}}</text>
+        <view data-userid="{{list.userId}}" wx:if="{{list}}" bindtap="userplaylist">
           <image id="user_ava" class="user_avator" src="{{list.creator.avatarUrl}}" />
-          <text>{{list.creator.nickname}}</text>
+          <text>{{list.creator.nickname||" "}}</text>
         </view>
       </view>
     </view>
+
     <view id="plh_action">
       <view>
         <image src="../../../image/w7.png" />
@@ -35,6 +37,7 @@
       </view>
     </view>
   </view>
+  
   <view class="plist-detail">
     <block wx:if="{{!list.tracks.length}}" wx:if="{{list.tracks.length}}">
       <view id="playall" bindtap="playall">

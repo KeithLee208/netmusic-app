@@ -2,7 +2,7 @@ var common = require('../../../utils/util.js');
 let app = getApp();
 let seek = 0;
 let defaultdata = {
-  playing: false,
+  playing: true,
   music: {},
   playtime: '00:00',
   duration: '00:00',
@@ -20,7 +20,6 @@ Page({
     var that = this;
     wx.request({
       url: 'https://n.sqaiyan.com/song?id=' + id,
-      header: { 'Content-Type': 'application/json' },
       success: function (res) {
         app.globalData.curplay = res.data.songs[0];
         if (!res.data.songs[0].mp3Url) {
@@ -37,6 +36,11 @@ Page({
             }
           });
           wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name });
+          common.loadrec(0, 0, res.data.songs[0].commentThreadId, function (res) {
+            that.setData({
+              commentscount: res.total
+            })
+          })
         }
 
       }
@@ -112,14 +116,14 @@ Page({
         music: app.globalData.curplay,
         duration: common.formatduration(app.globalData.curplay.duration)
       });
-
-    };
-    wx.setNavigationBarTitle({ title: app.globalData.curplay.name })
-    common.loadrec(0, 0, that.data.music.commentThreadId, function (res) {
-      that.setData({
-        commentscount: res.total
+       wx.setNavigationBarTitle({ title: app.globalData.curplay.name })
+      common.loadrec(0, 0, that.data.music.commentThreadId, function (res) {
+        that.setData({
+          commentscount: res.total
+        })
       })
-    })
+    };
+   
   },
   playingtoggle: function (event) {
     if (this.data.disable) {

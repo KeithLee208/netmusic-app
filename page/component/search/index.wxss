@@ -1,5 +1,5 @@
-#searchpage{padding-top: 171rpx;height: 100%;box-sizing: border-box;overflow: hidden}
-#search_input{padding: 25rpx 25rpx;background-color: #f8f8f9;margin-top: -171rpx;height:50rpx;}
+#searchpage{padding-top: 180rpx;height: 100%;box-sizing: border-box;overflow: hidden;}
+#search_input{padding: 25rpx 25rpx;background-color: #f8f8f9;margin-top: -180rpx;height:50rpx; overflow: hidden}
 #search_input .form{display: flex;}
 #search_input .form view{width:100%}
 #search_input input{border:1rpx solid #ececec;color: #515151;background-color: #ececec;
@@ -7,7 +7,7 @@ border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;heigh
 #search_input .button{width: 70rpx;padding-left: 20rpx; flex: 0 0 50rpx;line-height: 80rpx;overflow: hidden}
 .button button{padding: 0;height:50rpx;border: none;line-height: 1;width: 50rpx;display:block;text-align: center;}
 
-#search_tab{margin-top: -15rpx;background-color: #f8f8f9;height: 81rpx;}
+#search_tab{margin-top: -26rpx;}
 #search_result{height: 100%;position: relative;}
 #search_result .seare_list{height: 100%;}
 #search_result scroll-view{height:100%}
@@ -19,3 +19,10 @@ border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;heigh
 .mvs .cover{padding-top: 56%}
 .mvs{padding: 10rpx}
 .mvs .tl_cnt{width: 50%;padding:0 10rpx 20rpx;}
+
+.userprofiles .flexmain image{width: 32rpx;height: 32rpx; }
+.userprofiles .fl-image image{border-radius: 50%}
+.sm_title{font-size: 28rpx;margin: 0}
+#re_search_wrap{display: flex; flex-direction: column; justify-content: flex-end; }
+.sr_lists icon{ vertical-align:top;margin-right: 10rpx}
+.sr_lists image{width: 60rpx;height: 60rpx; vertical-align:top}

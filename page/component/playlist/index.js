@@ -46,7 +46,8 @@ Page({
       coverImgUrl: playlist[0].album.picUrl,
       success: function () {
         console.log("开始播放全部");
-        that.setplaylist(playlist, playlist[0], 0)
+
+        that.setplaylist(playlist, playlist[0], 0);
       }
     })
   },
@@ -58,6 +59,7 @@ Page({
     var shuffle = appInstance.globalData.shuffle;
     appInstance.globalData.list_sf = list;//this.data.list.tracks;
     appInstance.shuffleplay(shuffle);
+    appInstance.globalData.globalStop=false;
     this.setData({
       curplay: music.id
     })

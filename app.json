@@ -33,7 +33,7 @@
       "selectedIconPath": "image/tbfm-on.png",
       "text":"私人Fm"
     },{
-      "pagePath": "page/component/playing/index",
+      "pagePath": "page/component/toplist/index",
       "iconPath": "image/tb2-off.png",
       "selectedIconPath": "image/tb2-on.png",
       "text":"我的音乐"

@@ -3,7 +3,7 @@
     <form bindsubmit="search">
       <view class="form">
         <view>
-          <input type="text" name="name" bindinput="inputext" placeholder="搜索单曲、歌手、专辑等" value="{{value}}" />
+          <input type="text" maxlength="20" name="name" bindinput="inputext" placeholder="搜索单曲、歌手、专辑等" value="{{value}}" />
         </view>
         <view class="button">
           <button form-type="submit" plain="true">
@@ -23,25 +23,29 @@
     </scroll-view>
   </view>
   <view id="search_result">
-    <view class="seare_list" hidden="{{value||loading}}">
-      <scroll-view scroll-y="true">
-        <view id="search_recent">
-          <text>历史搜索</text>
-          <view class="sr_lists" wx:for="{{recent}}">
-            <icon type="waiting" color="#ddd"></icon>
-            <text>{{item}}</text>
-            <icon type="clear" color="#ddd"></icon>
+    <view class="seare_list" id="re_search_wrap" wx:if="{{!value&&!loading}}">
+     <view id="search_recent" wx:if="{{recent.length}}">
+          <text class="sm_title">历史搜索</text>
+          <view class="sr_lists" bindtap="search_f_recent" data-value="{{item}}" wx:index="idx" wx:for="{{recent}}">
+          <view class="flexlist">
+          <view><icon type="waiting_circle" size="22" color="#ddd"></icon></view>
+              <view class="flexmain">
+                <view>{{item}}</view>
+              </view>
+              <view class="flexact" catchtap="del_research" data-index="{{idx}}">
+               <image src="../../../image/aah.png" />
+              </view>
+            </view>
           </view>
         </view>
-      </scroll-view>
     </view>
-    <view class="seare_list" hidden="{{tab.tab!=item.type}}" wx:for="{{tabs}}">
-      <scroll-view class="search_relist" scroll-y="true" bindscrolltolower="loadmore">
+    <view class="seare_list" wx:if="{{tab.tab==item.type&&loading}}" wx:for="{{tabs}}" wx:index="idx">
+      <scroll-view class="search_relist" scroll-y="true" data-typeindex="idx" bindscrolltolower="loadmore">
         <view wx:for="{{item.relist.result.songs}}" class="songs" wx:for-item="re" wx:key="{{re}}">
           <navigator url="../playing/index?id={{re.id}}">
             <view class="flexlist">
               <view class="flexmain">
-                <view>{{re.name}}</view>
+                <view>{{re.name}}{{tab.tab!=item.type}}</view>
                 <view class="relistdes">{{re.artists[0].name}}-{{re.album.name}}</view>
               </view>
               <view class="flexact" wx-if="{{re.mvid!=0}}">
@@ -93,7 +97,7 @@
             </view>
           </navigator>
         </view>
-        <view class="flex-boxlist mvs">
+        <view class="flex-boxlist mvs" wx:if="{{item.relist.result.mvs}}">
           <view wx:for="{{item.relist.result.mvs}}" class="tl_cnt" wx:for-item="re" wx:key="{{re}}">
             <navigator url="../mv/index?id={{re.id}}">
               <view class="cover">
@@ -107,27 +111,49 @@
             </navigator>
           </view>
         </view>
-        <view wx:for="{{item.relist.result.djRadios}}" wx:for-item="re" wx:key="{{re}}">
-          <text class="st_title">电台</text>
-          <view class="dj">
-            <text></text>
-            <view>{{re.name}}</view>
-          </view>
+        <view class="sm_title" wx:if="{{item.type==1009&&item.relist.result.djRadios.length}}">电台</view>
+        <view wx:for="{{item.relist.result.djRadios}}" class="flex-image" wx:for-item="re" wx:key="{{re}}">
+          <navigator url="../dj/index?pid={{re.id}}">
+            <view class="flexlist">
+              <view class="flexleft fl-image">
+                <image src="{{re.picUrl}}" />
+              </view>
+              <view class="flexmain">
+                <view>{{re.name}}</view>
+                <view class="relistdes">{{re.dj.nickname}}</view>
+              </view>
+            </view>
+          </navigator>
+          
         </view>
-        <view wx:for="{{item.relist.result.djprograms}}" wx:for-item="re" wx:key="{{re}}">
-          <text class="st_title">节目</text>
-          <view class="dj">
-            <text></text>
-            <view>{{re.name}}</view>
-          </view>
+        <view class="sm_title" wx:if="{{item.type==1009&&item.relist.result.djprograms.length}}">节目</view>
+        <view wx:for="{{item.relist.result.djprograms}}" wx:for-item="re" class="flex-image" wx:key="{{re}}">
+         <navigator url="../djprogram/index?pid={{re.id}}">
+            <view class="flexlist">
+              <view class="flexleft fl-image">
+                <image src="{{re.coverUrl}}" />
+              </view>
+              <view class="flexmain">
+                <view>{{re.name}}</view>
+                <view class="relistdes">{{re.dj.brand}}  {{'Vol.'+re.serialNum}}</view>
+              </view>
+            </view>
+          </navigator>
         </view>
-        <view wx:for="{{item.relist.result.userprofiles}}" wx:for-item="re" wx:key="{{re}}">
-          <view class="user">
-            <text></text>
-            <view>{{re.nickname}}</view>
-          </view>
+        <view wx:for="{{item.relist.result.userprofiles}}" class="flex-image userprofiles" wx:for-item="re" wx:key="{{re}}">
+          <navigator url="../index?id={{re.userId}}">
+            <view class="flexlist">
+              <view class="flexleft fl-image">
+                <image src="{{re.avatarUrl}}" />
+              </view>
+              <view class="flexmain">
+                <view>{{re.nickname}} <image src="../../../image/s1.png" wx:if="{{re.gender!=1}}"/><image src="../../../image/rt.png" wx:if="{{re.gender==1}}"/></view>
+                <view class="relistdes">{{re.signature}}</view>
+              </view>
+            </view>
+          </navigator>
         </view>
-        <view class="cntloading" hidden="{{item.loading&&item.relist.code==200&&!item.relist[1].length}}">暂无结果</view>
+        <view class="cntloading" hidden="{{!item.loading&&item.relist.code==200&&!item.relist[1]}}">暂无结果</view>
         <view hidden="{{item.loading}}" class="cntloading">{{item.name}}加载中...
           <view>
             <text class="cl1"></text>
