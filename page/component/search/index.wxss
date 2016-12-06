@@ -1,5 +1,5 @@
-#searchpage{padding-top: 180rpx;height: 100%;box-sizing: border-box;overflow: hidden;}
-#search_input{padding: 25rpx 25rpx;background-color: #f8f8f9;margin-top: -180rpx;height:50rpx; overflow: hidden}
+#searchpage{padding-top: 154rpx;height: 100%;box-sizing: border-box;overflow: hidden;}
+#search_input{padding: 25rpx 25rpx;background-color: #f8f8f9;margin-top: -154rpx;height:50rpx; overflow: hidden}
 #search_input .form{display: flex;}
 #search_input .form view{width:100%}
 #search_input input{border:1rpx solid #ececec;color: #515151;background-color: #ececec;

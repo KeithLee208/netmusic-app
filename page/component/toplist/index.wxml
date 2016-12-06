@@ -18,8 +18,8 @@
 <view class='flex-boxlist'>
   <view class="tl_cnt" wx:for-items="{{toplist.toplist2}}">
     <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
-      <view class="music_cover">
-        <image src="{{item.src}}" />
+      <view class="cover">
+        <image src="{{item.src}}" class="music_cover" />
         <text>{{item.updatetime}}</text>
       </view>
       <text>{{item.name}}</text>

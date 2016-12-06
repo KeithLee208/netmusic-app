@@ -54,6 +54,20 @@ Page({
     this.setData(defaultdata);
     app.nextplay(type);
   },
+  musicinfo:function(){
+    wx.redirectTo({
+      url: '../search/index',
+      success: function(res){
+        // success
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  },
   playshuffle: function () {
     var shuffle = this.data.shuffle;
     shuffle++;

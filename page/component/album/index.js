@@ -31,10 +31,10 @@ Page({
       curplay: appInstance.globalData.curplay.id
     })
   },
-  userplaylist:function(e){
+  artlist:function(e){
     var userid=e.currentTarget.dataset.userid;
     wx.redirectTo({
-      url: '../index?id='+userid
+      url: '../artlist/index?id='+userid
     })
   },
   playall: function (event) {

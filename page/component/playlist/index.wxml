@@ -4,8 +4,7 @@
     <view id="plh-main">
       <view id="plh-cover">
         <image class="music_cover" src="{{list.coverImgUrl}}" />
-        <view id="plh-playcount">
-          <image src="../../../image/p0.png" />{{list.playCount}}</view>
+        <view class="img_playcount"><image src="../../../image/p0.png" style="width:24rpx;height:24rpx;" />{{list.playCount}}</view>
         <view id="plh-playinfo">
           <image src="../../../image/icon-err.png" />
         </view>

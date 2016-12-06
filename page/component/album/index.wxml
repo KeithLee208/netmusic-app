@@ -7,7 +7,7 @@
       </view>
       <view id="plh-cnt">
         <text id="music_h_name">{{result.name||""}}</text>
-        <view data-userid="{{list.userId}}" bindtap="userplaylist">
+        <view data-userid="{{list.artist.id}}" bindtap="artlist">
           <text>{{result.artist.name}}</text>
         </view>
       </view>

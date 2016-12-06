@@ -14,33 +14,33 @@
   "window": {
     "navigationBarTextStyle": "#fff",
     "navigationBarTitleText": "Music",
-    "navigationBarBackgroundColor": "#d43c33",
-    "backgroundColor": "#fbfcfd"
+    "backgroundColor": "#fbfcfd",
+    "navigationBarBackgroundColor":"#BB2C08"
   },
   "tabBar": {
     "color": "#aaa",
-    "selectedColor": "#d33a31",
-    "borderStyle": "white",
-    "backgroundColor": "#f8f8f8",
+    "selectedColor": "#fff",
+    "borderStyle": "#333",
+    "backgroundColor": "#212121",
     "list": [{
       "pagePath": "page/component/index",
-      "iconPath": "image/tb1-off.png",
-      "selectedIconPath": "image/tb1-on.png",
+      "iconPath": "image/cm2_btm_icn_discovery.png",
+      "selectedIconPath": "image/cm2_btm_icn_discovery_prs.png",
       "text":"发现音乐"
     },{
       "pagePath":"page/component/fm/index",
-      "iconPath": "image/tbfm-off.png",
-      "selectedIconPath": "image/tbfm-on.png",
+      "iconPath": "image/cm2_btm_icn_radio.png",
+      "selectedIconPath": "image/cm2_btm_icn_radio_prs.png",
       "text":"私人Fm"
     },{
       "pagePath": "page/component/toplist/index",
-      "iconPath": "image/tb2-off.png",
-      "selectedIconPath": "image/tb2-on.png",
+      "iconPath": "image/cm2_btm_icn_music.png",
+      "selectedIconPath": "image/cm2_btm_icn_music_prs.png",
       "text":"我的音乐"
     },{
       "pagePath": "page/component/search/index",
-      "iconPath": "image/tb4-off.png",
-      "selectedIconPath": "image/tb4-on.png",
+      "iconPath": "image/cm2_btm_icn_account.png",
+      "selectedIconPath": "image/cm2_btm_icn_account_prs.png",
       "text":"账号"
     }]
   },

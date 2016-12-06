@@ -1,5 +1,6 @@
 #fm-covermain{margin: 60rpx auto;border-radius: 20rpx;overflow: hidden;position: relative;z-index: 3;width:530rpx;height:530rpx;
 background-color: #ccc}
+#coverbg{position: absolute;left: 0;bottom:0;width:750rpx;height:1334rpx;z-index:-2;display:block}
 #fm-cmpic{position: absolute;left:0;top: 0;z-index: 2; opacity: 0;}
 #fm-covermain .fadein{ animation:  fadein linear 1s; opacity: 1; transition:  all linear 1s}
 #fm-covermain image{width: 530rpx;height: 530rpx;}

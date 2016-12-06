@@ -1,12 +1,13 @@
 <import src="../../../utils/playpercent.wxml" />
 <import src="../../../utils/lrc.wxml" />
-<view id="playingpage" class="{{playing?'playing':''}}">
-  <view id="playing-bg" class="blurbg" style="background-image:url({{music.album.picUrl}})"></view>
+<view id="playingpage" class=" {{playing?'playing':''}}">
+  <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg"/>
+  <image id="playing-bg" class="blurbg" src="{{music.album.picUrl}}" />
   <view id="playing-zz" hidden="{{showlrc}}">
     <image src="../../../image/aag.png" />
   </view>
   <view id="playing-main" hidden="{{showlrc}}">
-    <image id="playingmainbg" src="../../../image/heijiao.png" />
+    <image id="playingmainbg" src="../../../image/play.png" />
     <image src="{{music.album.picUrl}}" bindtap="loadlrc" id="pmaincover" />
   </view>
   <template is="lrc" data="{{lrc:lrc,showlrc:showlrc,lrcindex:lrcindex}}" />
