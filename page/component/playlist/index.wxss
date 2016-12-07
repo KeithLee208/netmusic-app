@@ -103,8 +103,9 @@
 	text-overflow: ellipsis;
 	display: block;
 	overflow: hidden;
+	word-break:keep-all;
 }
-.transNames{color: #888}
+.transNames{color: #888;display: inline}
 #playall{line-height: 36rpx;overflow: hidden;}
 #playall image{width: 36rpx;height:36rpx;margin:30rpx 20rpx;float: left;}
 #playall #pa-count{

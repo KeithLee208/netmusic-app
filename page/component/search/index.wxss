@@ -1,16 +1,17 @@
-#searchpage{padding-top: 154rpx;height: 100%;box-sizing: border-box;overflow: hidden;}
-#search_input{padding: 25rpx 25rpx;background-color: #f8f8f9;margin-top: -154rpx;height:50rpx; overflow: hidden}
+#searchpage{padding-top: 175rpx;height: 100%;box-sizing: border-box;overflow: hidden;}
+#search_input{padding:25rpx 20rpx;background-color: #f8f8f9;margin-top: -175rpx;overflow: hidden;height: 60rpx;}
 #search_input .form{display: flex;}
 #search_input .form view{width:100%}
-#search_input input{border:1rpx solid #ececec;color: #515151;background-color: #ececec;
-border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;height: 50rpx;line-height: 48rpx;display: block;}
-#search_input .button{width: 70rpx;padding-left: 20rpx; flex: 0 0 50rpx;line-height: 80rpx;overflow: hidden}
-.button button{padding: 0;height:50rpx;border: none;line-height: 1;width: 50rpx;display:block;text-align: center;}
+#search_input input{border:none;color: #515151;background-color: #ececec;
+border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;height: 60rpx;line-height:60rpx;display: block;}
+#search_input .button{width: 40rpx; flex: 0 0 40rpx;padding-left:10rpx}
+.button button{padding: 0;height:60rpx;border: none;line-height: 60rpx;width: 60rpx;display:block;text-align: center;}
 
-#search_tab{margin-top: -26rpx;}
 #search_result{height: 100%;position: relative;}
 #search_result .seare_list{height: 100%;}
 #search_result scroll-view{height:100%}
+
+#search_tab{height: 81rpx;margin-top: -15rpx;}
 
 .albums .flexlist{margin-left: 156rpx;padding: 10rpx 20rpx 10rpx 0}
 .albums .fl-image{width: 118rpx;margin-left: -136rpx;margin-right: 20rpx;}

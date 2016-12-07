@@ -81,16 +81,16 @@ App({
     var that = this;
     var m = this.globalData.curplay;
     this.globalData.playtype = type;
-    if (type == 1) {
-      wx.request({
-        url: 'https://n.sqaiyan.com/song?id=' + that.globalData.curplay.id,
-        success: function (res) {
-          if (!res.data.songs[0].mp3Url) {
-            that.nextplay(1);
-          }
-        }
-      })
-    }
+    // if (type == 1) {
+    //   wx.request({
+    //     url: 'https://n.sqaiyan.com/song?id=' + that.globalData.curplay.id,
+    //     success: function (res) {
+    //       if (!res.data.songs[0].mp3Url) {
+    //         that.nextplay(1);
+    //       }
+    //     }
+    //   })
+    // }
     wx.playBackgroundAudio({
       dataUrl: m.mp3Url,
       title: m.name,

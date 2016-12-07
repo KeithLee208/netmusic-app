@@ -17,7 +17,7 @@ Page({
           result:re
         });
         wx.setNavigationBarTitle({
-          title: res.data.name
+          title: res.data.album.name
         })
       }, fail: function (res) {
         wx.navigateBack({
@@ -55,6 +55,7 @@ Page({
     appInstance.globalData.curplay = music;
     appInstance.globalData.index_am = index;//event.currentTarget.dataset.idx;
     appInstance.globalData.playtype = 1;
+    appInstance.globalData.globalStop=false;
     var shuffle = appInstance.globalData.shuffle;
     appInstance.globalData.list_sf = list;//this.data.list.tracks;
     appInstance.shuffleplay(shuffle);

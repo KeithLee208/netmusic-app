@@ -60,6 +60,7 @@ Page({
     appInstance.globalData.list_sf = list;//this.data.list.tracks;
     appInstance.shuffleplay(shuffle);
     appInstance.globalData.globalStop=false;
+    console.log(appInstance.globalData.globalStop,"F playlist")
     this.setData({
       curplay: music.id
     })

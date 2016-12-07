@@ -1,19 +1,15 @@
 var typelist = require('../../../utils/searchtypelist.js');
 Page({
     data: {
-        tab: 1,
+        tab: { tab: typelist[0].type, index: 0 },
         value: "",
-        tabs: {},
-        recent: [1, 2, 3],
+        tabs: typelist,
+        recent: wx.getStorageSync("recent") || [],
         loading: false,
         prevalue: ""
     },
     onLoad: function (options) {
-        this.setData({
-            tabs: typelist,
-            recent: wx.getStorageSync("recent") || [],
-            tab: { tab: typelist[0].type, index: 0 },
-        })
+
     },
     inputext: function (e) {
         var name = e.detail.value;
@@ -22,18 +18,26 @@ Page({
     search: function (name) {
         if (!name || (name == this.data.prevalue)) return;
         var index = this.data.tab.index;
-        var curtab = typelist[index]
-        var that = this;
+        var tl = typelist;
+       
         this.setData({
-            tabs: typelist,
+            tabs: tl,
             prevalue: name,
             value: name
-        })
+        });
+         var curtab =this.data.tabs[index]
+        var that = this;
+         console.log(typelist)
+        tl=this.data.tabs;
         this.httpsearch(name, curtab.offset, this.data.tab.tab, function (res) {
             curtab.relist = res;
             curtab.loading = true;
-            var tl = typelist;
-            tl[index] = curtab;
+            var resultarry = res.songs || res.artists || res.albums || res.playlists || res.mvs || res.djprograms || res.userprofiles || []
+            curtab.offset = resultarry.length?resultarry.length:0;
+            var size = res.songCount || res.artistCount || res.albumCount ||res.playlistCount || res.mvCount || res.djprogramCount || res.userprofileCount;
+            size=size?size:0;
+            curtab.none = curtab.offset >= size ? true : false;
+             tl[index] = curtab;
             var recent = that.data.recent;
             var curname = recent.findIndex(function (e) { return e == name });
             if (curname > -1) {
@@ -46,7 +50,8 @@ Page({
                 loading: true,
                 recent: recent,
                 prevalue: name
-            })
+            });
+           
         })
     },
     searhFrecent: function (e) {
@@ -55,10 +60,37 @@ Page({
     searhFinput: function (e) {
         this.search(e.detail.value.name)
     },
-    loadresult: function (e) {
-        var data = e.currentTarget.dataset;
-        var index = data.index,
-            type = data.type
+    loadmore: function (e) {
+        var tl = this.data.tabs,
+            that = this;
+        var curtab = tl[this.data.tab.index];
+        if(curtab.none){return;}
+        console.log(curtab.more)
+        curtab.loading = false;
+        tl[this.data.tab.index] = curtab
+        this.setData({
+            tabs: tl
+        })
+        this.httpsearch(this.data.prevalue, curtab.offset, this.data.tab.tab, function (res) {
+            curtab.loading = true;
+            var resultarry = res.songs || res.artists || res.albums || res.playlists || res.mvs || res.djprograms || res.userprofiles || [];
+            var size = res.songCount || res.artistCount || res.albumCount || res.playlistCount || res.mvCount || res.djprogramCount || res.userprofileCount;
+            size=size?size:0;
+            var length = resultarry.length ? resultarry.length : 0;
+            curtab.offset = curtab.offset + length;
+            curtab.none = curtab.offset >= size ? true : false;
+            curtab.relist.songs = curtab.relist.songs ? curtab.relist.songs.concat(resultarry) : null;
+            curtab.relist.artists = curtab.relist.artists ? curtab.relist.artists.concat(resultarry) : null;
+            curtab.relist.albums = curtab.relist.albums ? curtab.relist.albums.concat(resultarry) : null;
+            curtab.relist.playlists = curtab.relist.playlists ? curtab.relist.playlists.concat(resultarry) : null;
+            curtab.relist.mvs = curtab.relist.mvs ? curtab.relist.mvs.concat(resultarry) : null;
+            curtab.relist.djprograms = curtab.relist.djprograms ? curtab.relist.djprograms.concat(resultarry) : null;
+            curtab.relist.userprofiles = curtab.relist.userprofiles ? curtab.relist.userprofiles.concat(resultarry) : null;
+            tl[that.data.tab.index] = curtab
+            that.setData({
+                tabs: tl
+            })
+        })
     },
     httpsearch: function (name, offset, type, cb) {
         wx.request({
@@ -71,7 +103,7 @@ Page({
             },
             method: 'GET',
             success: function (res) {
-                cb && cb(res.data)
+                cb && cb(res.data.result)
             }
         })
     },
@@ -81,9 +113,15 @@ Page({
         var type = e.currentTarget.dataset.tab;
         var that = this;
         if (!curtab.loading) {
-            this.httpsearch(this.data.value, curtab.offset, type, function (res) {
+            this.httpsearch(this.data.prevalue, curtab.offset, type, function (res) {
                 curtab.relist = res;
                 curtab.loading = true;
+                var resultarry = res.songs || res.artists || res.albums || res.playlists || res.mvs || res.djprograms || res.userprofiles || [];
+                curtab.offset = resultarry.length?resultarry.length:0;
+                var size = res.songCount || res.artistCount || res.albumCount || res.playlistCount || res.mvCount || res.djprogramCount || res.userprofileCount;
+                size=size?size:0;
+                curtab.none = curtab.offset >= size ? true : false;
+                console.log(size,curtab.offset)
                 var tl = that.data.tabs;
                 tl[index] = curtab;
                 that.setData({

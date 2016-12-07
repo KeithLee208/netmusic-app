@@ -68,8 +68,7 @@
             </block>
           </view>
           <view class="pld-item">
-            <text class="pld-item-name">{{item.name}}
-              <text class="transNames" wx:if="{{item.transNames}}"> ({{item.transNames}})</text>
+            <text class="pld-item-name">{{item.name}}<text class="transNames" wx:if="{{item.transNames}}"> ({{item.transNames}})</text>
             </text>
             <text class="pld-item-info">{{item.artists[0].name}} - {{item.album.name}}</text>
           </view>

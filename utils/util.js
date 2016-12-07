@@ -84,6 +84,7 @@ function trimStr(str) { return str.replace(/(^\s*)|(\s*$)/g, ""); }
 
 //音乐播放监听
 function playAlrc(that, app) {
+  console.log(app.globalData.globalStop,'------------')
   if (app.globalData.globalStop) {
     that.setData({
       playtime: '00:00',
@@ -126,6 +127,7 @@ function playAlrc(that, app) {
       } if (res.status == 1) {
         playing = true;
       }
+      console.log(res.status==1,playing)
       that.setData({
         playtime: formatduration(playtime * 1000),
         percent: time,
