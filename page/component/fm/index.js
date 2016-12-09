@@ -1,4 +1,5 @@
 var common = require('../../../utils/util.js');
+var bsurl=require('../../../utils/bsurl.js');
 let app = getApp();
 let seek = 0;
 Page({
@@ -6,7 +7,8 @@ Page({
         music: {},
         playtime: "00:00",
         duration: "00:00",
-        percent: 1,
+        percent: 0,
+        downloadPercent: 0,
         imgload: false,
         playing: true,
         showlrc: false,
@@ -38,11 +40,12 @@ Page({
         var that = this;
         if (app.globalData.playtype == 1) {
             app.nextfm();
-        }
+        };
+        common.playAlrc(that, app);
         seek = setInterval(function () {
-            common.playAlrc(that, app)
+            common.playAlrc(that, app);
         }, 1000);
-      //  wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name || "" });
+        //  wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name || "" });
     },
     onHide: function () {
         clearInterval(seek)
@@ -73,14 +76,12 @@ Page({
     },
     nextplay: function () {
         this.setData({
-            imgload: true,
             lrc: [],
-            playtime: common.formatduration(0),
-            percent: .1,
-            music: {},
-            commentscount: 0,
+            playtime: '00:00',
+            percent: '0',
             playing: false,
-            showlrc: false
+            showlrc: false,
+            duration: "00:00"
         })
         app.nextfm();
     }

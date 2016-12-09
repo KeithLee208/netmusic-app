@@ -1,4 +1,5 @@
 var common = require('../../../utils/util.js');
+var bsurl=require('../../../utils/bsurl.js');
 Page({
     data: {
         main: {},
@@ -12,7 +13,7 @@ Page({
     onLoad: function (options) {
         var that = this
         wx.request({
-            url: 'https://n.sqaiyan.com/mv?id=' + options.id,
+            url:bsurl+'mv?id=' + options.id,
             success: function (res) {
                 that.setData({
                     main: res.data.data,

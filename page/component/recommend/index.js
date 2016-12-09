@@ -1,4 +1,5 @@
 var app = getApp();
+var bsurl=require('../../../utils/bsurl.js');
 var common = require('../../../utils/util.js');
 Page({
     data: {

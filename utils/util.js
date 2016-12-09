@@ -1,3 +1,4 @@
+var bsurl=require('bsurl.js');
 function formatTime(date, type) {
   type = type || 1;
   //type 1,完成输出年月日时分秒，2对比当前时间输出日期，或时分;
@@ -84,13 +85,13 @@ function trimStr(str) { return str.replace(/(^\s*)|(\s*$)/g, ""); }
 
 //音乐播放监听
 function playAlrc(that, app) {
-  console.log(app.globalData.globalStop,'------------')
   if (app.globalData.globalStop) {
     that.setData({
       playtime: '00:00',
       duration: '00:00',
       percent: 0.1,
-      playing: false
+      playing: false,
+      downloadPercent:0
     });
     return;
   }
@@ -111,10 +112,11 @@ function playAlrc(that, app) {
   }
   wx.getBackgroundAudioPlayerState({
     complete: function (res) {
-      var time = 0, lrcindex = that.data.lrcindex, playing = false, playtime = 0;
+      var time = 0, lrcindex = that.data.lrcindex, playing = false, playtime = 0,downloadPercent=0;
       if (res.status != 2) {
         time = res.currentPosition / res.duration * 100;
         playtime = res.currentPosition;
+        downloadPercent=res.downloadPercent
         if (that.data.showlrc && !that.data.lrc.scroll) {
           for (let i in that.data.lrc.lrc) {
             var se = that.data.lrc.lrc[i];
@@ -127,19 +129,19 @@ function playAlrc(that, app) {
       } if (res.status == 1) {
         playing = true;
       }
-      console.log(res.status==1,playing)
       that.setData({
         playtime: formatduration(playtime * 1000),
         percent: time,
         playing: playing,
-        lrcindex: lrcindex
+        lrcindex: lrcindex,
+        downloadPercent:downloadPercent
       })
     }
   });
 };
 function loadrec(offset, limit, id, cb) {
   wx.request({
-    url: 'https://n.sqaiyan.com/recommend',
+    url: bsurl+'recommend',
     data:{
       id:id,
       limit:limit,
@@ -173,7 +175,7 @@ function loadlrc(that) {
     var lrcid = that.data.music.id;
     var that = that;
     wx.request({
-      url: 'https://n.sqaiyan.com/lrc?id=' + lrcid,
+      url:bsurl+'lrc?id=' + lrcid,
       success: function (res) {
         var lrc = parse_lrc(res.data.lrc && res.data.lrc.lyric ? res.data.lrc.lyric : '');
         res.data.lrc = lrc.now_lrc;

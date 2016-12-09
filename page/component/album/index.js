@@ -1,4 +1,5 @@
 var appInstance = getApp();
+var bsurl=require('../../../utils/bsurl.js');
 var common = require('../../../utils/util.js');
 Page({
   data: {
@@ -9,7 +10,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'https://n.sqaiyan.com/album?id=' + options.pid,
+      url: bsurl+'album?id=' + options.pid,
       success: function (res) {
         var re=res.data.album;
         re.publishTime=common.formatTime(re.publishTime)
@@ -34,7 +35,7 @@ Page({
   artlist:function(e){
     var userid=e.currentTarget.dataset.userid;
     wx.redirectTo({
-      url: '../artlist/index?id='+userid
+      url: '../artist/index?id='+userid
     })
   },
   playall: function (event) {

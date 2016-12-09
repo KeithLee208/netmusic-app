@@ -1,12 +1,12 @@
 <view class="index">
   <view id="plist-header">
-    <view class="music_cover blurbg" style="background-image:url({{list.coverImgUrl}})" id="plh-filterbg"></view>
+    <view class="blurbg" style="background-image:url({{list.coverImgUrl}})" id="plh-filterbg"></view>
     <view id="plh-main">
       <view id="plh-cover">
         <image class="music_cover" src="{{list.coverImgUrl}}" />
         <view class="img_playcount"><image src="../../../image/p0.png" style="width:24rpx;height:24rpx;" />{{list.playCount}}</view>
         <view id="plh-playinfo">
-          <image src="../../../image/icon-err.png" />
+          <image src="../../../image/cm2_list_detail_icn_infor@2x.png" />
         </view>
       </view>
 
@@ -14,24 +14,25 @@
         <text id="music_h_name">{{list.name||" "}}</text>
         <view data-userid="{{list.userId}}" wx:if="{{list}}" bindtap="userplaylist">
           <image id="user_ava" class="user_avator" src="{{list.creator.avatarUrl}}" />
-          <text>{{list.creator.nickname||" "}}</text>
+          <text>{{list.creator.nickname||" "}} </text>
+          <image src="../../../image/cm2_list_detail_icn_arr@2x.png" style="width:16rpx;height:24rpx;"/>
         </view>
       </view>
     </view>
 
     <view id="plh_action">
       <view>
-        <image src="../../../image/w7.png" />
+        <image src="../../../image/cm2_list_detail_icn_fav_new@2x.png" />
         <text>{{list.subscribedCount||'收藏'}}</text>
       </view>
       <view>
         <navigator url="../recommend/index?id={{list.commentThreadId}}&from=playlist">
-          <image src="../../../image/w3.png" />
+          <image src="../../../image/cm2_list_detail_icn_cmt@2x.png" />
           <text>{{list.commentCount||'评论'}}</text>
         </navigator>
       </view>
       <view>
-        <image src="../../../image/wd.png" />
+        <image src="../../../image/cm2_list_detail_icn_share@2x.png" />
         <text>{{list.shareCount||'分享'}}</text>
       </view>
     </view>
@@ -73,7 +74,9 @@
             <text class="pld-item-info">{{item.artists[0].name}} - {{item.album.name}}</text>
           </view>
           <view class="pld-item-action">
-            <text catchtap="mv" data-mvid="{{item.mvid}}" class="pld-mv" wx-if="{{item.mvid!=0}}">MV</text>
+            <view catchtap="mv" data-mvid="{{item.mvid}}" class="pld-mv" wx-if="{{item.mvid!=0}}">
+              <image src="../../../image/cm2_list_btn_icn_mv_new@2x.png"/>
+            </view>
           </view>
         </view>
       </block>

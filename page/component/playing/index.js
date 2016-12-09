@@ -1,4 +1,5 @@
 var common = require('../../../utils/util.js');
+var bsurl=require('../../../utils/bsurl.js');
 let app = getApp();
 let seek = 0;
 let defaultdata = {
@@ -11,7 +12,8 @@ let defaultdata = {
   commentscount: 0,
   lrcindex: 0,
   showlrc: false,
-  disable: false
+  disable: false,
+  downloadPercent:0
 };
 
 Page({
@@ -19,7 +21,7 @@ Page({
   playmusic: function (id) {
     var that = this;
     wx.request({
-      url: 'https://n.sqaiyan.com/song?id=' + id,
+      url: bsurl+'song?id=' + id,
       success: function (res) {
         app.globalData.curplay = res.data.songs[0];
         if (!res.data.songs[0].mp3Url) {

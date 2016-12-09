@@ -1,3 +1,4 @@
+var bsurl=require('utils/bsurl.js');
 App({
   onLaunch: function () {
     var that = this;
@@ -55,9 +56,8 @@ App({
   },
   getfm: function () {
     var that = this;
-    console.log("从新获取fm")
     wx.request({
-      url: 'https://n.sqaiyan.com/fm?t=' + (new Date()).getTime(),
+      url: bsurl+'fm?t=' + (new Date()).getTime(),
       method: 'GET',
       success: function (res) {
         that.globalData.list_fm = res.data.data;
@@ -72,12 +72,11 @@ App({
     wx.pauseBackgroundAudio();
     wx.getBackgroundAudioPlayerState({
       complete: function (res) {
-        that.globalData.currentPosition = res.currentPosition || '0'
+        that.globalData.currentPosition = res.currentPosition?res.currentPosition:0
       }
     })
   },
   seekmusic: function (type, cb, seek) {
-    console.log("type:",type)
     var that = this;
     var m = this.globalData.curplay;
     this.globalData.playtype = type;
@@ -135,6 +134,7 @@ App({
     }
   },
   onShow: function () {
+    console.log(bsurl)
   },
   onHide: function () {
     wx.setStorageSync('globalData', this.globalData);

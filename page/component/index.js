@@ -1,3 +1,4 @@
+var bsurl=require('../../utils/bsurl.js');
 Page({
   data: {
     list: [],
@@ -7,7 +8,7 @@ Page({
     var id=options.id||'177018'
     var that = this
     wx.request({
-      url: 'https://n.sqaiyan.com/userplaylists?id='+id,
+      url: bsurl+'userplaylists?id='+id,
       success: function (res) {
         that.setData({
           list: res.data.playlist,

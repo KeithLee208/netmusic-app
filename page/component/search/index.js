@@ -1,4 +1,5 @@
 var typelist = require('../../../utils/searchtypelist.js');
+var bsurl=require('../../../utils/bsurl.js');
 Page({
     data: {
         tab: { tab: typelist[0].type, index: 0 },
@@ -94,7 +95,7 @@ Page({
     },
     httpsearch: function (name, offset, type, cb) {
         wx.request({
-            url: 'https://n.sqaiyan.com/search',
+            url:bsurl+'search',
             data: {
                 name: name,
                 offset: offset,

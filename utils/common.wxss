@@ -34,15 +34,16 @@ border-radius: 3rpx;animation: cnloading .9s linear infinite; transform-origin: 
  
 #playing-status{display: flex;color:#fff;margin: 20rpx}
 #playing-status progress{ width:520rpx;margin: 0 auto;color: #000;position: relative;border-radius: 4rpx;}
-#playing-status progress text{position: absolute;display: block;height:8rpx;width: 8rpx;overflow: hidden;background-color: #d33a31;
-border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,-50%,0);}
+#playing-status #playstate{position: absolute;display: block;height:8rpx;width: 8rpx;overflow: hidden;background-color: #d33a31;
+border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,-50%,0);z-index: 2}
+#dpstate{position: absolute;height:2px;width: 0;background-color:#d33a31;overflow: hidden;left: 0;top:50%;margin-top: -1px;}
 #playing-status .time{width:80rpx ;text-align:center;display: block;font-size: 24rpx;}
 
 .tab{display: flex;border-bottom: 1rpx solid #dfdfdf; background: #f8f8f8;height: 80rpx;line-height: 80rpx;}
-.tab .tab-item{text-align: center; flex:1; word-break: keep-all}
-.tab .tab-item text{display: inline-block;padding: 0 .3em;}
-.tab .tab-item .tbi-des{display: inline;color: #999; border-bottom: none;font-size: 24rpx;line-height: 1}
-.tbi-cur text{color: #d33a31;border-bottom: 4rpx solid #d33a31; line-height: 76rpx;height: 77rpx; margin-bottom: -1rpx;vertical-align: top}
+.tab .tab-item{text-align: center; flex:1; word-break: keep-all;font-size: 30rpx;}
+.tab .tab-item .tbi-text{display: inline-block;padding: 0 .3em; vertical-align: top;border-bottom: 4rpx solid #f8f8f8; line-height: 76rpx;height: 76rpx;}
+.tab .tab-item .tbi-des{display: inline;color: #999; border-bottom: none;font-size: 24rpx;line-height: 1;padding-left: .5em}
+.tab .tbi-cur .tbi-text{color: #d33a31; margin-bottom: -1rpx;border-bottom-color: #d33a31}
 
 
 
@@ -61,13 +62,14 @@ border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,
 
 .playinghidden{z-index:-1;opacity:0;pointer-events: none;}
  
-#lrclist{position: absolute;left: 30rpx;top:30rpx;right: 30rpx;bottom:260rpx;text-align: center;overflow: hidden;color: #fff;z-index: 3;}
+#lrclist{position: absolute;left: 30rpx;top:10rpx;right: 30rpx;bottom:260rpx;text-align: center;overflow: hidden;color: #fff;z-index: 3;}
 
 #lrcwrap{top:50%;position: absolute; font-size: 30rpx;width:100%; transition: all ease 1s;}
 #lrcwrap .lrcur{opacity: 1;font-size: 31rpx; transition: all ease 1s;}
 #lrcwrap .siblings1{opacity:.3}
 #lrcwrap .siblings2{opacity:.1;}
-#lrcwrap view{line-height:72rpx; word-break: break-all;opacity: .5;height:72rpx;overflow: hidden;transition: all ease .5s;}
+#lrcwrap view{line-height:1.2; word-break: break-all;opacity: .5;height:72rpx;overflow: hidden;transition: all ease .5s; display: flex; align-items: center}
+#lrcwrap view text{display: block;text-align: center;width: 100%}
 #lrclist .cntloading{top:50%;position: relative;}
 #lrclist:after,#lrclist:before{content: "";position: absolute;left: 0;height:50%;top:0;
  background-image: linear-gradient(rgba(0,0,0,1),rgba(0,0,0,.1)); opacity:.1;display:none;
@@ -96,18 +98,24 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .tl_info view{word-break: keep-all;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
 .tl_info .tli_des{color: #888;font-size: 24rpx}
 
-.flexlist{display: flex;margin-left: 20rpx;padding: 16rpx 16rpx 16rpx 0;border-bottom:1rpx solid #e1e2e3; align-items: center;}
+.flexlist .flexlist{border-bottom:1rpx solid #e1e2e3;flex: 1;padding: 10rpx 10rpx 10rpx 0;align-items: center;margin-left: 0; box-sizing: border-box;overflow: hidden}
+.flexlist{display: flex;margin-left: 20rpx; align-items: stretch;}
+.flex-center{align-items: center}
+.flexnum{flex: 0 0 60rpx;font-size: 30rpx;color: #999}
 .flexact{flex: 0 0 100rpx; text-align: right}
-.flexmain{width: 100%;padding-right: 20rpx; box-sizing:  border-box;}
-.flexmain view{word-break: keep-all;overflow: hidden;
-text-overflow: ellipsis; white-space: nowrap;line-height: 1.6}
+.flexmain{box-sizing:  border-box;flex: 1;overflow: hidden}
+.fm_tdes{font-size: 24rpx;color: #999}
+.flexmain view{word-break: keep-all;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;line-height: 1.6;width: 100%; word-wrap: break-word}
 .relistdes{color: #888;font-size: 24rpx;white-space: -2rpx;}
 
+.albums .fl-image{flex: 0 0 138rpx}
+.albums .fl-image .albums_cover{position: absolute;width: 118rpx;height: 100rpx;left: 0;top: 0;z-index: 0}
 .fa_list{border-radius: 5rpx;display: inline-block}
 .fa_mv image{width: 65rpx;height: 30rpx;}
-.flex-image .flexlist{margin-left: 140rpx;padding: 10rpx 20rpx 10rpx 0}
-.fl-image{width: 100rpx;margin-left: -120rpx;margin-right: 20rpx;position: relative}
-.fl-image image{width: 100rpx;height: 100rpx; vertical-align: top;position: relative;z-index: 1}
+.flex-image{padding: 10rpx 0 }
+.flex-image .flexlist{padding: 10rpx 0}
+.fl-image{flex:0 0 120rpx;position: relative}
+.fl-image image{width: 100rpx;height: 100rpx; vertical-align: middle;position: relative;z-index: 1}
 
 .img_playcount{position: absolute;right: 0;top: 0;color: #fff;z-index: 1;font-size: 24rpx;padding: 5rpx 15rpx;
 background-image: linear-gradient(90deg, rgba(0,0,0,0),rgba(0,0,0,.2));width: 70%; text-align: right}

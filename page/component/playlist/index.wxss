@@ -13,7 +13,7 @@
 	width: 280rpx;
 	height: 280rpx;
 	float: left;
-	margin: 30rpx 30rpx 50rpx;
+	margin: 30rpx;
 	position: relative
 }
 
@@ -22,9 +22,9 @@
 	height: 100%;
 }
 
-
+.blurbg{background-color: #eee}
 #plh-playinfo{position: absolute;z-index: 3;right: 10rpx;bottom: 10rpx;}
-#plh-playinfo image{width: 40rpx;height:40rpx; vertical-align: top; background-color: rgba(0,0,0,.2);border-radius: 50%;}
+#plh-playinfo image{width: 46rpx;height:46rpx; vertical-align: top; background-color: rgba(0,0,0,.2);border-radius: 50%;}
 #user_ava {
 	width: 60rpx;
 	height: 60rpx;
@@ -52,13 +52,13 @@
 	z-index: 3;
 	clear: both;
 	width: 100%;
-	line-height: 50rpx;	
+	line-height: 1;	
 
 }
 
 #plh_action view {
 	text-align: center;
-	padding-bottom: 5rpx;
+	padding-bottom: 20rpx;
 	color: #fff;
 	border-bottom: none;
 	font-size: 24rpx;
@@ -66,9 +66,9 @@
 }
 
 #plh_action view image {
-	width:50rpx;
-	height: 50rpx;
-	display: block;margin: 0 auto
+	width:110rpx;
+	height: 110rpx;
+	display: block;margin: 0 auto -15rpx
 }
 
 .pldetail-item {
@@ -113,13 +113,6 @@
 	display: block;padding: 30rpx 0;margin-left: 76rpx;
 }
 #pa-count text{color: #888;font-size: 24rpx}
-.pld-mv {
-	margin: 10rpx 20rpx;
-	border: 1px solid red;
-	color: red;
-	padding: 5rpx 10rpx;
-	font-size: 20rpx;
-	border-radius: 5rpx;
-	opacity: .5;
-	text-align: center
+.pld-mv image {
+	width: 78rpx;height:63rpx;
 }

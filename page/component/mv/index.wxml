@@ -15,7 +15,7 @@
     <view class="tab-cnt" id="mv-detail" hidden="{{tab==1}}">
       <view id="mvinfo">
         <text id="mvname">{{main.name}}</text>
-        <view><navigator url="../artis/index?id={{main.artistId}}"> 歌手：{{main.artistName}}</navigator></view>
+        <view><navigator url="../artist/index?id={{main.artistId}}"> 歌手：{{main.artistName}}</navigator></view>
         <view>播放：{{main.playCount}}</view>
       </view>
       <view id="mvdes">

@@ -30,7 +30,7 @@
         <image src="../../../image/a_x.png" />
       </view>
     </view>
-    <template is="playingpercent" data="{{playtime:playtime,percent:percent,duration:duration}}" />
+    <template is="playingpercent" data="{{playtime:playtime,percent:percent,duration:duration,downloadPercent:downloadPercent}}" />
     <view id="playingaction">
       <view class="pa-saction" bindtap="playshuffle" hidden="{{shuffle!=1}}">
         <image src="../../../image/a_p.png" />
@@ -54,7 +54,7 @@
         <image src="../../../image/ajb.png" />
       </view>
       <view class="pa-saction" bindtap="musicinfo">
-        <image src="../../../image/aad.png" />
+        <image src="../../../image/aab.png" />
       </view>
     </view>
   </view>

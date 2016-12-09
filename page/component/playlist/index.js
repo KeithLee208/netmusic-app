@@ -1,4 +1,5 @@
-var appInstance = getApp()
+var appInstance = getApp();
+var bsurl=require('../../../utils/bsurl.js');
 Page({
   data: {
     list: [],
@@ -10,7 +11,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'https://n.sqaiyan.com/playlists?id=' + options.pid,
+      url:bsurl+'playlists?id=' + options.pid,
       success: function (res) {
         that.setData({
           list: res.data.result,
