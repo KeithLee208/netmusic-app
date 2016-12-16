@@ -1,6 +1,6 @@
 page{display: flex;flex-direction: column;}
 #searchpage{padding-top: 175rpx;height: 100%;box-sizing: border-box;overflow: hidden;}
-#search_input{padding:25rpx 20rpx 10rpx;background-color: #f8f8f9;overflow: hidden;height: 60rpx;flex: 0 0 60rpx;}
+#search_input{padding:25rpx 20rpx;background-color: #f8f8f9;overflow: hidden;height: 60rpx;flex:0 0 60rpx;}
 #search_input .form{display: flex;}
 #search_input .form view{width:100%}
 #search_input input{border:none;color: #515151;background-color: #ececec;
@@ -12,7 +12,7 @@ border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;heigh
 #search_result .seare_list{height: 100%;}
 #search_result scroll-view{height:100%}
 
-#search_tab{flex: 0 0 81rpx;height: 81rpx;}
+#search_tab{height: 81rpx;flex: 0}
 
 
 

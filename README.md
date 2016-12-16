@@ -2,7 +2,13 @@
 仿网易云音乐APP的微信小程序
 
 目前有得页面性能较差，代码待优化，有的不知道是不是微信api的bug或者编辑器的，头疼
+
+
+ [动图演示地址：](http://7vik7b.com1.z0.glb.clouddn.com/20161212_112210.gif)
+ 
+ 
 <image src="http://7vik7b.com1.z0.glb.clouddn.com/20161212_112210.gif"/>
+ 
 <image width="320" src="http://7vik7b.com1.z0.glb.clouddn.com/IMG_4271.PNG"/>
 <image width="320" src="http://7vik7b.com1.z0.glb.clouddn.com/IMG_4279.PNG"/>
 <image width="320" src="http://7vik7b.com1.z0.glb.clouddn.com/IMG_4274.PNG"/>

@@ -68,7 +68,7 @@ border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,
 #lrcwrap .lrcur{opacity: 1;font-size: 31rpx; transition: all ease 1s;}
 #lrcwrap .siblings1{opacity:.3}
 #lrcwrap .siblings2{opacity:.1;}
-#lrcwrap view{line-height:1.2; word-break: break-all;opacity: .5;height:72rpx;overflow: hidden;transition: all ease .5s; display: flex; align-items: center}
+#lrcwrap view{line-height:1.2; word-break: break-all;opacity: .5;height:72rpx;overflow: hidden;transition: all ease .5s; display: flex; align-items: center;width: 100%}
 #lrcwrap view text{display: block;text-align: center;width: 100%}
 #lrclist .cntloading{top:50%;position: relative;}
 #lrclist:after,#lrclist:before{content: "";position: absolute;left: 0;height:50%;top:0;

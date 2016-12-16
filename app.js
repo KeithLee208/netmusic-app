@@ -4,6 +4,7 @@ App({
     var that = this;
     //播放列表中下一首
     wx.onBackgroundAudioStop(function () {
+      console.log("音乐停止")
       if (that.globalData.globalStop) {
         return;
       }
@@ -13,6 +14,16 @@ App({
         that.nextfm();
       }
     });
+
+    wx.onBackgroundAudioPause(function(){
+      console.log("音乐暂停");
+      that.globalData.globalStop=that.globalData.hide?true:false;
+      wx.getBackgroundAudioPlayerState({
+          complete: function (res) {
+            that.globalData.currentPosition = res.currentPosition?res.currentPosition:0
+          }
+        })
+    })
 
   },
   nextplay: function (t) {
@@ -134,13 +145,16 @@ App({
     }
   },
   onShow: function () {
-    console.log(bsurl)
+    console.log(bsurl);
+    this.globalData.hide=false
   },
   onHide: function () {
+    this.globalData.hide=true
     wx.setStorageSync('globalData', this.globalData);
   },
   globalData: {
     hasLogin: false,
+    hide:false,
     list_am: [],
     list_fm: [],
     list_sf: [],
