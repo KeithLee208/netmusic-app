@@ -5,10 +5,11 @@ Page({
         loading:false,
         tab:1,
         album:{
-            offset:20,
+            offset:0,
             loading:false
         },
-        mv:{}
+        mvs:{ offset:0,
+            loading:false}
     },
     onLoad:function(options){
         var id=options.id;
@@ -36,7 +37,7 @@ Page({
         if(t==2&&!this.data.album.loading){
             this.setData({loading:false})
             wx.request({
-              url: bsurl+'artistAlbums',
+              url: bsurl+'artist/album',
               data:{
                   id:that.data.art.artist.id,
                   offset:that.data.album.offset,
@@ -49,9 +50,25 @@ Page({
                     album:res.data,
                     loading:true
                 })
+              }
+            })
+        }
+        if(t==3&&!this.data.mvs.loading){
+            this.setData({loading:false})
+            wx.request({
+              url: bsurl+'artist/mv',
+              data:{
+                  id:that.data.art.artist.id,
+                  offset:that.data.mvs.offset,
+                  limit:20
               },
-              fail: function() {
-                // fail
+              success: function(res){
+                res.data.loading=true;
+                res.data.offset=that.data.mvs.offset+res.data.mvs.length
+                that.setData({
+                    mvs:res.data,
+                    loading:true
+                })
               }
             })
         }

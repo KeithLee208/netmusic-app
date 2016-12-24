@@ -34,7 +34,7 @@
         <image src="../../../image/fm/cm2_fm_btn_next@2x.png" />
       </view>
       <view class="commentscount">
-        <navigator url="../recommend/index?id={{music.commentThreadId}}&from=song">
+        <navigator url="../recommend/index?id={{music.id}}&from=song">
           <image wx:if="{{!commentscount}}" src="../../../image/fm/cm2_fm_btn_cmt@2x.png" />
           <image wx:if="{{commentscount}}" src="../../../image/fm/cm2_fm_btn_cmt_number@2x.png" />
           <text wx:if="{{commentscount}}">{{commentscount>999?'999+':(commentscount>99?'99+':commentscount)}}</text>

@@ -52,13 +52,12 @@
 	z-index: 3;
 	clear: both;
 	width: 100%;
-	line-height: 1;	
+	line-height: 3;	
 
 }
 
 #plh_action view {
 	text-align: center;
-	padding-bottom: 20rpx;
 	color: #fff;
 	border-bottom: none;
 	font-size: 24rpx;
@@ -68,7 +67,7 @@
 #plh_action view image {
 	width:110rpx;
 	height: 110rpx;
-	display: block;margin: 0 auto -15rpx
+	display: block;margin: 0 auto -30rpx
 }
 
 .pldetail-item {
@@ -88,6 +87,8 @@
 .pld-item-sort .ftp{display: block;color: #888;font-size: 18rpx;padding-top: 10rpx;}
 .ftp image{width:18rpx;height: 18rpx;display: inline-block;vertical-align: middle;overflow: hidden;margin-right: 5rpx;}
 .ftp image.tpnew{width:38rpx;height: 10rpx;}
+
+.unplayed{color: #ccc;background: #fafafa}
 
 .pld-item{width:580rpx;border-bottom: 1px solid #eee;}
 .pld-item-action{width:100rpx;border-bottom: 1px solid #eee;padding-top: .5em}

@@ -1,4 +1,4 @@
-var bsurl=require('utils/bsurl.js');
+var bsurl = require('utils/bsurl.js');
 App({
   onLaunch: function () {
     var that = this;
@@ -15,14 +15,14 @@ App({
       }
     });
 
-    wx.onBackgroundAudioPause(function(){
+    wx.onBackgroundAudioPause(function () {
       console.log("音乐暂停");
-      that.globalData.globalStop=that.globalData.hide?true:false;
+      that.globalData.globalStop = that.globalData.hide ? true : false;
       wx.getBackgroundAudioPlayerState({
-          complete: function (res) {
-            that.globalData.currentPosition = res.currentPosition?res.currentPosition:0
-          }
-        })
+        complete: function (res) {
+          that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
+        }
+      })
     })
 
   },
@@ -39,6 +39,7 @@ App({
     index = index > list.length - 1 ? 0 : (index < 0 ? list.length - 1 : index);
     this.globalData.curplay = list[index] || {};
     this.globalData.index_am = index;
+    console.log("歌单下一首",this.globalData.curplay,list)
     this.seekmusic(1)
   },
   nextfm: function () {
@@ -68,7 +69,10 @@ App({
   getfm: function () {
     var that = this;
     wx.request({
-      url: bsurl+'fm?t=' + (new Date()).getTime(),
+      url: bsurl + 'fm',
+      data:{
+        cookie: wx.getStorageSync('cookie') || ''
+      },
       method: 'GET',
       success: function (res) {
         that.globalData.list_fm = res.data.data;
@@ -83,7 +87,7 @@ App({
     wx.pauseBackgroundAudio();
     wx.getBackgroundAudioPlayerState({
       complete: function (res) {
-        that.globalData.currentPosition = res.currentPosition?res.currentPosition:0
+        that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
       }
     })
   },
@@ -91,24 +95,24 @@ App({
     var that = this;
     var m = this.globalData.curplay;
     this.globalData.playtype = type;
-    // if (type == 1) {
-    //   wx.request({
-    //     url: 'https://n.sqaiyan.com/song?id=' + that.globalData.curplay.id,
-    //     success: function (res) {
-    //       if (!res.data.songs[0].mp3Url) {
-    //         that.nextplay(1);
-    //       }
-    //     }
-    //   })
-    // }
+    if (cb) {
+      this.playing(type,cb,seek);
+    } else {
+      this.geturl(function () { that.playing(type,cb,seek); })
+    }
+  },
+  playing: function (type, cb,seek) {
+    var that = this
+    var m = that.globalData.curplay
     wx.playBackgroundAudio({
-      dataUrl: m.mp3Url,
+      dataUrl: m.url,
       title: m.name,
       success: function (res) {
         if (seek != undefined) {
           wx.seekBackgroundAudio({ position: seek })
         };
         that.globalData.globalStop = false;
+        that.globalData.playtype = type
         cb && cb();
       },
       fail: function () {
@@ -116,6 +120,28 @@ App({
           that.nextplay(1)
         } else {
           that.nextfm();
+        }
+      }
+    })
+  },
+  geturl: function (suc, err, cb) {
+    var that = this;
+    var m=that.globalData.curplay
+    wx.request({
+      url: bsurl + 'music/url',
+      data: {
+        id:m.id,
+        br:m.duration?(m.hMusic.bitrate||m.mMusic.bitrate||m.lMusic.bitrate||m.bMusic.bitrate):(m.privilege?m.privilege.maxbr:(m.h.br||m.m.br||m.l.br||m.b.br)),
+        cookie: wx.getStorageSync('cookie') || ''
+      },
+      success: function (a) {
+        a = a.data.data[0];
+        if (!a.url) {
+          err && err()
+        } else {
+          that.globalData.curplay.url = a.url;
+          console.log(that.globalData.curplay)
+          suc && suc()
         }
       }
     })
@@ -146,15 +172,15 @@ App({
   },
   onShow: function () {
     console.log(bsurl);
-    this.globalData.hide=false
+    this.globalData.hide = false
   },
   onHide: function () {
-    this.globalData.hide=true
+    this.globalData.hide = true
     wx.setStorageSync('globalData', this.globalData);
   },
   globalData: {
     hasLogin: false,
-    hide:false,
+    hide: false,
     list_am: [],
     list_fm: [],
     list_sf: [],

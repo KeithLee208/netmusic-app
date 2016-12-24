@@ -7,6 +7,7 @@
 	50%{ transform: translateY(20rpx)}
 	100%{ transform: translateY(0rpx)}
 }
+.fr{float: right}
 .fc_gray{color: #949597}
 #playingpage{overflow: hidden;height: 100%;position: relative;color: #fff}
 
@@ -64,11 +65,13 @@ border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,
  
 #lrclist{position: absolute;left: 30rpx;top:10rpx;right: 30rpx;bottom:260rpx;text-align: center;overflow: hidden;color: #fff;z-index: 3;}
 
-#lrcwrap{top:50%;position: absolute; font-size: 30rpx;width:100%; transition: all ease 1s;}
+#lrcwrap{top:50%;position: absolute; font-size: 30rpx;width:100%; transition: all ease 1s;text-align: center;}
 #lrcwrap .lrcur{opacity: 1;font-size: 31rpx; transition: all ease 1s;}
 #lrcwrap .siblings1{opacity:.3}
 #lrcwrap .siblings2{opacity:.1;}
-#lrcwrap view{line-height:1.2; word-break: break-all;opacity: .5;height:72rpx;overflow: hidden;transition: all ease .5s; display: flex; align-items: center;width: 100%}
+
+#lrcwrap view{line-height:1.2; word-break: break-all;opacity: .5;height:72rpx;overflow: hidden;transition: all ease .5s; display: flex; align-items: center;width: 100%; text-align: center}
+#lrcwrap .notext{text-align: center;display: block}
 #lrcwrap view text{display: block;text-align: center;width: 100%}
 #lrclist .cntloading{top:50%;position: relative;}
 #lrclist:after,#lrclist:before{content: "";position: absolute;left: 0;height:50%;top:0;
@@ -79,7 +82,7 @@ width:100%;z-index: 3;filter: brightness(.1)}
 
  
 .sm_title{padding:0 20rpx;font-size:24rpx;display: block;color:#6a6a6a;background-color: #eeeff0;line-height: 56rpx;}
-
+.sm_title text{color: #aaa}
  
 .commentscount text{position: absolute;font-size: 22rpx;left: 50%;top:50%;margin-left:10rpx;margin-top: -35rpx;color: #ddd}
 
@@ -93,13 +96,13 @@ width:100%;z-index: 3;filter: brightness(.1)}
 z-index: 2;width: 100%;padding: 8rpx;font-size: 24rpx; box-sizing: border-box;}
 .tl_cnt .cover:after{height: 50%;width:100%;left: 0;top:50%;z-index: 1;content:"";position: absolute;
 background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
-
+.disabled{color: #aaa;background-color: #fbfbfb}
 .tl_info{font-size: 26rpx;line-height: 1.6}
 .tl_info view{word-break: keep-all;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
 .tl_info .tli_des{color: #888;font-size: 24rpx}
 
-.flexlist .flexlist{border-bottom:1rpx solid #e1e2e3;flex: 1;padding: 10rpx 10rpx 10rpx 0;align-items: center;margin-left: 0; box-sizing: border-box;overflow: hidden}
-.flexlist{display: flex;margin-left: 20rpx; align-items: stretch;}
+.flexlist .flexlist{border-bottom:1rpx solid #e1e2e3;flex: 1;padding:0 10rpx 10rpx 0;margin:0;align-items: center;margin-left: 0; box-sizing: border-box;overflow: hidden}
+.flexlist{display: flex;margin: 0 0 -10rpx 20rpx;padding:15rpx 0 10rpx;align-items: stretch;}
 .flex-center{align-items: center}
 .flexnum{flex: 0 0 60rpx;font-size: 30rpx;color: #999}
 .flexact{flex: 0 0 100rpx; text-align: right}
@@ -112,8 +115,8 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .albums .fl-image .albums_cover{position: absolute;width: 118rpx;height: 100rpx;left: 0;top: 0;z-index: 0}
 .fa_list{border-radius: 5rpx;display: inline-block}
 .fa_mv image{width: 65rpx;height: 30rpx;}
-.flex-image{padding: 10rpx 0 }
-.flex-image .flexlist{padding: 10rpx 0}
+.flex-image{}
+.flex-image .flexlist{padding:0 0 10rpx}
 .fl-image{flex:0 0 120rpx;position: relative}
 .fl-image image{width: 100rpx;height: 100rpx; vertical-align: middle;position: relative;z-index: 1}
 

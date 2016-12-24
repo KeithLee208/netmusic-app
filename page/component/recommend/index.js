@@ -12,12 +12,13 @@ Page({
     },
     onLoad: function (options) {
         var id = options.id,
-            fromtype = options.type,
+            fromtype = options.from,
             that = this;
         this.setData({
             recid: id,
             loading: true,
-        })
+        });
+        var type=(fromtype=='song')?'':1;
         common.loadrec(this.data.offset, this.data.limit, id, function (data) {
             that.setData({
                 loading: false,
@@ -28,7 +29,7 @@ Page({
             wx.setNavigationBarTitle({
                 title: '评论(' + data.total + ")"
             })
-        })
+        },type)
     },
     loadmore: function () {
         if (this.data.rec.more) {

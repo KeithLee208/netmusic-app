@@ -10,7 +10,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: bsurl+'album?id=' + options.pid,
+      url: bsurl+'album/detail?id=' + options.pid,
       success: function (res) {
         var re=res.data.album;
         re.publishTime=common.formatTime(re.publishTime)
@@ -39,17 +39,9 @@ Page({
     })
   },
   playall: function (event) {
-    var that = this;
     var playlist = that.data.result.songs
-    wx.playBackgroundAudio({
-      dataUrl: playlist[0].mp3Url,
-      title: playlist[0].name,
-      coverImgUrl: playlist[0].album.picUrl,
-      success: function () {
-        console.log("开始播放全部");
-        that.setplaylist(playlist, playlist[0], 0)
-      }
-    })
+    this.setplaylist(playlist, playlist[0], 0)
+    appInstance.seekmusic(1)
   },
   setplaylist: function (list, music, index) {
     //设置播放列表，设置当前播放音乐，设置当前音乐在列表中位置

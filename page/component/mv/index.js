@@ -13,7 +13,11 @@ Page({
     onLoad: function (options) {
         var that = this
         wx.request({
-            url:bsurl+'mv?id=' + options.id,
+            url:bsurl+'mv',
+            data:{
+                id:options.id,
+                cookie:wx.getStorageSync('cookie')||''
+            },
             success: function (res) {
                 that.setData({
                     main: res.data.data,

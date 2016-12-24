@@ -1,3 +1,4 @@
+var bsurl=require('../../../utils/bsurl.js');
 Page({
     data: {
         phone: "",
@@ -21,32 +22,21 @@ Page({
     login: function () {
         var that = this;
         wx.request({
-            url: 'https://n.sqaiyan.com/login?phone=' + that.data.phone + '&pwd=' + that.data.pwd,
+            url:bsurl+'login',
             data: {
-                phone: that.data.phone,
-                pwd: that.data.pwd
+                email: that.data.phone,
+                password: that.data.pwd
             },
-            method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             success: function (res) {
-                wx.setStorageSync('logined', res.data);
-                wx.redirectTo({
-                    url: '../index',
-                    success: function (res) {
-                        // success
-                    },
-                    fail: function () {
-                        // fail
-                    },
-                    complete: function () {
-                        // complete
-                    }
-                })
+                console.log(res)
+                wx.setStorageSync('cookie', res.data.c);
+                wx.setStorageSync('user',JSON.parse(res.data.i))
+                // wx.redirectTo({
+                //     url: '../index'
+                // })
             },
-            fail: function () {
-
-            },
-            complete: function () {
-                // complete
+            fail: function (res) {
+                console.log(res)
             }
         })
     }

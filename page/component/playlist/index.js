@@ -1,24 +1,47 @@
 var appInstance = getApp();
-var bsurl=require('../../../utils/bsurl.js');
+var bsurl = require('../../../utils/bsurl.js');
 Page({
   data: {
     list: [],
     curplay: {},
     pid: 0,
+    cover: '',
     loading: true,
     toplist: false
   },
   onLoad: function (options) {
     var that = this;
+    console.log(options)
     wx.request({
-      url:bsurl+'playlists?id=' + options.pid,
+      url: bsurl + 'playlist/detail',
+      data: {
+        id: options.pid,
+        limit: 1000,
+        cookie: wx.getStorageSync('cookie') || ''
+      },
       success: function (res) {
+        var canplay=[];
+        console.log(res.data)
+        for(let i=0;i< res.data.playlist.tracks.length;i++){
+          if(res.data.privileges[i].st>=0){
+            canplay.push(res.data.playlist.tracks[i])
+          }
+        }
         that.setData({
-          list: res.data.result,
+          list: res.data,
+          canplay:canplay,
           toplist: (options.from == 'toplist' ? true : false)
         });
+        wx.request({
+          url: bsurl + 'id2url?id=' + res.data.playlist.coverImgId,
+          success: function (img) {
+            that.setData({
+              cover: 'http://p4.music.126.net/' + img.data + '/' + res.data.playlist.coverImgId + '.jpg'
+            })
+          }
+        })
         wx.setNavigationBarTitle({
-          title: res.data.result.name
+          title: res.data.playlist.name
         })
       }, fail: function (res) {
         wx.navigateBack({
@@ -39,29 +62,20 @@ Page({
     })
   },
   playall: function (event) {
-    var that = this;
-    var playlist = that.data.list.tracks
-    wx.playBackgroundAudio({
-      dataUrl: playlist[0].mp3Url,
-      title: playlist[0].name,
-      coverImgUrl: playlist[0].album.picUrl,
-      success: function () {
-        console.log("开始播放全部");
+    this.setplaylist(this.data.canplay[0], 0);
+    appInstance.seekmusic(1)
 
-        that.setplaylist(playlist, playlist[0], 0);
-      }
-    })
   },
-  setplaylist: function (list, music, index) {
+  setplaylist: function (music, index) {
     //设置播放列表，设置当前播放音乐，设置当前音乐在列表中位置
-    appInstance.globalData.curplay = music;
+    appInstance.globalData.curplay = appInstance.globalData.curplay.id!=music.id?music:appInstance.globalData.curplay;
     appInstance.globalData.index_am = index;//event.currentTarget.dataset.idx;
     appInstance.globalData.playtype = 1;
     var shuffle = appInstance.globalData.shuffle;
-    appInstance.globalData.list_sf = list;//this.data.list.tracks;
+    appInstance.globalData.list_sf = this.data.canplay;//this.data.list.tracks;
     appInstance.shuffleplay(shuffle);
-    appInstance.globalData.globalStop=false;
-    console.log(appInstance.globalData.globalStop,"F playlist")
+    appInstance.globalData.globalStop = false;
+    console.log(appInstance.globalData.globalStop, "F playlist")
     this.setData({
       curplay: music.id
     })
@@ -75,33 +89,20 @@ Page({
   playmusic: function (event) {
     var that = this;
     let music = event.currentTarget.dataset.idx;
-    music = this.data.list.tracks[music];
-    if (music.id == appInstance.globalData.curplay.id) {
-      wx.navigateTo({ url: '../playing/index?id=' + music.id })
-    } else {
-      wx.playBackgroundAudio({
-        dataUrl: music.mp3Url,
-        title: music.name,
-        author: music.artists[0].name,
-        coverImgUrl: music.album.picUrl,
-        success: function () {
-          console.log("开始播放", music.name);
-          that.setplaylist(that.data.list.tracks, music, event.currentTarget.dataset.idx)
-          wx.navigateTo({
-            url: '../playing/index?id=' + music.id
-          });
-        }, fail: function (e) {
-          wx.showModal({
-            title: '提示',
-            content: '歌曲已下架，无法播放',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              }
-            }
-          })
-        }
-      })
+    let st = event.currentTarget.dataset.st;
+    console.log(st)
+    if (st * 1 < 0) {
+        wx.showToast({
+        title: '歌曲已下架',
+        icon: 'success',
+        duration: 2000
+      });
+      return;
     }
+    music = this.data.list.playlist.tracks[music];
+    that.setplaylist(music, event.currentTarget.dataset.idx)
+    wx.navigateTo({
+      url: '../playing/index?id=' + music.id + '&br=' + music.h.br
+    })
   }
 });

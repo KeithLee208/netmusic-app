@@ -1,5 +1,6 @@
 var typelist = require('../../../utils/searchtypelist.js');
 var bsurl=require('../../../utils/bsurl.js');
+var app = getApp();
 Page({
     data: {
         tab: { tab: typelist[0].type, index: 0 },
@@ -15,6 +16,25 @@ Page({
     inputext: function (e) {
         var name = e.detail.value;
         this.setData({ value: name });
+    },
+    playing:function(event){
+        let that = this;
+        let music = event.currentTarget.dataset.idx;
+        let st = event.currentTarget.dataset.st;
+        console.log(st)
+        if (st * 1 < 0) {
+            wx.showToast({
+            title: '歌曲已下架',
+            icon: 'success',
+            duration: 2000
+        });
+        return;
+        }
+        music = this.data.tabs[0].relist.songs[music];
+        app.globalData.curplay=music
+        wx.navigateTo({
+            url: '../playing/index?id=' + music.id + '&br=' + music.privilege.maxbr
+        })
     },
     search: function (name) {
         if (!name || (name == this.data.prevalue)) return;
@@ -97,7 +117,7 @@ Page({
         wx.request({
             url:bsurl+'search',
             data: {
-                name: name,
+                keywords: name,
                 offset: offset,
                 limit: 20,
                 type: type

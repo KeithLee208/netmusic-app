@@ -2,13 +2,13 @@
 <import src="../../../utils/lrc.wxml" />
 <view id="playingpage" class=" {{playing?'playing':''}}">
   <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg"/>
-  <image id="playing-bg" class="blurbg" src="{{music.album.picUrl}}" />
+  <image id="playing-bg" class="blurbg" src="{{music.al.picUrl}}" />
   <view id="playing-zz" hidden="{{showlrc}}">
     <image src="../../../image/aag.png" />
   </view>
   <view id="playing-main" hidden="{{showlrc}}">
     <image id="playingmainbg" src="../../../image/play.png" />
-    <image src="{{music.album.picUrl}}" bindtap="loadlrc" id="pmaincover" />
+    <image src="{{music.al.picUrl}}" bindtap="loadlrc" id="pmaincover" />
   </view>
   <template is="lrc" data="{{lrc:lrc,showlrc:showlrc,lrcindex:lrcindex}}" />
   <view id="playing-actwrap">
@@ -20,7 +20,7 @@
         <image src="../../../image/a_i.png" />
       </view>
       <view class="pi-act commentscount">
-        <navigator url="../recommend/index?id={{music.commentThreadId}}&from=song">
+        <navigator url="../recommend/index?id={{music.id}}&from=song">
           <image wx:if="{{!commentscount}}" src="../../../image/a_e.png" />
           <image wx:if="{{commentscount}}" src="../../../image/a_f.png" />
           <text wx:if="{{commentscount}}">{{commentscount>999?'999+':(commentscount>99?'99+':commentscount)}}</text>

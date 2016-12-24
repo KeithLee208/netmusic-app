@@ -35,7 +35,7 @@
       "selectedIconPath": "image/cm2_btm_icn_radio_prs.png",
       "text":"私人Fm"
     },{
-      "pagePath": "page/component/home/index",
+      "pagePath": "page/component/login/index",
       "iconPath": "image/cm2_btm_icn_music.png",
       "selectedIconPath": "image/cm2_btm_icn_music_prs.png",
       "text":"我的音乐"

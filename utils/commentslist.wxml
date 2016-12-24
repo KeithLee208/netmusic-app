@@ -11,7 +11,8 @@
         <view class="rm_header">
           <view>
             <text>{{item.likedCount}}</text>
-            <image src="../../../image/xg.png" />
+            <image src="../../../image/xg.png" wx:if="{{!item.liked}}" />
+             <image src="../../../image/xi.png" wx:if="{{item.liked}}" />
           </view>
           <text class="fmh_name">{{item.user.nickname}}</text>
           <text class="fmh_time">{{item.time}}</text>

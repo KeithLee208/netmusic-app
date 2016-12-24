@@ -1,5 +1,5 @@
 var common = require('../../../utils/util.js');
-var bsurl=require('../../../utils/bsurl.js');
+var bsurl = require('../../../utils/bsurl.js');
 let app = getApp();
 let seek = 0;
 let defaultdata = {
@@ -13,40 +13,36 @@ let defaultdata = {
   lrcindex: 0,
   showlrc: false,
   disable: false,
-  downloadPercent:0
+  downloadPercent: 0,
+  share: {
+    title: "一起来听",
+    des: ""
+  }
 };
 
 Page({
   data: defaultdata,
-  playmusic: function (id) {
-    var that = this;
-    wx.request({
-      url: bsurl+'song?id=' + id,
-      success: function (res) {
-        app.globalData.curplay = res.data.songs[0];
-        if (!res.data.songs[0].mp3Url) {
-          console.log("歌曲链接不存在，歌曲下架了");
-          that.setData({
-            disable: true
-          })
-        } else {
-          wx.playBackgroundAudio({
-            dataUrl: res.data.songs[0].mp3Url,
-            title: res.data.songs[0].name,
-            success: function (res) {
-              app.globalData.globalStop = false;
-              app.globalData.playtype=1
-            }
-          });
-          wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name });
-          common.loadrec(0, 0, res.data.songs[0].commentThreadId, function (res) {
-            that.setData({
-              commentscount: res.total
-            })
-          })
-        }
-      }
-    });
+  onShareAppMessage: function () {
+    return {
+      title: this.share.title,
+      desc: this.share.des,
+      path: '/playing/index?id=' + this.share.id + '&br=' + this.share.br
+    }
+  },
+  playmusic: function (that,id, br) {
+    that.setData({
+        start: 0,
+        music: app.globalData.curplay,
+        duration: common.formatduration(app.globalData.curplay.dt)
+      });
+    that.share.title = app.globalData.curplay.name
+    wx.setNavigationBarTitle({ title: app.globalData.curplay.name});
+    app.seekmusic(1)
+    common.loadrec(0, 0, that.data.music.id, function (res) {
+        that.setData({
+          commentscount: res.total
+        })
+      })
   },
   loadlrc: function () {
     common.loadlrc(this);
@@ -55,20 +51,6 @@ Page({
     var type = e.currentTarget.dataset.other;
     this.setData(defaultdata);
     app.nextplay(type);
-  },
-  musicinfo: function () {
-    wx.redirectTo({
-      url: '../search/index',
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
   },
   playshuffle: function () {
     var shuffle = this.data.shuffle;
@@ -81,7 +63,8 @@ Page({
   },
   onShow: function () {
     var that = this;
-    app.globalData.playtype=1
+    app.globalData.playtype = 1;
+    common.playAlrc(that, app);
     seek = setInterval(function () {
       common.playAlrc(that, app);
     }, 1000)
@@ -113,8 +96,6 @@ Page({
             })
           }
         })
-
-
       }
     })
   },
@@ -123,23 +104,27 @@ Page({
     this.setData({
       shuffle: app.globalData.shuffle
     });
-    if (app.globalData.curplay.id != options.id) {
+    this.share = {
+      id: options.id,
+      br: options.br
+    }
+    if (app.globalData.curplay.id != options.id || !app.globalData.curplay.url) {
       //播放不在列表中的单曲
-      this.playmusic(options.id);
+      this.playmusic(that,options.id, options.br);
     } else {
       that.setData({
         start: 0,
         music: app.globalData.curplay,
-        duration: common.formatduration(app.globalData.curplay.duration)
+        duration: common.formatduration(app.globalData.curplay.dt)
       });
-      wx.setNavigationBarTitle({ title: app.globalData.curplay.name })
-      common.loadrec(0, 0, that.data.music.commentThreadId, function (res) {
+      wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
+      common.loadrec(0, 0, that.data.music.id, function (res) {
         that.setData({
           commentscount: res.total
         })
       })
     };
-    console.log(app.globalData.globalStop,"F playing")
+    console.log(app.globalData.globalStop, "F playing")
   },
   playingtoggle: function (event) {
     if (this.data.disable) {

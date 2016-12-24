@@ -101,10 +101,11 @@ function playAlrc(that, app) {
       lrc: [],
       showlrc: false,
       lrcindex: 0,
-      duration: formatduration(app.globalData.curplay.duration)
+      duration: formatduration(app.globalData.curplay.duration||app.globalData.curplay.dt)
     });
-    wx.setNavigationBarTitle({ title: app.globalData.curplay.name + "-" + app.globalData.curplay.artists[0].name });
-    loadrec(0, 0, that.data.music.commentThreadId, function (res) {
+    wx.setNavigationBarTitle({ title: app.globalData.curplay.name});
+    console.log("common load rec")
+    loadrec(0, 0, that.data.music.id, function (res) {
       that.setData({
         commentscount: res.total
       })
@@ -139,13 +140,14 @@ function playAlrc(that, app) {
     }
   });
 };
-function loadrec(offset, limit, id, cb) {
+function loadrec(offset, limit, id, cb,type) {
   wx.request({
-    url: bsurl+'recommend',
+    url: bsurl+'comments',
     data:{
-      id:id,
+      id:(type==1?'':'R_SO_4_')+id,
       limit:limit,
-      offset:offset
+      offset:offset,
+      cookie:wx.getStorageSync('cookie')||''
     },
     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
@@ -175,7 +177,7 @@ function loadlrc(that) {
     var lrcid = that.data.music.id;
     var that = that;
     wx.request({
-      url:bsurl+'lrc?id=' + lrcid,
+      url:bsurl+'lyric?id=' + lrcid,
       success: function (res) {
         var lrc = parse_lrc(res.data.lrc && res.data.lrc.lyric ? res.data.lrc.lyric : '');
         res.data.lrc = lrc.now_lrc;

@@ -72,7 +72,21 @@
     </view>
     <view class="tab_cnt" hidden="{{tab!=3}}">
       <scroll-view>
-        3
+       <view class="flex-boxlist mvs">
+        <view wx:for="{{mvs.mvs}}" class="tl_cnt" wx:for-item="re" wx:key="{{re}}">
+          <navigator url="../mv/index?id={{re.id}}">
+            <view class="cover">
+              <view class="img_playcount">
+                <image src="../../../image/video.png" style="height:20rpx;width:28rpx;" />{{re.playCount}}</view>
+              <image src="{{re.imgurl16v9}}" class="mv_cover" />
+            </view>
+            <view class="tl_info">
+              <view>{{re.name}}</view>
+              <view class="tli_des">{{re.artistName}}</view>
+            </view>
+          </navigator>
+        </view>
+      </view>
       </scroll-view>
     </view>
     <view class="tab_cnt" hidden="{{tab!=4}}">
