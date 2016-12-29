@@ -37,7 +37,8 @@ Page({
       });
     that.share.title = app.globalData.curplay.name
     wx.setNavigationBarTitle({ title: app.globalData.curplay.name});
-    app.seekmusic(1)
+    app.seekmusic(1);
+   
     common.loadrec(0, 0, that.data.music.id, function (res) {
         that.setData({
           commentscount: res.total

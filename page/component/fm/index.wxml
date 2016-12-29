@@ -15,13 +15,13 @@
   <view id="fm-fixed">
     <template is="playingpercent" data="{{playtime:playtime,percent:percent,duration:duration,downloadPercent:downloadPercent}}" />
     <view id="fm-action">
-      <view data-id="{{music.id}}">
+      <view bindtap="trash">
         <image src="../../../image/fm/cm2_fm_btn_delete@2x.png" />
       </view>
-      <view data-id="{{music.id}}" hidden="{{music.stared}}">
+      <view data-id="{{music.id}}" bindtap="songheart" hidden="{{music.starred}}">
         <image src="../../../image/fm/cm2_fm_btn_love@2x.png" />
       </view>
-      <view data-id="{{music.id}}" hidden="{{!music.stared}}">
+      <view data-id="{{music.id}}" bindtap="songheart" hidden="{{!music.starred}}">
         <image src="../../../image/fm/cm2_fm_btn_loved@2x.png" />
       </view>
       <view class="playbtn" bindtap="play" hidden="{{!playing}}">

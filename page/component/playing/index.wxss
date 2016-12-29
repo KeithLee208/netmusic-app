@@ -6,7 +6,7 @@ transition: all linear .5s }
 #coverbg{position: absolute;left: 0;bottom:0;width:750rpx;height:1334rpx;z-index:-2;display:block}
 
 #playing-main{margin: 160rpx auto 0;position: relative;z-index:10;width: 596rpx;
- height:596rpx; animation-delay: .5s;animation: circle 15s linear infinite; animation-play-state: paused;}
+ height:596rpx; animation-delay: .5s;animation: circle 20s linear infinite; animation-play-state: paused;}
 #playingmainbg{width:596rpx;height: 596rpx;position: relative;z-index: 1}
 #pmaincover{position: absolute;width: 388rpx;height: 388rpx;left:104rpx ;top:104rpx;z-index: 3;
 border-radius: 50%;overflow: hidden;}

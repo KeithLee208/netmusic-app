@@ -131,7 +131,7 @@ App({
       url: bsurl + 'music/url',
       data: {
         id:m.id,
-        br:m.duration?(m.hMusic.bitrate||m.mMusic.bitrate||m.lMusic.bitrate||m.bMusic.bitrate):(m.privilege?m.privilege.maxbr:(m.h.br||m.m.br||m.l.br||m.b.br)),
+        br:m.duration?((m.hMusic&&m.hMusic.bitrate)||(m.mMusic&&m.mMusic.bitrate)||(m.lMusicm&&m.lMusic.bitrate)||(m.bMusic&&m.bMusic.bitrate)):(m.privilege?m.privilege.maxbr:(m.h.br||m.m.br||m.l.br||m.b.br)),
         cookie: wx.getStorageSync('cookie') || ''
       },
       success: function (a) {

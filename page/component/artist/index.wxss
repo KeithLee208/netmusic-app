@@ -8,3 +8,6 @@ page{overflow-x: hidden}
 .mvs .cover{padding-top: 56.2%}
 .mvs{padding: 10rpx}
 .mvs .tl_cnt{width: 50%;padding:0 10rpx 20rpx;}
+
+.artist_des{padding:5rpx 15rpx;font-size:28rpx;color:#999;line-height: 1.5}
+#simiwrap{overflow: hidden}

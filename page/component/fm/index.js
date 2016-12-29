@@ -13,7 +13,8 @@ Page({
         playing: true,
         showlrc: false,
         commentscount: 0,
-        lrc: {}
+        lrc: {},
+        stared:false
     },
     onLoad: function () {
         var music = app.globalData.list_fm[app.globalData.index_fm];
@@ -50,11 +51,21 @@ Page({
     onHide: function () {
         clearInterval(seek)
     },
-    like: function () {
-
+    songheart:function(e){
+        var that=this;
+        var music=this.data.music;
+        common.songheart(this,function(t){
+            if(t){
+                music.starred=!music.starred;
+                that.setData({music:music})
+            }
+        })
     },
-    trash: function () {
-
+    trash:function(){
+        var that=this;
+        common.songheart(this,function(t){
+            t&&that.nextplay();
+        },1)
     },
     loadimg: function (e) {
         this.setData({

@@ -30,10 +30,13 @@ Page({
             success: function (res) {
                 console.log(res)
                 wx.setStorageSync('cookie', res.data.c);
-                wx.setStorageSync('user',JSON.parse(res.data.i))
+                wx.setStorageSync('user',res.data.i)
                 // wx.redirectTo({
                 //     url: '../index'
                 // })
+                wx.navigateBack({
+                  delta: 1
+                })
             },
             fail: function (res) {
                 console.log(res)

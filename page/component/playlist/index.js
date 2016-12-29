@@ -1,5 +1,6 @@
 var appInstance = getApp();
 var bsurl = require('../../../utils/bsurl.js');
+var id2Url = require('../../../utils/base64md5.js');
 Page({
   data: {
     list: [],
@@ -7,9 +8,11 @@ Page({
     pid: 0,
     cover: '',
     loading: true,
-    toplist: false
+    toplist: false,
+    user:wx.getStorageSync('user')||{}
   },
   onLoad: function (options) {
+    console.log(wx.getStorageSync('user'))
     var that = this;
     console.log(options)
     wx.request({
@@ -20,26 +23,20 @@ Page({
         cookie: wx.getStorageSync('cookie') || ''
       },
       success: function (res) {
-        var canplay=[];
+        var canplay = [];
         console.log(res.data)
-        for(let i=0;i< res.data.playlist.tracks.length;i++){
-          if(res.data.privileges[i].st>=0){
+        for (let i = 0; i < res.data.playlist.tracks.length; i++) {
+          if (res.data.privileges[i].st >= 0) {
             canplay.push(res.data.playlist.tracks[i])
           }
         }
         that.setData({
           list: res.data,
-          canplay:canplay,
-          toplist: (options.from == 'toplist' ? true : false)
+          canplay: canplay,
+          toplist: (options.from == 'stoplist' ? true : false),
+          cover: 'http://p'+Math.floor(1 + Math.random() * 4)+'.music.126.net/' + id2Url.id2Url('' + res.data.playlist.coverImgId) + '/' + res.data.playlist.coverImgId + '.jpg'
         });
-        wx.request({
-          url: bsurl + 'id2url?id=' + res.data.playlist.coverImgId,
-          success: function (img) {
-            that.setData({
-              cover: 'http://p4.music.126.net/' + img.data + '/' + res.data.playlist.coverImgId + '.jpg'
-            })
-          }
-        })
+
         wx.setNavigationBarTitle({
           title: res.data.playlist.name
         })
@@ -58,7 +55,7 @@ Page({
   userplaylist: function (e) {
     var userid = e.currentTarget.dataset.userid;
     wx.redirectTo({
-      url: '../index?id=' + userid
+      url: '../user/index?id=' + userid
     })
   },
   playall: function (event) {
@@ -68,7 +65,7 @@ Page({
   },
   setplaylist: function (music, index) {
     //设置播放列表，设置当前播放音乐，设置当前音乐在列表中位置
-    appInstance.globalData.curplay = appInstance.globalData.curplay.id!=music.id?music:appInstance.globalData.curplay;
+    appInstance.globalData.curplay = appInstance.globalData.curplay.id != music.id ? music : appInstance.globalData.curplay;
     appInstance.globalData.index_am = index;//event.currentTarget.dataset.idx;
     appInstance.globalData.playtype = 1;
     var shuffle = appInstance.globalData.shuffle;
@@ -92,7 +89,7 @@ Page({
     let st = event.currentTarget.dataset.st;
     console.log(st)
     if (st * 1 < 0) {
-        wx.showToast({
+      wx.showToast({
         title: '歌曲已下架',
         icon: 'success',
         duration: 2000
@@ -101,8 +98,5 @@ Page({
     }
     music = this.data.list.playlist.tracks[music];
     that.setplaylist(music, event.currentTarget.dataset.idx)
-    wx.navigateTo({
-      url: '../playing/index?id=' + music.id + '&br=' + music.h.br
-    })
   }
 });

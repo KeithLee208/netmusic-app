@@ -1,4 +1,4 @@
-var bsurl = require('../../utils/bsurl.js');
+var bsurl = require('../../../utils/bsurl.js');
 Page({
   data: {
     list: [],
@@ -10,6 +10,9 @@ Page({
     var that = this;
     wx.request({
       url: bsurl + 'user/detail?uid=' + id,
+      data:{
+        cookie: wx.getStorageSync('cookie') || ''
+      },
       success: function (res) {
         that.setData({
           user: res.data
@@ -24,7 +27,8 @@ Page({
       data: {
         uid: id,
         offset: 0,
-        limit: 1000
+        limit: 1000,
+        cookie: wx.getStorageSync('cookie') || ''
       },
       success: function (res) {
         that.setData({

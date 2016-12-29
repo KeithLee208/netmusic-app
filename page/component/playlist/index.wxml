@@ -21,8 +21,8 @@
     </view>
     <view id="plh_action">
       <view>
-        <image src="../../../image/cm2_list_detail_icn_fav_new@2x.png" wx:if="{{!list.playlist.subscribed}}" />
-        <image src="../../../image/cm2_list_detail_icn_faved@2x.png" wx:if="{{list.playlist.subscribed}}" />
+        <image src="../../../image/cm2_list_detail_icn_fav_new@2x.png" wx:if="{{!list.playlist.subscribed&&user.profile.userId!=list.playlist.creator.userId}}" />
+        <image src="../../../image/cm2_list_detail_icn_faved@2x.png" wx:if="{{list.playlist.subscribed||user.profile.userId==list.playlist.creator.userId}}" />
         <text>{{list.playlist.subscribedCount||'收藏'}}</text>
       </view>
       <view>
@@ -39,13 +39,57 @@
   </view>
   <view class="plist-detail">
     <block wx:if="{{!list.playlist.tracks.length}}" wx:if="{{list.playlist.tracks.length}}">
-      <view id="playall" bindtap="playall">
-        <image src="../../../image/pl-playall.png" />
-        <text id="pa-count">播放全部<text> (共{{list.playlist.trackCount}}首)</text>
-        </text>
+      <view id="playall" bindtap="playall" class="flexlist flex-center">
+        <view class="flexleft flexnum">
+          <image src="../../../image/pl-playall.png" mode="widthFix" />
+        </view>
+        <view class="flexlist">
+          <text id="pa-count">播放全部<text> (共{{list.playlist.trackCount}}首)</text></text>
+        </view>
       </view>
-      <block wx:for-items="{{list.playlist.tracks}}" wx:for-index="idx" wx:key="{{item.id}}">
-        <view class="pldetail-item {{list.privileges[idx].st>=0?'':'unplayed'}}" data-mid="{{item.id}}" data-st="{{list.privileges[idx].st}}" bindtap="playmusic" data-idx="{{idx}}">
+      <block wx:for-items="{{list.playlist.tracks}}" wx:for-index="idx" wx:key="{{item.id}}" wx:for-item="re">
+        <view class="songs {{item.id===curplay?'cur':''}} {{list.privileges[idx].st>=0?'':'disabled'}}">
+          <navigator hover-class="{{list.privileges[idx].st<0?'none':''}}"  url="{{list.privileges[idx].st>=0?'../playing/index?id='+re.id+'&br='+list.privileges.maxbr:''}}" bindtap="playmusic" data-idx="{{idx}}" data-st="{{list.privileges[idx].st}}">
+            <view class="flexlist flex-center">
+              <view class="flexleft flexnum ">
+                <block wx:if="{{re.id===curplay}}">
+                  <image src="../../../image/aal.png" mode="aspectFill" class="playingidx" />
+                </block>
+                <block wx:else>
+                  <text class="{{toplist&&idx<3?'topindex':''}}">{{idx
+                    <9?( '0'+(idx+1)):(idx+1)}}</text>
+                      <block wx:if="{{toplist}}">
+                        <view class="ftp" wx:if="{{item.ratio!=undefined}}">
+                          <image src="../../../image/xv.png" />{{item.ratio}}%</view>
+                        <view class="ftp" wx:if="{{item.ratio==undefined&&item.lastRank!=undefined}}">
+                          <image src="../../../image/wu.png" wx:if="{{idx>item.lastRank}}" />
+                          <image src="../../../image/xu.png" wx:if="{{item.lastRank>idx}}" />
+                          <image src="../../../image/xr.png" wx:if="{{item.lastRank==idx}}" />
+                          <text>{{item.lastRank<idx?(idx-item.lastRank):(item.lastRank-idx)}}</text>
+                        </view>
+                        <view class="ftp" wx:if="{{item.ratio==undefined&&item.lastRank==undefined}}">
+                          <image src="../../../image/xy.png" mode="widthFix" class="tpnew" />
+                        </view>
+                      </block>
+                </block>
+              </view>
+              <view class="flexlist">
+                <view class="flexmain">
+                  <view>{{re.name}}</view>
+                  <view class="relistdes">{{re.ar[0].name}}-{{re.al.name}}</view>
+                </view>
+                <view class="flexact" wx-if="{{re.mv!=0}}">
+                  <view catchtap="mv" data-mvid="{{re.mv}}" class="fa_list fa_mv">
+                    <navigator url="../mv/index?id={{re.mv}}">
+                      <image src="../../../image/l0.png" mode="widthFix" />
+                    </navigator>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </navigator>
+        </view>
+        <view style='display:none' class="pldetail-item {{item.id===curplay?'cur':''}} {{list.privileges[idx].st>=0?'':'unplayed'}}" data-mid="{{item.id}}" data-st="{{list.privileges[idx].st}}" bindtap="playmusic" data-idx="{{idx}}">
           <view class="pld-item-sort">
             <block wx:if="{{item.id===curplay}}">
               <image src="../../../image/aal.png" class="playingidx" />

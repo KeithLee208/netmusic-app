@@ -1,4 +1,12 @@
-page{display: flex;flex-direction: column;background-color: #eee}
-#header{flex: 0 0 100rpx;background: red}
-#top{flex: 0 0 80rpx;background-color: blue;}
-#main{flex: 1;background-color: yellow;}
+page{display: flex;flex-direction: column;align-items: stretch}
+#header{flex: 0 0 81rpx;}
+#top{flex: 0 0 80rpx;}
+#main{flex: 1;}
+swiper,swiper image{width: 750rpx;height:290rpx;}
+
+#rec_nav{display: flex; text-align: center;width: 100%;border-bottom: 1rpx solid #eee}
+#rec_nav view{flex: 1;position: relative}
+#rec_nav navigator{padding:25rpx 0;font-size: 26rpx;}
+.recn_ico{width: 110rpx;height:110rpx;line-height: 110rpx;font-size: 56rpx;color: #BB2C08;border: 1rpx solid #BB2C08;border-radius: 50%;margin:0 auto 20rpx;font-weight: 300}
+.recn_ico image{width:110rpx;height:110rpx;}
+.tl_cnt{width: 168.75rpx;}

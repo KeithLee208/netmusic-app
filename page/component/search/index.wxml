@@ -42,7 +42,8 @@
   </view>
   <view class="seare_list" wx:if="{{tab.tab==item.type&&loading}}" wx:for-items="{{tabs}}" wx:index="idx">
     <scroll-view class="search_relist" scroll-y="true" data-typeindex="idx" bindscrolltolower="loadmore">
-      <view wx:for="{{item.relist.songs}}" data-st="{{re.privilege.st}}" class="songs {{re.privilege.st<0?'disabled':''}}" wx:for-item="re" wx:key="{{re}}" wx:for-index="idx" bindtap="playing" data-idx="{{idx}}">
+      <view wx:for="{{item.relist.songs}}"  class="songs {{re.privilege.st<0?'disabled':''}}" wx:for-item="re" wx:key="{{re}}" wx:for-index="idx" >
+      <navigator url="../playing/index?id={{re.id}}&br={{re.privilege.maxbr}}" bindtap="playing" data-idx="{{idx}}" data-st="{{re.privilege.st}}">
         <view class="flexlist">
           <view class="flexlist">
             <view class="flexmain">
@@ -58,6 +59,7 @@
             </view>
           </view>
         </view>
+        </navigator>
       </view>
       <view wx:for="{{item.relist.artists}}" class="artists " wx:for-item="re" wx:key="{{re}}">
         <navigator url="../artist/index?id={{re.id}}">
@@ -158,7 +160,7 @@
         </navigator>
       </view>
       <view wx:for="{{item.relist.userprofiles}}" class=" userprofiles" wx:for-item="re" wx:key="{{re}}">
-        <navigator url="../fm/index">
+        <navigator url="../user/index?id={{re.userId}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
               <image src="{{re.avatarUrl}}" class="user_avator" />
