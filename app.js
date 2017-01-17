@@ -2,6 +2,7 @@ var bsurl = require('utils/bsurl.js');
 App({
   onLaunch: function () {
     var that = this;
+    
     //播放列表中下一首
     wx.onBackgroundAudioStop(function () {
       console.log("音乐停止")
@@ -171,7 +172,6 @@ App({
     }
   },
   onShow: function () {
-    console.log(bsurl);
     this.globalData.hide = false
   },
   onHide: function () {

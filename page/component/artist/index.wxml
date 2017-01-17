@@ -7,11 +7,11 @@
     <text class="tbi-text">热门50</text>
   </view>
   <view class="tab-item {{tab==2?'tbi-cur':''}}" data-t="2" catchtap="tabtype">
-    <text class="tbi-text">专辑<text class="tbi-des">{{art.artist.albumSize}}</text>
+    <text class="tbi-text">专辑 <text class="tbi-des">{{art.artist.albumSize}}</text>
     </text>
   </view>
   <view class="tab-item {{tab==3?'tbi-cur':''}}" data-t="3" catchtap="tabtype">
-    <text class="tbi-text">Mv<text class="tbi-des">{{art.artist.mvSize}}</text>
+    <text class="tbi-text">Mv <text class="tbi-des">{{art.artist.mvSize}}</text>
     </text>
   </view>
   <view class="tab-item {{tab==4?'tbi-cur':''}}" data-t="4" catchtap="tabtype">
@@ -21,10 +21,9 @@
 <view id="art_main">
   <view class="tab_cnt" hidden="{{tab!=1}}">
     <view wx:for="{{art.hotSongs}}" class="songs" wx:for-item="re" wx:for-index="idx" wx:key="{{re}}">
-      <navigator url="../playing/index?id={{re.id}}">
+      <navigator url="../playing/index?id={{re.id}}" data-idx="{{idx}}" bindtap="playmusic">
         <view class="flexlist flex-center">
-          <view class="flexnum">{{idx
-            <9?( '0'+(idx+1)):(idx+1)}}</view>
+          <view class="flexnum">{{idx <9?( '0'+(idx+1)):(idx+1)}}</view>
               <view class="flexlist">
                 <view class="flexmain">
                   <view>{{re.name}}</view>
@@ -107,18 +106,20 @@
           <text>相似歌手</text>
         </view>
         <view id="simiwrap">
-        <scroll-view scroll-x="true" style="width:{{250*simi.artists.length}}rpx">
-          <view class="tl_cnt" wx:for-items="{{simi.artists}}">
-            <navigator url="index?id={{item.id}}">
-              <view class="cover">
-                <image src="{{item.img1v1Url}}" class="music_cover" />
-              </view>
-              <text>{{item.name}}</text>
-            </navigator>
-          </view>
-        </scroll-view></view>
+          <scroll-view scroll-x="true" style="width:{{250*simi.artists.length}}rpx">
+            <view class="tl_cnt" wx:for-items="{{simi.artists}}">
+              <navigator url="index?id={{item.id}}">
+                <view class="cover">
+                  <image src="{{item.img1v1Url}}" class="music_cover" />
+                </view>
+                <text>{{item.name}}</text>
+              </navigator>
+            </view>
+          </scroll-view>
+        </view>
       </view>
     </view>
+
     <!-- loading-->
     <view hidden="{{loading}}" class="cntloading">加载中...
       <view>
@@ -127,3 +128,4 @@
         <text class="cl3"></text>
       </view>
     </view>
+  </view>

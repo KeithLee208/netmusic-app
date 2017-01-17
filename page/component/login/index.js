@@ -34,9 +34,9 @@ Page({
                 // wx.redirectTo({
                 //     url: '../index'
                 // })
-                wx.navigateBack({
-                  delta: 1
-                })
+               wx.switchTab({
+                 url: '../home/index'
+               })
             },
             fail: function (res) {
                 console.log(res)

@@ -78,10 +78,7 @@
 .ftp image{width:18rpx;display: inline-block;vertical-align: middle;overflow: hidden;margin-right: 5rpx;}
 .ftp image.tpnew{width:38rpx}
 
-#playall{line-height: 36rpx;}
-#playall image{width: 36rpx;height: 36rpx;vertical-align: top}
-#playall .flexnum{padding:20rpx 0}
-#pa-count text{color: #888;font-size: 24rpx}
+
 .pld-mv image {
 	width: 78rpx;height:63rpx;
 }

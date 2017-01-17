@@ -1,4 +1,5 @@
 var bsurl = require('../../../utils/bsurl.js');
+var app = getApp();
 Page({
     data: {
         art: {},
@@ -37,6 +38,12 @@ Page({
                 })
             }
         })
+    },
+    playmusic:function(event){
+         let that = this;
+        let music = event.currentTarget.dataset.idx;
+        music = this.data.art.hotSongs[music];
+        app.globalData.curplay=music
     },
     tabtype: function (e) {
         var t = e.currentTarget.dataset.t;

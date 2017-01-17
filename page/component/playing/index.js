@@ -26,24 +26,36 @@ Page({
     return {
       title: this.share.title,
       desc: this.share.des,
-      path: '/playing/index?id=' + this.share.id + '&br=' + this.share.br
+      path: 'page/component/playing/index?id=' + this.share.id
     }
   },
-  playmusic: function (that,id, br) {
-    that.setData({
-        start: 0,
-        music: app.globalData.curplay,
-        duration: common.formatduration(app.globalData.curplay.dt)
-      });
-    that.share.title = app.globalData.curplay.name
-    wx.setNavigationBarTitle({ title: app.globalData.curplay.name});
-    app.seekmusic(1);
-   
-    common.loadrec(0, 0, that.data.music.id, function (res) {
+  playmusic: function (that, id, br) {
+    wx.request({
+      url: bsurl + 'music/detail',
+      data: {
+        id: id
+      },
+      success: function (res) {
+        app.globalData.curplay = res.data.songs[0];
         that.setData({
-          commentscount: res.total
+          start: 0,
+          share:{
+            id:id,
+            title:app.globalData.curplay.name
+          },
+          music: app.globalData.curplay,
+          duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
+        });
+        wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
+        app.seekmusic(1);
+        common.loadrec(0, 0, that.data.music.id, function (res) {
+          that.setData({
+            commentscount: res.total
+          })
         })
-      })
+      }
+    })
+
   },
   loadlrc: function () {
     common.loadlrc(this);
@@ -77,7 +89,7 @@ Page({
     clearInterval(seek)
   },
   downmusic: function () {
-    var url = this.data.music.mp3Url;
+    var url = this.data.music.url;
     var that = this;
     wx.downloadFile({
       url: url,
@@ -111,12 +123,12 @@ Page({
     }
     if (app.globalData.curplay.id != options.id || !app.globalData.curplay.url) {
       //播放不在列表中的单曲
-      this.playmusic(that,options.id, options.br);
+      this.playmusic(that, options.id, options.br);
     } else {
       that.setData({
         start: 0,
         music: app.globalData.curplay,
-        duration: common.formatduration(app.globalData.curplay.dt)
+        duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
       });
       wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
       common.loadrec(0, 0, that.data.music.id, function (res) {
@@ -125,7 +137,6 @@ Page({
         })
       })
     };
-    console.log(app.globalData.globalStop, "F playing")
   },
   playingtoggle: function (event) {
     if (this.data.disable) {

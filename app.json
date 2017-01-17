@@ -11,7 +11,8 @@
     "page/component/recommend/index",
     "page/component/search/index",
     "page/component/album/index",
-    "page/component/artist/index"
+    "page/component/artist/index",
+    "page/component/recsongs/index"
   ],
   "window": {
     "navigationBarTextStyle": "#fff",
@@ -38,7 +39,7 @@
         "text": "私人Fm"
       },
       {
-        "pagePath": "page/component/login/index",
+        "pagePath": "page/component/index",
         "iconPath": "image/cm2_btm_icn_music.png",
         "selectedIconPath": "image/cm2_btm_icn_music_prs.png",
         "text": "我的音乐"

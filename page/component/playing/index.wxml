@@ -2,44 +2,44 @@
 <import src="../../../utils/lrc.wxml" />
 <view id="playingpage" class=" {{playing?'playing':''}}">
   <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg"/>
-  <image id="playing-bg" class="blurbg" src="{{music.al.picUrl}}" />
+  <image id="playing-bg" class="blurbg" src="{{music.al.picUrl||music.album.picUrl}}" />
   <view id="playing-zz" hidden="{{showlrc}}">
     <image src="../../../image/aag.png" />
   </view>
   <view id="playing-main" hidden="{{showlrc}}">
     <image id="playingmainbg" src="../../../image/play.png" />
-    <image src="{{music.al.picUrl}}" bindtap="loadlrc" id="pmaincover" />
+    <image src="{{music.al.picUrl||music.album.picUrl}}" bindtap="loadlrc" id="pmaincover" />
   </view>
   <template is="lrc" data="{{lrc:lrc,showlrc:showlrc,lrcindex:lrcindex}}" />
   <view id="playing-actwrap">
     <view id="playing-info" wx:if="{{!showlrc}}">
       <view class="pi-act">
-        <image src="../../../image/a_r.png" />
+        <image src="../../../image/cm2_play_icn_love@2x.png" />
       </view>
       <view class="pi-act" bindtap="downmusic">
-        <image src="../../../image/a_i.png" />
+        <image src="../../../image/cm2_play_icn_dld@2x.png" />
       </view>
       <view class="pi-act commentscount">
         <navigator url="../recommend/index?id={{music.id}}&from=song">
-          <image wx:if="{{!commentscount}}" src="../../../image/a_e.png" />
-          <image wx:if="{{commentscount}}" src="../../../image/a_f.png" />
+          <image wx:if="{{!commentscount}}" src="../../../image/cm2_play_icn_cmt@2x.png" />
+          <image wx:if="{{commentscount}}" src="../../../image/cm2_play_icn_cmt_num@2x.png" />
           <text wx:if="{{commentscount}}">{{commentscount>999?'999+':(commentscount>99?'99+':commentscount)}}</text>
         </navigator>
       </view>
       <view class="pi-act">
-        <image src="../../../image/a_x.png" />
+        <image src="../../../image/cm2_play_icn_more@2x.png" />
       </view>
     </view>
     <template is="playingpercent" data="{{playtime:playtime,percent:percent,duration:duration,downloadPercent:downloadPercent}}" />
     <view id="playingaction">
       <view class="pa-saction" bindtap="playshuffle" hidden="{{shuffle!=1}}">
-        <image src="../../../image/a_p.png" />
+        <image src="../../../image/cm2_icn_loop@2x.png" />
       </view>
       <view class="pa-saction" bindtap="playshuffle" hidden="{{shuffle!=2}}">
-        <image src="../../../image/a_y.png" />
+        <image src="../../../image/cm2_icn_one@2x.png" />
       </view>
       <view class="pa-saction" bindtap="playshuffle" hidden="{{shuffle!=3}}">
-        <image src="../../../image/aa9.png" />
+        <image src="../../../image/cm2_icn_shuffle@2x.png" />
       </view>
       <view class="pa-maction" data-other="-1" bindtap="playother">
         <image src="../../../image/ajh.png" />
@@ -54,7 +54,7 @@
         <image src="../../../image/ajb.png" />
       </view>
       <view class="pa-saction" bindtap="musicinfo">
-        <image src="../../../image/aab.png" />
+        <image src="../../../image/cm2_icn_list@2x.png" />
       </view>
     </view>
   </view>
