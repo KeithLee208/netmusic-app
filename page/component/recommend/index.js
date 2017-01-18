@@ -19,7 +19,7 @@ Page({
             loading: true,
         });
         var type=(fromtype=='song')?'':1;
-        common.loadrec(this.data.offset, this.data.limit, id, function (data) {
+        common.loadrec(app.globalData.cookie,this.data.offset, this.data.limit, id, function (data) {
             that.setData({
                 loading: false,
                 rec: data,
@@ -37,7 +37,7 @@ Page({
             this.setData({
                 loading:true
             })
-            common.loadrec(this.data.offset, this.data.limit, this.data.recid, function (data) {
+            common.loadrec(app.globalData.cookie,this.data.offset, this.data.limit, this.data.recid, function (data) {
                 var rec = that.data.rec;
                 var offset = that.data.offset + data.comments.length
                 data.comments = rec.comments.concat(data.comments);

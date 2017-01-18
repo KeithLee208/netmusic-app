@@ -14,10 +14,12 @@
   <view id="playing-actwrap">
     <view id="playing-info" wx:if="{{!showlrc}}">
       <view class="pi-act">
-        <image src="../../../image/cm2_play_icn_love@2x.png" />
+        <image src="../../../image/cm2_play_icn_love@2x.png"  wx:if="{{!music.st}}"/>
+        <image src="../../../image/cm2_play_icn_loved@2x.png" wx:if="{{music.st}}" />
       </view>
       <view class="pi-act" bindtap="downmusic">
-        <image src="../../../image/cm2_play_icn_dld@2x.png" />
+        <image src="../../../image/cm2_play_icn_dld@2x.png"/>
+        
       </view>
       <view class="pi-act commentscount">
         <navigator url="../recommend/index?id={{music.id}}&from=song">

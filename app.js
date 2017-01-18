@@ -1,8 +1,9 @@
 var bsurl = require('utils/bsurl.js');
 App({
   onLaunch: function () {
+    var cookie=wx.getStorageSync('cookie') || '';
+    this.globalData.cookie=cookie
     var that = this;
-    
     //播放列表中下一首
     wx.onBackgroundAudioStop(function () {
       console.log("音乐停止")
@@ -25,7 +26,15 @@ App({
         }
       })
     })
-
+  
+    wx.request({
+      url: bsurl+'likelist',
+      data: {cookie:cookie},
+     success: function(res){
+       that.globalData.staredlist=res.data.ids
+      }
+    })
+    
   },
   nextplay: function (t) {
     //播放列表中下一首
@@ -72,7 +81,7 @@ App({
     wx.request({
       url: bsurl + 'fm',
       data:{
-        cookie: wx.getStorageSync('cookie') || ''
+        cookie: that.globalData.cookie
       },
       method: 'GET',
       success: function (res) {
@@ -133,7 +142,7 @@ App({
       data: {
         id:m.id,
         br:m.duration?((m.hMusic&&m.hMusic.bitrate)||(m.mMusic&&m.mMusic.bitrate)||(m.lMusicm&&m.lMusic.bitrate)||(m.bMusic&&m.bMusic.bitrate)):(m.privilege?m.privilege.maxbr:(m.h.br||m.m.br||m.l.br||m.b.br)),
-        cookie: wx.getStorageSync('cookie') || ''
+        cookie:that.globalData.cookie
       },
       success: function (a) {
         a = a.data.data[0];
@@ -190,6 +199,8 @@ App({
     curplay: {},
     shuffle: 1,
     globalStop: true,
-    currentPosition: 0
+    currentPosition: 0,
+    staredlist:[],
+    cookie:""
   }
 })

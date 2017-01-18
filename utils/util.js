@@ -105,7 +105,7 @@ function playAlrc(that, app) {
     });
     wx.setNavigationBarTitle({ title: app.globalData.curplay.name});
     console.log("common load rec")
-    loadrec(0, 0, that.data.music.id, function (res) {
+    loadrec(app.globalData.cookie,0, 0, that.data.music.id, function (res) {
       that.setData({
         commentscount: res.total
       })
@@ -140,14 +140,14 @@ function playAlrc(that, app) {
     }
   });
 };
-function loadrec(offset, limit, id, cb,type) {
+function loadrec(cookie,offset, limit, id, cb,type) {
   wx.request({
     url: bsurl+'comments',
     data:{
       id:(type==1?'':'R_SO_4_')+id,
       limit:limit,
       offset:offset,
-      cookie:wx.getStorageSync('cookie')||''
+      cookie:cookie
     },
     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
@@ -190,15 +190,15 @@ function loadlrc(that) {
   }
 }
 //歌曲加心心，取消心，fm trash
-function songheart(that,cb,t){
+function songheart(that,cookie,cb,t,d){
   var music=that.data.music
   wx.request({
     url: bsurl+'song/tracks',
     data:{
       id:music.id,
-      r:!music.starred?'':'re',
+      r:!d?'':'del',
       op:!t?'like':'trash',
-      cookie:wx.getStorageSync('cookie')||''
+      cookie:cookie
     },
     success: function(res){
       cb&&cb(res.data.code==200)

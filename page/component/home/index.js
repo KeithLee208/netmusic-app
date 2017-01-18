@@ -1,14 +1,16 @@
 var toplist = require("../../../utils/toplist.js");
 var bsurl = require('../../../utils/bsurl.js');
+var app = getApp();
 Page({
     data: {
         rec: {
             idx: 0,
             loading: false,
-            banner: [],
-            recpl: [],
-            recsg: [],
-            recmvs: []
+            banner: [4],
+            recpl: [6],
+            recsg: [6],
+            dj: [6],
+            recmvs: [4]
 
         },
         thisday: (new Date()).getDate(),
@@ -73,10 +75,54 @@ Page({
         }
         if (!this.data.rec.loading) {
             wx.request({
-                url: bsurl + 'recommend/resource',
-                data: { cookie: wx.getStorageSync('cookie') || '' },
+                url: bsurl + 'personalized',
+                data: { cookie:app.globalData.cookie },
                 success: function (res) {
-                    rec.recpl = res.data.recommend;
+                    rec.recpl = res.data.result;
+                    rec.loading = true;
+                    that.setData({
+                        rec: rec
+                    })
+                }
+            })
+            wx.request({
+                url: bsurl + 'personalized/newsong',
+                data: { cookie:app.globalData.cookie },
+                success: function (res) {
+                    rec.recsg = res.data.result;
+                    rec.loading = true;
+                    that.setData({
+                        rec: rec
+                    })
+                }
+            })
+            wx.request({
+                url: bsurl + 'personalized/mv',
+                data: { cookie:app.globalData.cookie},
+                success: function (res) {
+                    rec.recmvs = res.data.result;
+                    rec.loading = true;
+                    that.setData({
+                        rec: rec
+                    })
+                }
+            })
+            wx.request({
+                url: bsurl + 'personalized/djprogram',
+                data: { cookie:app.globalData.cookie},
+                success: function (res) {
+                    rec.dj = res.data.result;
+                    rec.loading = true;
+                    that.setData({
+                        rec: rec
+                    })
+                }
+            })
+            wx.request({
+                url: bsurl + 'personalized/privatecontent',
+                data: { cookie:app.globalData.cookie},
+                success: function (res) {
+                    rec.privatecontent = res.data.result;
                     rec.loading = true;
                     that.setData({
                         rec: rec

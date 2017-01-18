@@ -37,6 +37,7 @@ Page({
       },
       success: function (res) {
         app.globalData.curplay = res.data.songs[0];
+         app.globalData.curplay.st=app.globalData.staredlist.indexOf(app.globalData.curplay.id)<0?false:true
         that.setData({
           start: 0,
           share:{
@@ -48,7 +49,7 @@ Page({
         });
         wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
         app.seekmusic(1);
-        common.loadrec(0, 0, that.data.music.id, function (res) {
+        common.loadrec(app.globalData.cookie,0, 0, that.data.music.id, function (res) {
           that.setData({
             commentscount: res.total
           })
@@ -74,6 +75,17 @@ Page({
     })
     app.shuffleplay(shuffle);
   },
+  museek: function (e) {
+        var nextime = e.detail.value
+        var that=this
+        nextime = app.globalData.curplay.dt* nextime / 100000;
+        app.globalData.currentPosition = nextime
+        app.seekmusic(1, function () {
+            that.setData({
+                percent: e.detail.value
+            })
+        }, app.globalData.currentPosition);
+    },
   onShow: function () {
     var that = this;
     app.globalData.playtype = 1;

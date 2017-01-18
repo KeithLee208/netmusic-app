@@ -15,9 +15,7 @@ border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;heigh
 
 
 
-.mvs .cover{padding-top: 56%}
-.mvs{padding-right:15rpx}
-.mvs .tl_cnt{width:352.5rpx;}
+
 
 .userprofiles .flexmain image{width: 32rpx;height: 32rpx; }
 .userprofiles .fl-image image{border-radius: 50%}

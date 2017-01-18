@@ -1,4 +1,5 @@
 var bsurl=require('../../../utils/bsurl.js');
+var app=getApp();
 Page({
     data: {
         phone: "",
@@ -21,16 +22,19 @@ Page({
     },
     login: function () {
         var that = this;
+        var url=/^0\d{2,3}\d{7,8}$|^1[34578]\d{9}$/.test(that.data.phone)?"login/cellphone":"login"
         wx.request({
-            url:bsurl+'login',
+            url:bsurl+url,
             data: {
                 email: that.data.phone,
+                phone: that.data.phone,
                 password: that.data.pwd
             },
             success: function (res) {
                 console.log(res)
                 wx.setStorageSync('cookie', res.data.c);
                 wx.setStorageSync('user',res.data.i)
+                app.globalData.cookie=res.data.c
                 // wx.redirectTo({
                 //     url: '../index'
                 // })

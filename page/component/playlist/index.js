@@ -12,7 +12,6 @@ Page({
     user:wx.getStorageSync('user')||{}
   },
   onLoad: function (options) {
-    console.log(wx.getStorageSync('user'))
     var that = this;
     console.log(options)
     wx.request({
@@ -20,7 +19,7 @@ Page({
       data: {
         id: options.pid,
         limit: 1000,
-        cookie: wx.getStorageSync('cookie') || ''
+        cookie:appInstance.globalData.cookie
       },
       success: function (res) {
         var canplay = [];

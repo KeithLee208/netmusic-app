@@ -106,7 +106,7 @@ Page({
                 url: bsurl + 'artist/simi',
                 data: {
                     id: that.data.art.artist.id,
-                    cookie: wx.getStorageSync('cookie') || ''
+                    cookie:app.globalData.cookie
                 },
                 success: function (res) {
                     if (res.data.code != 200) return

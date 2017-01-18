@@ -25,7 +25,7 @@ Page({
                 music: music,
                 duration: common.formatduration(music.duration),
             });
-            common.loadrec(0, 0, that.data.music.id, function (res) {
+            common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
                 that.setData({
                     commentscount: data.total
                 })
@@ -60,23 +60,44 @@ Page({
     songheart: function (e) {
         var that = this;
         var music = this.data.music;
-        common.songheart(this, function (t) {
-            if (t) {
+        common.songheart(this, app.globalData.cookie, function (t) {
+            if (t == 200) {
                 music.starred = !music.starred;
                 that.setData({ music: music })
+            } else {
+                wx.navigateTo({
+                    url: '../login/index'
+                })
             }
-        })
+        }, 0, music.starred)
     },
     trash: function () {
         var that = this;
-        common.songheart(this, function (t) {
-            t && that.nextplay();
+        common.songheart(this, app.globalData.cookie, function (t) {
+            if (t == 200) {
+                that.nextplay();
+            } else {
+                wx.navigateTo({
+                    url: '../login/index'
+                })
+            }
         }, 1)
     },
     loadimg: function (e) {
         this.setData({
             imgload: true
         })
+    },
+    museek: function (e) {
+        var nextime = e.detail.value
+        var that = this;
+        nextime = app.globalData.curplay.duration * nextime / 100000;
+        app.globalData.currentPosition = nextime
+        app.seekmusic(2, function () {
+            that.setData({
+                percent: e.detail.value
+            })
+        }, app.globalData.currentPosition);
     },
     play: function (m) {
         var that = this
