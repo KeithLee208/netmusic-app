@@ -1,6 +1,6 @@
 <view id="artist_header">
   <image src="../../../image/cm2_default_artist_banner@2x.png" />
-  <image src="{{art.artist.picUrl}}" />
+  <image src="{{art.artist.picUrl}}?param=750y750" />
 </view>
 <view id="artis_tab" class="tab">
   <view class="tab-item {{tab==1?'tbi-cur':''}}" data-t="1" catchtap="tabtype">
@@ -49,7 +49,7 @@
         <navigator url="../album/index?pid={{re.id}}&from=album">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.picUrl}}" class="music_cover" />
+              <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
               <image class="albums_cover" src="../../../image/a6l.png" />
             </view>
             <view class="flexlist">
@@ -75,7 +75,7 @@
               <view class="cover">
                 <view class="img_playcount">
                   <image src="../../../image/video.png" style="height:20rpx;width:28rpx;" />{{re.playCount}}</view>
-                <image src="{{re.imgurl16v9}}" class="mv_cover" />
+                <image src="{{re.imgurl16v9}}?param=320y180" class="mv_cover" />
               </view>
               <view class="tl_info">
                 <view>{{re.name}}</view>
@@ -110,7 +110,7 @@
             <view class="tl_cnt" wx:for-items="{{simi.artists}}">
               <navigator url="index?id={{item.id}}">
                 <view class="cover">
-                  <image src="{{item.img1v1Url}}" class="music_cover" />
+                  <image src="{{item.img1v1Url}}?param=100y100" class="music_cover" />
                 </view>
                 <text>{{item.name}}</text>
               </navigator>

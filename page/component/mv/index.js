@@ -1,5 +1,6 @@
 var common = require('../../../utils/util.js');
 var bsurl=require('../../../utils/bsurl.js');
+var app=getApp();
 Page({
     data: {
         main: {},
@@ -36,7 +37,7 @@ Page({
         });
         var that = this;
         if (this.data.tab && this.data.rec.code!=200) {
-            common.loadrec(this.data.offset, this.data.limit, this.data.recid, function (data) {
+            common.loadrec(app.globalData.cookie,this.data.offset, this.data.limit, this.data.recid, function (data) {
                 that.setData({
                     loading: false,
                     rec: data,
@@ -46,12 +47,12 @@ Page({
         }
     },
     loadmore: function () {
-        if (this.data.rec.more) {
+        if (this.data.rec.more&&!this.data.loading) {
             var that = this;
             this.setData({
                 loading:true
             })
-            common.loadrec(this.data.offset, this.data.limit, this.data.recid, function (data) {
+            common.loadrec(app.globalData.cookie,this.data.offset, this.data.limit, this.data.recid, function (data) {
                 var rec = that.data.rec;
                 var offset = that.data.offset + data.comments.length
                 data.comments = rec.comments.concat(data.comments);
@@ -61,7 +62,7 @@ Page({
                     rec: data,
                     offset: offset
                 });
-            })
+            },1)
         }
     }
 })

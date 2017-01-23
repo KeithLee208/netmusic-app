@@ -12,7 +12,8 @@
     "page/component/search/index",
     "page/component/album/index",
     "page/component/artist/index",
-    "page/component/recsongs/index"
+    "page/component/recsongs/index",
+     "page/component/record/index"
   ],
   "window": {
     "navigationBarTextStyle": "#fff",
@@ -45,7 +46,7 @@
         "text": "我的音乐"
       },
       {
-        "pagePath": "page/component/search/index",
+        "pagePath": "",
         "iconPath": "image/cm2_btm_icn_account.png",
         "selectedIconPath": "image/cm2_btm_icn_account_prs.png",
         "text": "账号"

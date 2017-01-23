@@ -118,17 +118,17 @@ Page({
                     })
                 }
             })
-            wx.request({
-                url: bsurl + 'personalized/privatecontent',
-                data: { cookie:app.globalData.cookie},
-                success: function (res) {
-                    rec.privatecontent = res.data.result;
-                    rec.loading = true;
-                    that.setData({
-                        rec: rec
-                    })
-                }
-            })
+            // wx.request({
+            //     url: bsurl + 'personalized/privatecontent',
+            //     data: { cookie:app.globalData.cookie},
+            //     success: function (res) {
+            //         rec.privatecontent = res.data.result;
+            //         rec.loading = true;
+            //         that.setData({
+            //             rec: rec
+            //         })
+            //     }
+            // })
         }
     }
 })

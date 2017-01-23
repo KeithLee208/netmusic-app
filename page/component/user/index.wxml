@@ -1,7 +1,7 @@
 <view class="index">
   <view id="user" style="background-image:url({{user.profile.backgroundUrl}})">
     <view id="user_info">
-      <image id="user_ava" class="user_avator" src="{{user.profile.avatarUrl}}" />
+      <image id="user_ava" class="user_avator" src="{{user.profile.avatarUrl}}?param=100y100" />
       <text id="user_nn">{{user.profile.nickname}}</text>
       <image src="../../../image/cm2_pro_icn_boy@2x.png" id="usergender" wx:if="{{user.profile.gender==1}}" />
       <image src="../../../image/cm2_pro_icn_girl@2x.png" id="usergender" wx:if="{{user.profile.gender==2}}" />
@@ -43,7 +43,7 @@
       <navigator url="../playlist/index?pid={{item.id}}&img='{{item.coverImgUrl}}" wx:if="{{item.userId==user.profile.userId}}">
         <view class="flexlist flex-image">
           <view class="flexleft fl-image">
-            <image src="{{item.coverImgUrl}}" class="music_cover" />
+            <image src="{{item.coverImgUrl}}?param=100y100" class="music_cover" />
           </view>
           <view class="flexlist">
             <view class="flexmain">
@@ -59,7 +59,7 @@
       <navigator url="../playlist/index?pid={{item.id}}&img='{{item.coverImgUrl}}" wx:if="{{item.userId!=user.profile.userId}}">
         <view class="flexlist flex-image">
           <view class="flexleft fl-image">
-            <image src="{{item.coverImgUrl}}" class="music_cover" />
+            <image src="{{item.coverImgUrl}}?param=100y100" class="music_cover" />
           </view>
           <view class="flexlist">
             <view class="flexmain">

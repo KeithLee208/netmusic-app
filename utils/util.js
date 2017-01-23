@@ -12,6 +12,9 @@ function formatTime(date, type) {
   var second = d.getSeconds();
   if (type == 1) {
     return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+  }
+  else if (type == 3) {
+    return [year, month, day].map(formatNumber).join('-');
   } else {
     var current = new Date();
     var curtimes = current.getTime();
@@ -201,7 +204,7 @@ function songheart(that,cookie,cb,t,d){
       cookie:cookie
     },
     success: function(res){
-      cb&&cb(res.data.code==200)
+      cb&&cb(res.data.code)
     }
   })
 }

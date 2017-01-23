@@ -97,7 +97,7 @@ width:100%;z-index: 3;filter: brightness(.1)}
 .tl_cnt .cover{position: relative;height: 0;padding-top: 100%;overflow: hidden;margin-bottom: 10rpx;}
 .tl_cnt .cover text{position: absolute;right: 0;bottom:0;line-height: 32rpx;color: #fff;
 z-index: 2;width: 100%;padding: 8rpx;font-size: 24rpx; box-sizing: border-box;}
-.tl_cnt .name{height: 2.4em;line-height: 1.2;overflow: hidden; word-break: break-all}
+.tl_cnt .name{height: 2.4em;line-height: 1.2;overflow: hidden; word-break: break-all;display: block}
 .tl_cnt .cover:after{height: 50%;width:100%;left: 0;top:50%;z-index: 1;content:"";position: absolute;
 background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .disabled{color: #aaa;background-color: #fbfbfb}
@@ -116,6 +116,9 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .fm_tdes{font-size: 24rpx;color: #999}
 .flexmain view{word-break: keep-all;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;line-height: 1.6;width: 100%; word-wrap: break-word}
 .relistdes{color: #888;font-size: 24rpx;white-space: -2rpx;}
+
+.fa_pc{opacity: .5;padding-right: 15rpx;flex: 1;white-space: nowrap;font-size: 26rpx;line-height: 1}
+.fa_pc image{width: 24rpx;margin-right: 5rpx}
 
 .mvs .cover{padding-top: 56%}
 .mvs{padding-right:15rpx}

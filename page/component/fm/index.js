@@ -27,7 +27,7 @@ Page({
             });
             common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
                 that.setData({
-                    commentscount: data.total
+                    commentscount: res.total
                 })
             })
         } else {
@@ -63,7 +63,8 @@ Page({
         common.songheart(this, app.globalData.cookie, function (t) {
             if (t == 200) {
                 music.starred = !music.starred;
-                that.setData({ music: music })
+                that.setData({ music: music });
+                app.likelist();
             } else {
                 wx.navigateTo({
                     url: '../login/index'

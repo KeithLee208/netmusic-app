@@ -4,7 +4,7 @@
     <view class="limg_list rec_list" wx:for-items="{{rec.hotComments}}" wx:key="{{item.commentId}}">
       <view class="rec_avatar">
         <navigator>
-          <image class="user_avator" src="{{item.user.avatarUrl}}" />
+          <image class="user_avator" src="{{item.user.avatarUrl}}?param=60y60" />
         </navigator>
       </view>
       <view class="rec_main" data-commentId="{{item.commentId}}">
@@ -34,7 +34,7 @@
     <view class="limg_list rec_list" wx:for-items="{{rec.comments}}" wx:key="{{item.commentId}}">
       <view class="rec_avatar">
         <navigator>
-          <image class="user_avator" src="{{item.user.avatarUrl}}" />
+          <image class="user_avator" src="{{item.user.avatarUrl}}?param=60y60" />
         </navigator>
       </view>
       <view class="rec_main" data-commentId="{{item.commentId}}">

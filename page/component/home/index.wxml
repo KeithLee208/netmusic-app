@@ -1,3 +1,15 @@
+<navigator url="../search/index" id="search_input">
+  <view class="form">
+    <view>
+      <input type="text" placeholder="搜索单曲、歌手、专辑等" />
+    </view>
+    <view class="button">
+      <button form-type="submit" plain="true">
+        <icon type="search" size="20" color="#bcbcbd" />
+      </button>
+    </view>
+  </view>
+</navigator>
 <view id="header" class="tab">
   <view class="tab-item  {{rec.idx==tabidx?'tbi-cur':''}}" bindtap="switchtab" data-t="0">
     <text class="tbi-text">个性推荐</text>
@@ -56,7 +68,7 @@
         <view class="tl_cnt" wx:for-items="{{rec.recpl}}">
           <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
             <view class="cover">
-              <image src="{{item.picUrl}}" class="music_cover" />
+              <image src="{{item.picUrl}}?param=200y200" class="music_cover" />
               <text>{{item.playcount}}</text>
             </view>
             <text class="name">{{item.name}}</text>
@@ -73,10 +85,10 @@
         <view class="tl_cnt" wx:for-items="{{rec.recsg}}" wx:for-index="idx" wx:if="{{idx<6}}" wx:for-item="re">
           <navigator url="../playing/index?id={{re.id}}&br={{re.privilege.maxbr}}">
             <view class="cover">
-              <image src="{{re.song.album.picUrl}}" class="music_cover" />
+              <image src="{{re.song.album.picUrl}}?param=200y200" class="music_cover" />
               <text>{{re.playcount}}</text>
             </view>
-           <view class="tl_info">
+            <view class="tl_info">
               <view>{{re.name}}</view>
               <view class="tli_des">{{re.song.artists[0].name}}</view>
             </view>
@@ -95,7 +107,7 @@
             <view class="cover">
               <view class="img_playcount">
                 <image src="../../../image/video.png" style="height:20rpx;width:28rpx;" />{{re.playCount}}</view>
-              <image src="{{re.picUrl}}" class="mv_cover" />
+              <image src="{{re.picUrl}}?param=320y180" class="mv_cover" />
             </view>
             <view class="tl_info">
               <view>{{re.name}}</view>
@@ -114,7 +126,7 @@
         <view class="tl_cnt" wx:for-items="{{rec.dj}}">
           <navigator url="../dj/index?id={{item.id}}">
             <view class="cover">
-              <image src="{{item.picUrl}}" class="music_cover" />
+              <image src="{{item.picUrl}}?param=200y200" class="music_cover" />
               <text>{{item.playcount}}</text>
             </view>
             <text class="name">{{item.name}}</text>
@@ -157,10 +169,10 @@
     <block wx:if="{{sort.loading}}">
       <view class='listheader'>云音乐官方榜</view>
       <view class='flex-boxlist'>
-        <view class="tl_cnt" wx:for-items="{{sort.list}}" wx:if="{{item.ToplistType}}">
+        <view class="tl_cnt" wx:for-items="{{sort.list}}" wx:key="{{item.id}}" wx:if="{{item.ToplistType}}">
           <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
             <view class="cover">
-              <image class="music_cover" src="{{item.coverImgUrl}}" />
+              <image class="music_cover" src="{{item.coverImgUrl}}?param=200y200" />
               <text>{{item.updateFrequency}}</text>
             </view>
             <view class="tl_info">
@@ -185,10 +197,10 @@
       </view>
       <view class='listheader'>全球榜</view>
       <view class='flex-boxlist'>
-        <view class="tl_cnt" wx:for-items="{{sort.list}}" wx:if="{{!item.ToplistType}}">
+        <view class="tl_cnt" wx:for-items="{{sort.list}}"  wx:key="{{item.id}}" wx:if="{{!item.ToplistType}}">
           <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
             <view class="cover">
-              <image src="{{item.coverImgUrl}}" class="music_cover" />
+              <image src="{{item.coverImgUrl}}?param=200y200" class="music_cover" />
               <text>{{item.updateFrequency}}</text>
             </view>
             <text>{{item.name}}</text>

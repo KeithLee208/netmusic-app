@@ -5,17 +5,39 @@ Page({
   data: {
     result:{},
     curplay:0,
-    loading: true
+    loading: true,
+    share: {
+    title: "一起来听",
+    des: ""
+  }
   },
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: bsurl+'album/detail?id=' + options.pid,
+      url: bsurl+'album/detail', 
+      data:{
+        id:options.pid,
+        cookie:appInstance.globalData.cookie
+      },
       success: function (res) {
-        var re=res.data.album;
-        re.publishTime=common.formatTime(re.publishTime)
+        var re=res.data;
+        re.album.publishTime=common.formatTime(re.album.publishTime,3);
+        var canplay=[];
+        for(let i = 0; i < res.data.songs.length;i++){
+          var r=res.data.songs[i]
+          if(r.privilege.st>-1){
+            canplay.push(r)
+          }
+        }
         that.setData({
-          result:re
+          result:res.data,
+          loading:false,
+          canplay:canplay,
+          share:{
+            id:options.id,
+            title:res.data.album.name+'-'+res.data.album.artist.name,
+            des:res.data.album.description
+          }
         });
         wx.setNavigationBarTitle({
           title: res.data.album.name
@@ -26,6 +48,14 @@ Page({
         })
       }
     });
+  },
+   onShareAppMessage: function () {
+     if(this.data.share.id)return;
+    return {
+      title: this.data.share.title,
+      desc: this.data.share.des,
+      path: 'page/component/playing/index?id=' + this.data.share.id
+    }
   },
   onShow: function () {
     this.setData({
@@ -39,19 +69,20 @@ Page({
     })
   },
   playall: function (event) {
-    var playlist = that.data.result.songs
-    this.setplaylist(playlist, playlist[0], 0)
+    this.setplaylist(this.data.canplay[0], 0);
     appInstance.seekmusic(1)
+
   },
-  setplaylist: function (list, music, index) {
+  setplaylist: function (music, index) {
     //设置播放列表，设置当前播放音乐，设置当前音乐在列表中位置
-    appInstance.globalData.curplay = music;
+    appInstance.globalData.curplay = appInstance.globalData.curplay.id != music.id ? music : appInstance.globalData.curplay;
     appInstance.globalData.index_am = index;//event.currentTarget.dataset.idx;
     appInstance.globalData.playtype = 1;
-    appInstance.globalData.globalStop=false;
     var shuffle = appInstance.globalData.shuffle;
-    appInstance.globalData.list_sf = list;//this.data.list.tracks;
+    appInstance.globalData.list_sf = this.data.canplay;//this.data.list.tracks;
     appInstance.shuffleplay(shuffle);
+    appInstance.globalData.globalStop = false;
+    console.log(appInstance.globalData.globalStop, "F playlist")
     this.setData({
       curplay: music.id
     })
@@ -65,33 +96,17 @@ Page({
   playmusic: function (event) {
     var that = this;
     let music = event.currentTarget.dataset.idx;
-    music = this.data.result.songs[music];
-    if (music.id == appInstance.globalData.curplay.id) {
-      wx.navigateTo({ url: '../playing/index?id=' + music.id })
-    } else {
-      wx.playBackgroundAudio({
-        dataUrl: music.mp3Url,
-        title: music.name,
-        author: music.artists[0].name,
-        coverImgUrl: music.album.picUrl,
-        success: function () {
-          console.log("开始播放", music.name);
-          that.setplaylist(that.data.result.songs, music, event.currentTarget.dataset.idx)
-          wx.navigateTo({
-            url: '../playing/index?id=' + music.id
-          });
-        }, fail: function (e) {
-          wx.showModal({
-            title: '提示',
-            content: '歌曲已下架，无法播放',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              }
-            }
-          })
-        }
-      })
+    let st = event.currentTarget.dataset.st;
+    console.log(st)
+    if (st * 1 < 0) {
+      wx.showToast({
+        title: '歌曲已下架',
+        icon: 'success',
+        duration: 2000
+      });
+      return;
     }
+    music = this.data.list.playlist.tracks[music];
+    that.setplaylist(music, event.currentTarget.dataset.idx)
   }
 });

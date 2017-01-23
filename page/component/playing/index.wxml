@@ -2,18 +2,18 @@
 <import src="../../../utils/lrc.wxml" />
 <view id="playingpage" class=" {{playing?'playing':''}}">
   <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg"/>
-  <image id="playing-bg" class="blurbg" src="{{music.al.picUrl||music.album.picUrl}}" />
+  <image id="playing-bg" class="blurbg" src="{{music.al.picUrl||music.album.picUrl}}?param=600y600" />
   <view id="playing-zz" hidden="{{showlrc}}">
     <image src="../../../image/aag.png" />
   </view>
   <view id="playing-main" hidden="{{showlrc}}">
     <image id="playingmainbg" src="../../../image/play.png" />
-    <image src="{{music.al.picUrl||music.album.picUrl}}" bindtap="loadlrc" id="pmaincover" />
+    <image src="{{music.al.picUrl||music.album.picUrl}}?param=400y400" bindtap="loadlrc" id="pmaincover" />
   </view>
   <template is="lrc" data="{{lrc:lrc,showlrc:showlrc,lrcindex:lrcindex}}" />
   <view id="playing-actwrap">
     <view id="playing-info" wx:if="{{!showlrc}}">
-      <view class="pi-act">
+      <view class="pi-act" bindtap="songheart">
         <image src="../../../image/cm2_play_icn_love@2x.png"  wx:if="{{!music.st}}"/>
         <image src="../../../image/cm2_play_icn_loved@2x.png" wx:if="{{music.st}}" />
       </view>

@@ -2,7 +2,7 @@
   <form bindsubmit="searhFinput">
     <view class="form">
       <view>
-        <input type="text" maxlength="20" name="name" bindinput="inputext" placeholder="搜索单曲、歌手、专辑等" value="{{value}}" />
+        <input type="text" auto-focus maxlength="20" name="name" bindinput="inputext" placeholder="搜索单曲、歌手、专辑等" value="{{value}}" />
       </view>
       <view class="button">
         <button form-type="submit" plain="true">
@@ -50,8 +50,8 @@
               <view>{{re.name}}</view>
               <view class="relistdes">{{re.ar[0].name}}-{{re.al.name}}</view>
             </view>
-            <view class="flexact" wx-if="{{re.mvid!=0}}">
-              <view catchtap="mv" data-mvid="{{re.mvid}}" class="fa_list fa_mv">
+            <view class="flexact" wx-if="{{re.mv!=0}}">
+              <view catchtap="mv" data-mvid="{{re.mv}}" class="fa_list fa_mv">
                 <navigator url="../mv/index?id={{re.mv}}">
                   <image src="../../../image/l0.png" />
                 </navigator>
@@ -65,7 +65,7 @@
         <navigator url="../artist/index?id={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.img1v1Url}}" class="user_avator" />
+              <image src="{{re.img1v1Url}}?param=100y100" class="user_avator" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -81,7 +81,7 @@
         <navigator url="../album/index?pid={{re.id}}&from=album">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.picUrl}}" class="music_cover" />
+              <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
               <image class="albums_cover" src="../../../image/a6l.png" />
             </view>
             <view class="flexlist">
@@ -101,7 +101,7 @@
         <navigator url="../playlist/index?pid={{re.id}}">
           <view class="flexlist  flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.coverImgUrl}}" class="music_cover" />
+              <image src="{{re.coverImgUrl}}?param=100y100" class="music_cover" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -118,7 +118,7 @@
             <view class="cover">
               <view class="img_playcount">
                 <image src="../../../image/video.png" style="height:20rpx;width:28rpx;" />{{re.playCount}}</view>
-              <image src="{{re.cover}}" class="mv_cover" />
+              <image src="{{re.cover}}?param=320y180" class="mv_cover" />
             </view>
             <view class="tl_info">
               <view>{{re.name}}</view>
@@ -132,7 +132,7 @@
         <navigator url="../dj/index?pid={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.picUrl}}" class="music_cover" />
+              <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -148,7 +148,7 @@
         <navigator url="../djprogram/index?pid={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.coverUrl}}" class="music_cover" />
+              <image src="{{re.coverUrl}}?param=100y100" class="music_cover" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -163,7 +163,7 @@
         <navigator url="../user/index?id={{re.userId}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.avatarUrl}}" class="user_avator" />
+              <image src="{{re.avatarUrl}}?param=100y100" class="user_avator" />
             </view>
             <view class="flexlist">
               <view class="flexmain">

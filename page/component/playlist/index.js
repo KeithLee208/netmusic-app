@@ -33,7 +33,7 @@ Page({
           list: res.data,
           canplay: canplay,
           toplist: (options.from == 'stoplist' ? true : false),
-          cover: 'http://p'+Math.floor(1 + Math.random() * 4)+'.music.126.net/' + id2Url.id2Url('' + res.data.playlist.coverImgId) + '/' + res.data.playlist.coverImgId + '.jpg'
+          cover: 'http://p'+Math.floor(1 + Math.random() * 4)+'.music.126.net/' + id2Url.id2Url('' + res.data.playlist.coverImgId) + '/' + res.data.playlist.coverImgId + '.jpg?param=200y200'
         });
 
         wx.setNavigationBarTitle({

@@ -2,10 +2,10 @@
 <import src="../../../utils/lrc.wxml" />
 <view id="playingpage">
   <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg"/>
-  <view id="fm-bg" class="blurbg" style="background-image:url({{music.album.blurPicUrl}})"></view>
+  <view id="fm-bg" class="blurbg" style="background-image:url({{music.album.blurPicUrl}}?param=600y600)"></view>
   <view id="fm-covermain" class="{{showlrc?'playinghidden':''}}" bindtap="loadlrc">
     <image id="fm-cmbg" src="../../../image/fm/cm2_default_cover_fm-ip6@2x.png" />
-    <image id="fm-cmpic" bindload="loadimg" class="{{imgload?'fadein':''}}" src="{{music.album.picUrl}}" />
+    <image id="fm-cmpic" bindload="loadimg" class="{{imgload?'fadein':''}}" src="{{music.album.picUrl}}?param=610y610" />
   </view>
   <view id="fm-mdes" class="{{showlrc?'playinghidden':''}}">
     <text id="fm-mname">{{music.name}}</text>
