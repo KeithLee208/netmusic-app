@@ -133,6 +133,27 @@ Page({
     },
     gdjlist:function(isadd){
         var that=this;
+        var that = this;
+        wx.request({
+            url: bsurl + 'djradio/hot',
+            data: {
+                limit: that.data.djlist.limit,
+                offset: that.data.djlist.offset
+            },
+            complete: function (res) {
+                that.data.djlist.loading = true;
+                if (!isadd) {
+                    that.data.djlist.list = res.data
+                } else {
+                    res.data.djRadios = that.data.djlist.list.djRadios.concat(res.data.djRadios);
+                    that.data.djlist.list = res.data
+                }
+                that.data.djlist.offset += res.data.djRadios.length;
+                that.setData({
+                    djlist: that.data.djlist
+                })
+            }
+        })
     },
     gplaylist: function (isadd) {
         //分类歌单列表
