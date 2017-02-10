@@ -43,8 +43,8 @@
       </navigator>
     </view>
   </block>
-  <block wx:if="{{!privileges}}" wx:for-items="{{list}}" wx:for-index="idx" wx:key="{{item.id}}" wx:for-item="re">
-    <view class="songs {{item.id===curplay?'cur':''}} {{re.privilege.st>=0?'':'disabled'}}">
+  <block wx:if="{{!privileges}}" wx:for-items="{{list}}" wx:for-index="idx" wx:key="{{re.id}}" wx:for-item="re">
+    <view class="songs {{(re.id!=curplay)?'':'cur'}} {{re.privilege.st>=0?'':'disabled'}} {{re.id}}">
       <navigator hover-class="{{re.privilege.st<0?'none':''}}" url="{{re.privilege.st>=0?'../playing/index?id='+re.id+'&br='+re.privilege.maxbr:''}}" bindtap="playmusic" data-idx="{{idx}}" data-st="{{re.privilege.st}}">
         <view class="flexlist flex-center">
           <view class="flexleft flexnum ">

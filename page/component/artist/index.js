@@ -5,6 +5,7 @@ Page({
         art: {},
         loading: false,
         tab: 1,
+        curplay:-1,
         album: {
             offset: 0,
             loading: false

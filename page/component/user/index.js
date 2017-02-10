@@ -1,17 +1,20 @@
 var bsurl = require('../../../utils/bsurl.js');
+var app=getApp();
 Page({
   data: {
-    list: [],
-    user: {}
+    list1: [],
+    list2:[],
+    user: {},
+    loading:true
   },
 
   onLoad: function (options) {
-    var id = options.id || '177018'
+    var id = options.id
     var that = this;
     wx.request({
       url: bsurl + 'user/detail?uid=' + id,
       data:{
-        cookie: wx.getStorageSync('cookie') || ''
+        cookie:app.globalData.cookie
       },
       success: function (res) {
         that.setData({
@@ -28,11 +31,14 @@ Page({
         uid: id,
         offset: 0,
         limit: 1000,
-        cookie: wx.getStorageSync('cookie') || ''
+        cookie:app.globalData.cookie
       },
       success: function (res) {
+        var a=res.data.playlist||[]
         that.setData({
-          list: res.data.playlist
+          loading:false,
+          list1: a.filter(function(item){return item.userId==id}),
+          list2: a.filter(function(item){return item.userId!=id})
         });
       }
     });

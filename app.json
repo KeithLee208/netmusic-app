@@ -13,7 +13,8 @@
     "page/component/album/index",
     "page/component/artist/index",
     "page/component/recsongs/index",
-     "page/component/record/index"
+     "page/component/record/index",
+     "page/component/me/index"
   ],
   "window": {
     "navigationBarTextStyle": "#fff",
@@ -34,13 +35,7 @@
         "text": "发现音乐"
       },
       {
-        "pagePath": "page/component/toplist/index",
-        "iconPath": "image/cm2_btm_icn_radio.png",
-        "selectedIconPath": "image/cm2_btm_icn_radio_prs.png",
-        "text": "私人Fm"
-      },
-      {
-        "pagePath": "page/component/index",
+        "pagePath": "page/component/me/index",
         "iconPath": "image/cm2_btm_icn_music.png",
         "selectedIconPath": "image/cm2_btm_icn_music_prs.png",
         "text": "我的音乐"

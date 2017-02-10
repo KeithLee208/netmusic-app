@@ -26,7 +26,7 @@ Page({
     return {
       title: this.data.share.title,
       desc: this.data.share.des,
-      path: 'page/component/playing/index?id=' + this.data.share.id
+      path: 'page/component/playing/index?id=' + this.data.share.id+'&br='+this.data.share.br
     }
   },
   playmusic: function (that, id, br) {
@@ -43,7 +43,9 @@ Page({
           start: 0,
           share: {
             id: id,
-            title: app.globalData.curplay.name
+            title: app.globalData.curplay.name,
+            br:res.data.privileges[0].maxbr,
+            des:app.globalData.curplay.ar[0].name
           },
           music: app.globalData.curplay,
           duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
@@ -65,7 +67,16 @@ Page({
   playother: function (e) {
     var type = e.currentTarget.dataset.other;
     this.setData(defaultdata);
-    app.nextplay(type);
+    var that=this;
+    app.nextplay(type,function(){
+      that.setData({
+        share:{
+          id:app.globalData.curplay.id,
+          title:app.globalData.curplay.name,
+          des:app.globalData.curplay.ar[0].name
+        }
+      })
+    });
   },
   playshuffle: function () {
     var shuffle = this.data.shuffle;
@@ -145,10 +156,6 @@ Page({
     this.setData({
       shuffle: app.globalData.shuffle
     });
-    this.share = {
-      id: options.id,
-      br: options.br
-    }
     if (app.globalData.curplay.id != options.id || !app.globalData.curplay.url) {
       //播放不在列表中的单曲
       this.playmusic(that, options.id, options.br);
@@ -156,7 +163,13 @@ Page({
       that.setData({
         start: 0,
         music: app.globalData.curplay,
-        duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
+        duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration),
+        share: {
+            id: app.globalData.curplay.id,
+            br:options.br,
+            title: app.globalData.curplay.name,
+            des:app.globalData.curplay.ar[0].name
+          },
       });
       wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
       common.loadrec(app.globalData.cookie,0, 0, that.data.music.id, function (res) {

@@ -38,9 +38,10 @@ Page({
                 // wx.redirectTo({
                 //     url: '../index'
                 // })
+                app.likelist();
                wx.switchTab({
                  url: '../home/index'
-               })
+               });
             },
             fail: function (res) {
                 console.log(res)

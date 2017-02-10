@@ -5,7 +5,7 @@
   <image src="../../../image/cm2_daily_cal_bg@2x.png"  mode="widthFix"></image>
   </view>
 </view>
-<view class="plist-detail">
+<view class="plist-detail"  wx:if="{{loading}}">
   <view id="playall" bindtap="playall" class="flexlist flex-center">
     <view class="flexlist">
        <image src="../../../image/pl-playall.png" mode="widthFix" />　<text id="pa-count">播放全部<text> (共{{songs.length}}首)</text>
@@ -32,3 +32,12 @@
     </navigator>
   </view>
 </view>
+<block wx:else>
+  <view class="cntloading">加载中...
+    <view>
+      <text class="cl1"></text>
+      <text class="cl2"></text>
+      <text class="cl3"></text>
+    </view>
+  </view>
+</block>

@@ -4,6 +4,7 @@ Page({
   data: {
     songs: [],
     curplay: 0,
+    loading:false,
     date: ((new Date()).getDate())
   },
   onLoad: function (options) {

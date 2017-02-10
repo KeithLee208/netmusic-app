@@ -1,4 +1,4 @@
-var bsurl=require('bsurl.js');
+var bsurl = require('bsurl.js');
 function formatTime(date, type) {
   type = type || 1;
   //type 1,完成输出年月日时分秒，2对比当前时间输出日期，或时分;
@@ -6,7 +6,6 @@ function formatTime(date, type) {
   var year = d.getFullYear()
   var month = d.getMonth() + 1
   var day = d.getDate()
-
   var hour = d.getHours()
   var minute = d.getMinutes()
   var second = d.getSeconds();
@@ -44,9 +43,7 @@ function formatNumber(n) {
 }
 function formatduration(duration) {
   duration = new Date(duration);
-  let mint = duration.getMinutes();
-  let sec = duration.getSeconds();
-  return formatNumber(mint) + ":" + formatNumber(sec);
+  return formatNumber(duration.getMinutes()) + ":" + formatNumber(duration.getSeconds());
 }
 
 function parse_lrc(lrc_content) {
@@ -64,12 +61,8 @@ function parse_lrc(lrc_content) {
         tmp2 = tmp2.split(":");
         let lrc_sec = parseInt(tmp2[0] * 60 + tmp2[1] * 1);
         if (lrc_sec && (lrc_sec > 0)) {
-          let count = tmp.length;
-          let lrc = trimStr(tmp[count - 1]);
-          if (lrc != "") {
-            now_lrc.push({ lrc_sec: lrc_sec, lrc: lrc });
-          }
-
+          let lrc = (tmp[tmp.length - 1]).replace(/(^\s*)|(\s*$)/g, "");
+          lrc && now_lrc.push({ lrc_sec: lrc_sec, lrc: lrc });
         }
       }
     }
@@ -84,8 +77,6 @@ function parse_lrc(lrc_content) {
     scroll: scroll
   };
 }
-function trimStr(str) { return str.replace(/(^\s*)|(\s*$)/g, ""); }
-
 //音乐播放监听
 function playAlrc(that, app) {
   if (app.globalData.globalStop) {
@@ -94,21 +85,22 @@ function playAlrc(that, app) {
       duration: '00:00',
       percent: 0.1,
       playing: false,
-      downloadPercent:0
+      downloadPercent: 0
     });
     return;
   }
   if (that.data.music.id != app.globalData.curplay.id) {
+
     that.setData({
       music: app.globalData.curplay,
       lrc: [],
       showlrc: false,
       lrcindex: 0,
-      duration: formatduration(app.globalData.curplay.duration||app.globalData.curplay.dt)
+      duration: formatduration(app.globalData.curplay.duration || app.globalData.curplay.dt)
     });
-    wx.setNavigationBarTitle({ title: app.globalData.curplay.name});
-    console.log("common load rec")
-    loadrec(app.globalData.cookie,0, 0, that.data.music.id, function (res) {
+    wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
+    console.log("util next then load rec")
+    loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
       that.setData({
         commentscount: res.total
       })
@@ -116,11 +108,11 @@ function playAlrc(that, app) {
   }
   wx.getBackgroundAudioPlayerState({
     complete: function (res) {
-      var time = 0, lrcindex = that.data.lrcindex, playing = false, playtime = 0,downloadPercent=0;
+      var time = 0, lrcindex = that.data.lrcindex, playing = false, playtime = 0, downloadPercent = 0;
       if (res.status != 2) {
         time = res.currentPosition / res.duration * 100;
         playtime = res.currentPosition;
-        downloadPercent=res.downloadPercent
+        downloadPercent = res.downloadPercent
         if (that.data.showlrc && !that.data.lrc.scroll) {
           for (let i in that.data.lrc.lrc) {
             var se = that.data.lrc.lrc[i];
@@ -138,19 +130,19 @@ function playAlrc(that, app) {
         percent: time,
         playing: playing,
         lrcindex: lrcindex,
-        downloadPercent:downloadPercent
+        downloadPercent: downloadPercent
       })
     }
   });
 };
-function loadrec(cookie,offset, limit, id, cb,type) {
+function loadrec(cookie, offset, limit, id, cb, type) {
   wx.request({
-    url: bsurl+'comments',
-    data:{
-      id:(type==1?'':'R_SO_4_')+id,
-      limit:limit,
-      offset:offset,
-      cookie:cookie
+    url: bsurl + 'comments',
+    data: {
+      id: (type == 1 ? '' : 'R_SO_4_') + id,
+      limit: limit,
+      offset: offset,
+      cookie: cookie
     },
     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
@@ -180,7 +172,7 @@ function loadlrc(that) {
     var lrcid = that.data.music.id;
     var that = that;
     wx.request({
-      url:bsurl+'lyric?id=' + lrcid,
+      url: bsurl + 'lyric?id=' + lrcid,
       success: function (res) {
         var lrc = parse_lrc(res.data.lrc && res.data.lrc.lyric ? res.data.lrc.lyric : '');
         res.data.lrc = lrc.now_lrc;
@@ -193,18 +185,18 @@ function loadlrc(that) {
   }
 }
 //歌曲加心心，取消心，fm trash
-function songheart(that,cookie,cb,t,d){
-  var music=that.data.music
+function songheart(that, cookie, cb, t, d) {
+  var music = that.data.music
   wx.request({
-    url: bsurl+'song/tracks',
-    data:{
-      id:music.id,
-      r:!d?'':'del',
-      op:!t?'like':'trash',
-      cookie:cookie
+    url: bsurl + 'song/tracks',
+    data: {
+      id: music.id,
+      r: !d ? '' : 'del',
+      op: !t ? 'like' : 'trash',
+      cookie: cookie
     },
-    success: function(res){
-      cb&&cb(res.data.code)
+    success: function (res) {
+      cb && cb(res.data.code)
     }
   })
 }
@@ -215,5 +207,5 @@ module.exports = {
   playAlrc: playAlrc,
   loadlrc: loadlrc,
   loadrec: loadrec,
-  songheart:songheart
+  songheart: songheart
 }

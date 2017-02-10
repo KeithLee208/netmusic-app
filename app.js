@@ -16,7 +16,7 @@ App({
         that.nextfm();
       }
     });
-
+    this.likelist();
     wx.onBackgroundAudioPause(function () {
       console.log("音乐暂停");
       that.globalData.globalStop = that.globalData.hide ? true : false;
@@ -29,15 +29,15 @@ App({
   },
   likelist: function () {
     var that = this
-    wx.request({
+   this.globalData.cookie&& wx.request({
       url: bsurl + 'likelist',
-      data: { cookie: cookie },
+      data: { cookie: this.globalData.cookie },
       success: function (res) {
         that.globalData.staredlist = res.data.ids
       }
     })
   },
-  nextplay: function (t) {
+  nextplay: function (t,cb) {
     //播放列表中下一首
     this.preplay();
     var list = this.globalData.list_am;
@@ -49,12 +49,19 @@ App({
     }
     index = index > list.length - 1 ? 0 : (index < 0 ? list.length - 1 : index);
     this.globalData.curplay = list[index] || {};
+    for (var i = 0; i < this.globalData.staredlist.length; i++) {
+      if (this.globalData.staredlist[i] == this.globalData.curplay.id) {
+        this.globalData.curplay.starred = true;
+        this.globalData.curplay.st = true;
+      }
+    }
     if (!this.globalData.curplay.id) return;
     this.globalData.index_am = index;
     console.log("歌单下一首", this.globalData.curplay, list)
-    this.seekmusic(1)
+    this.seekmusic(1);
+    cb&&cb();
   },
-  nextfm: function () {
+  nextfm: function (cb) {
     //下一首fm
     this.preplay()
     var that = this;
@@ -69,7 +76,14 @@ App({
       console.log("获取下一首fm")
       that.globalData.index_fm = index;
       that.globalData.curplay = list[index];
+      for (var i = 0; i < this.globalData.staredlist.length; i++) {
+        if (this.globalData.staredlist[i] == this.globalData.curplay.id) {
+          this.globalData.curplay.starred = true;
+          this.globalData.curplay.st = true;
+        }
+      }
       that.seekmusic(2);
+      cb&&cb();
     }
 
   },

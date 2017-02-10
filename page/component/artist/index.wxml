@@ -1,5 +1,6 @@
+<import src="../../../utils/playlist.wxml" />
 <view id="artist_header">
-  <image src="../../../image/cm2_default_artist_banner@2x.png" />
+  <image src="../../../image/cm2_default_artist_banner@2x.jpg" />
   <image src="{{art.artist.picUrl}}?param=750y750" />
 </view>
 <view id="artis_tab" class="tab">
@@ -20,112 +21,94 @@
 </view>
 <view id="art_main">
   <view class="tab_cnt" hidden="{{tab!=1}}">
-    <view wx:for="{{art.hotSongs}}" class="songs" wx:for-item="re" wx:for-index="idx" wx:key="{{re}}">
-      <navigator url="../playing/index?id={{re.id}}" data-idx="{{idx}}" bindtap="playmusic">
-        <view class="flexlist flex-center">
-          <view class="flexnum">{{idx <9?( '0'+(idx+1)):(idx+1)}}</view>
-              <view class="flexlist">
-                <view class="flexmain">
-                  <view>{{re.name}}</view>
-                  <view class="relistdes">{{re.artists[0].name}}-{{re.album.name}}</view>
-                </view>
-                <view class="flexact" wx-if="{{re.mvid!=0}}">
-                  <view catchtap="mv" data-mvid="{{re.mvid}}" class="fa_list fa_mv">
-                    <navigator url="../mv/index?id={{re.mvid}}">
-                      <image src="../../../image/l0.png" />
-                    </navigator>
-                  </view>
-                </view>
-              </view>
-          </view>
-      </navigator>
-      </view>
-      <view wx:if="{{art.more}}">
-        <navigator url="" class="cntloading">查看所有曲目></navigator>
-      </view>
+    <template is="playlist" data="{{list:art.hotSongs}}" />
+    <view wx:if="{{art.more}}">
+      <navigator url="" class="cntloading">查看所有曲目></navigator>
     </view>
-    <view class="tab_cnt " hidden="{{tab!=2}}">
-      <view wx:for="{{album.hotAlbums}}" class="albums" wx:for-item="re" wx:key="{{re}}">
-        <navigator url="../album/index?pid={{re.id}}&from=album">
-          <view class="flexlist flex-image">
-            <view class="flexleft fl-image">
-              <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
-              <image class="albums_cover" src="../../../image/a6l.png" />
-            </view>
-            <view class="flexlist">
-              <view class="flexmain">
-                <view>{{re.name}}
-                  <text wx:if="{{re.alias[0]}}">({{re.alias[0]}})</text>
-                </view>
-                <view class="relistdes">{{re.artist.name}}
-                  <text wx:if="{{re.artist.alias[re.artist.alias.length-1]}}">({{re.artist.alias[re.artist.alias.length-1]}})</text>
-                </view>
+  </view>
+  <view class="tab_cnt " hidden="{{tab!=2}}">
+    <view wx:for="{{album.hotAlbums}}" class="albums" wx:for-item="re" wx:key="{{re}}">
+      <navigator url="../album/index?pid={{re.id}}&from=album">
+        <view class="flexlist flex-image">
+          <view class="flexleft fl-image">
+            <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
+            <image class="albums_cover" src="../../../image/a6l.png" />
+          </view>
+          <view class="flexlist">
+            <view class="flexmain">
+              <view>{{re.name}}
+                <text wx:if="{{re.alias[0]}}">({{re.alias[0]}})</text>
+              </view>
+              <view class="relistdes">{{re.artist.name}}
+                <text wx:if="{{re.artist.alias[re.artist.alias.length-1]}}">({{re.artist.alias[re.artist.alias.length-1]}})</text>
               </view>
             </view>
-          </view>
-        </navigator>
-      </view>
-      <view hidden="{{true}}" class="cntloading">上拉加载更多</view>
-    </view>
-    <view class="tab_cnt" hidden="{{tab!=3}}">
-      <scroll-view>
-        <view class="flex-boxlist mvs">
-          <view wx:for="{{mvs.mvs}}" class="tl_cnt" wx:for-item="re" wx:key="{{re}}">
-            <navigator url="../mv/index?id={{re.id}}">
-              <view class="cover">
-                <view class="img_playcount">
-                  <image src="../../../image/video.png" style="height:20rpx;width:28rpx;" />{{re.playCount}}</view>
-                <image src="{{re.imgurl16v9}}?param=320y180" class="mv_cover" />
-              </view>
-              <view class="tl_info">
-                <view>{{re.name}}</view>
-                <view class="tli_des">{{re.artistName}}</view>
-              </view>
-            </navigator>
           </view>
         </view>
-      </scroll-view>
+      </navigator>
     </view>
-    <view class="tab_cnt" hidden="{{tab!=4}}">
-      <view>
+    <view hidden="{{true}}" class="cntloading">上拉加载更多</view>
+  </view>
+  <view class="tab_cnt" hidden="{{tab!=3}}">
+    <scroll-view>
+      <view class="flex-boxlist mvs">
+        <view wx:for="{{mvs.mvs}}" class="tl_cnt" wx:for-item="re" wx:key="{{re}}">
+          <navigator url="../mv/index?id={{re.id}}">
+            <view class="cover">
+              <view class="img_playcount">
+                <image src="../../../image/video.png" style="height:20rpx;width:28rpx;" />{{re.playCount}}</view>
+              <image src="{{re.imgurl16v9}}?param=320y180" class="mv_cover" />
+            </view>
+            <view class="tl_info">
+              <view>{{re.name}}</view>
+              <view class="tli_des">{{re.artistName}}</view>
+            </view>
+          </navigator>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="tab_cnt" hidden="{{tab!=4}}">
+    <view wx:if="{{loading}}">
+      <view class="listheader">
+        <text>歌手简介</text>
+      </view>
+      <view class="artist_des">
+        {{desc.briefDesc}}
+      </view>
+      <block wx:for-items="{{desc.introduction}}">
         <view class="listheader">
-          <text>歌手简介</text>
+          <text>{{item.ti}}</text>
         </view>
         <view class="artist_des">
-          {{desc.briefDesc}}
+          {{item.txt}}
         </view>
-        <block wx:for-items="{{desc.introduction}}">
-          <view class="listheader">
-            <text>{{item.ti}}</text>
-          </view>
-          <view class="artist_des">
-            {{item.txt}}
-          </view>
-        </block>
-        <view class="listheader">
-          <text>相似歌手</text>
-        </view>
-        <view id="simiwrap">
-          <scroll-view scroll-x="true" style="width:{{250*simi.artists.length}}rpx">
-            <view class="tl_cnt" wx:for-items="{{simi.artists}}">
-              <navigator url="index?id={{item.id}}">
-                <view class="cover">
-                  <image src="{{item.img1v1Url}}?param=100y100" class="music_cover" />
-                </view>
-                <text>{{item.name}}</text>
-              </navigator>
-            </view>
-          </scroll-view>
-        </view>
+      </block>
+      <view class="listheader">
+        <text>相似歌手</text>
       </view>
-    </view>
-
-    <!-- loading-->
-    <view hidden="{{loading}}" class="cntloading">加载中...
-      <view>
-        <text class="cl1"></text>
-        <text class="cl2"></text>
-        <text class="cl3"></text>
+      <view id="simiwrap">
+        <scroll-view scroll-x="true">
+        <view style="width:{{245*simi.artists.length+30}}rpx">
+          <view class="tl_cnt" wx:for-items="{{simi.artists}}">
+            <navigator url="index?id={{item.id}}">
+              <view class="cover">
+                <image src="{{item.img1v1Url}}?param=100y100" class="music_cover" />
+              </view>
+              <text>{{item.name}}</text>
+            </navigator>
+          </view></view>
+        </scroll-view>
       </view>
     </view>
   </view>
+
+  <!-- loading-->
+  <view hidden="{{loading}}" class="cntloading">加载中...
+    <view>
+      <text class="cl1"></text>
+      <text class="cl2"></text>
+      <text class="cl3"></text>
+    </view>
+  </view>
+</view>

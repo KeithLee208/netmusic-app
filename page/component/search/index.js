@@ -1,5 +1,5 @@
-var typelist = require('../../../utils/searchtypelist.js');
 var bsurl=require('../../../utils/bsurl.js');
+var typelist = require('../../../utils/searchtypelist.js');
 var app = getApp();
 Page({
     data: {
@@ -17,7 +17,7 @@ Page({
         var name = e.detail.value;
         this.setData({ value: name });
     },
-    playing:function(event){
+    playmusic:function(event){
         let that = this;
         let music = event.currentTarget.dataset.idx;
         let st = event.currentTarget.dataset.st;

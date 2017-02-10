@@ -1,3 +1,4 @@
+<import src="../../../utils/playlist.wxml" />
 <view id="search_input">
   <form bindsubmit="searhFinput">
     <view class="form">
@@ -42,6 +43,9 @@
   </view>
   <view class="seare_list" wx:if="{{tab.tab==item.type&&loading}}" wx:for-items="{{tabs}}" wx:index="idx">
     <scroll-view class="search_relist" scroll-y="true" data-typeindex="idx" bindscrolltolower="loadmore">
+
+    <template is="playlist" data="{{list:item.relist.songs}}" />
+    <!-- 
       <view wx:for="{{item.relist.songs}}"  class="songs {{re.privilege.st<0?'disabled':''}}" wx:for-item="re" wx:key="{{re}}" wx:for-index="idx" >
       <navigator url="../playing/index?id={{re.id}}&br={{re.privilege.maxbr}}" bindtap="playing" data-idx="{{idx}}" data-st="{{re.privilege.st}}">
         <view class="flexlist">
@@ -61,6 +65,7 @@
         </view>
         </navigator>
       </view>
+      -->
       <view wx:for="{{item.relist.artists}}" class="artists " wx:for-item="re" wx:key="{{re}}">
         <navigator url="../artist/index?id={{re.id}}">
           <view class="flexlist flex-image">

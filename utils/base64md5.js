@@ -246,8 +246,8 @@ function id2Url(pic_str) {
     var res = b64_md5(songId);
     res = res.replace(/\//g, '_')
     res = res.replace(/\+/g, '-');
-   
-    return res+'=='
+    res+='==';
+    return 'http://p'+Math.floor(1 + Math.random() * 4)+'.music.126.net/' + res + '/' + pic_str+ '.jpg?param=200y200'
 }
 
 module.exports = {
