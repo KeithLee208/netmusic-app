@@ -45,7 +45,7 @@ Page({
             id: id,
             title: app.globalData.curplay.name,
             br:res.data.privileges[0].maxbr,
-            des:app.globalData.curplay.ar[0].name
+            des:(app.globalData.curplay.ar||app.globalData.curplay.artists)[0].name
           },
           music: app.globalData.curplay,
           duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
@@ -73,7 +73,7 @@ Page({
         share:{
           id:app.globalData.curplay.id,
           title:app.globalData.curplay.name,
-          des:app.globalData.curplay.ar[0].name
+          des:(app.globalData.curplay.ar||app.globalData.curplay.artists)[0].name
         }
       })
     });
@@ -114,6 +114,7 @@ Page({
     }, app.globalData.currentPosition);
   },
   onShow: function () {
+    console.log("playing show ---------------")
     var that = this;
     app.globalData.playtype = 1;
     common.playAlrc(that, app);
@@ -153,6 +154,7 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
+    console.log("playing onload -------",this.data.music)
     this.setData({
       shuffle: app.globalData.shuffle
     });
@@ -160,6 +162,7 @@ Page({
       //播放不在列表中的单曲
       this.playmusic(that, options.id, options.br);
     } else {
+      
       that.setData({
         start: 0,
         music: app.globalData.curplay,
@@ -168,7 +171,7 @@ Page({
             id: app.globalData.curplay.id,
             br:options.br,
             title: app.globalData.curplay.name,
-            des:app.globalData.curplay.ar[0].name
+            des:(app.globalData.curplay.ar||app.globalData.curplay.artists)[0].name
           },
       });
       wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
