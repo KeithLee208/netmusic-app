@@ -1,0 +1,44 @@
+<import src="../../../utils/playlist.wxml" />
+<import src="../../../utils/loading.wxml" />
+<import src="../../../utils/image.wxml" />
+<view id="artist_header">
+  <image src="../../../image/cm2_default_artist_banner@2x.jpg" />
+  <image src="{{djradio.picUrl}}?param=750y750" />
+  <view id="ah_wrap">
+    <text>{{djradio.name}}</text>
+    <view><template is="image" data="{{src:'../../../image/cm2_list_icn_subscribe@2x.png',width:32}}" />订阅</view>
+  </view>
+</view>
+<view id="djradio_info">
+  <view>
+    <image src="{{djradio.dj.avatarUrl}}" mode="aspectFill" class="playingidx" />{{djradio.name}}
+  </view>
+  <view><text class="tags">{{djradio.category}}</text>{{djradio.desc}}</view>
+</view>
+<view class="sm_title">共{{programs.count}}期</view>
+<view wx:for-items="{{programs.programs}}" wx:for-index="idx" wx:key="{{item.id}}" wx:for-item="re">
+  <view class="songs {{(re.id==curplay)?'cur':''}}">
+    <navigator url="{{'../program/index?id='+re.id}}" bindtap="playmusic" data-idx="{{idx}}">
+      <view class="flexlist flex-center">
+        <view class="flexleft flexnum ">
+          <block wx:if="{{re.id===curplay}}">
+            <image src="../../../image/aal.png" mode="aspectFill" class="playingidx" />
+          </block>
+          <block wx:else>
+            <text>{{idx+1}}</text>
+          </block>
+        </view>
+        <view class="flexlist">
+          <view class="flexmain">
+            <view>{{re.name}}</view>
+            <view class="relistdes"><text>{{re.createTime}} </text> <template is="image" data="{{src:'../../../image/xg.png',width:32}}" /><text> {{re.likedCount}}</text>　　<template is="image" data="{{src:'../../../image/cm2_list_icn_play24@2x.png',width:32}}" /><text> {{re.listenerCount}}</text></view>
+          </view>
+          <view class="flexact"><text>{{re.duration}}</text></view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<!-- loading-->
+<template is="loading" wx:if="{{!loading||programs.more}}" />

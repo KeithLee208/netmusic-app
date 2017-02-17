@@ -9,5 +9,5 @@ page{overflow-x: hidden}
 .mvs{padding-right:15rpx;}
 .mvs .tl_cnt{width: 352.5rpx;}
 
-.artist_des{padding:5rpx 15rpx;font-size:28rpx;color:#999;line-height: 1.5}
+.artist_des{padding:5rpx 15rpx;font-size:28rpx;color:#999;line-height: 1.5;display: block}
 #simiwrap{overflow: hidden}

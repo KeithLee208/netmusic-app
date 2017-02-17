@@ -13,8 +13,11 @@
     "page/component/album/index",
     "page/component/artist/index",
     "page/component/recsongs/index",
-     "page/component/record/index",
-     "page/component/me/index"
+    "page/component/record/index",
+    "page/component/me/index",
+    "page/component/cloud/index",
+    "page/component/program/index",
+     "page/component/djradio/index"
   ],
   "window": {
     "navigationBarTextStyle": "#fff",

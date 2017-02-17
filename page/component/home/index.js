@@ -32,6 +32,7 @@ Page({
         },
         tabidx: 0
     },
+    
     onLoad: function () {
         var that = this
         var rec = this.data.rec
@@ -180,7 +181,7 @@ Page({
             }
         })
     },
-    loadmore: function () {
+    onReachBottom: function () {
         if (this.data.tabidx == 1) {
             this.gplaylist(1);//更多歌单
         }

@@ -2,13 +2,13 @@
 <import src="../../../utils/lrc.wxml" />
 <view id="playingpage" class=" {{playing?'playing':''}}">
   <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg"/>
-  <image id="playing-bg" class="blurbg" src="{{music.al.picUrl||music.album.picUrl}}?param=600y600" />
+  <image id="playing-bg" class="blurbg"  mode="aspectFill"  src="{{music.al.picUrl||music.album.picUrl}}?param=600y600" />
   <view id="playing-zz" hidden="{{showlrc}}">
     <image src="../../../image/aag.png" />
   </view>
   <view id="playing-main" hidden="{{showlrc}}">
     <image id="playingmainbg" src="../../../image/play.png" />
-    <image src="{{music.al.picUrl||music.album.picUrl}}?param=400y400" bindtap="loadlrc" id="pmaincover" />
+    <image src="{{music.al.picUrl||music.album.picUrl}}?param=200y200" bindtap="loadlrc" id="pmaincover" />
   </view>
   <template is="lrc" data="{{lrc:lrc,showlrc:showlrc,lrcindex:lrcindex}}" />
   <view id="playing-actwrap">

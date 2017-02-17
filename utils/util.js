@@ -139,7 +139,7 @@ function loadrec(cookie, offset, limit, id, cb, type) {
   wx.request({
     url: bsurl + 'comments',
     data: {
-      id: (type == 1 ? '' : 'R_SO_4_') + id,
+      id: (type == 1 ? '' :(type==3?'A_DJ_1_': 'R_SO_4_')) + id,
       limit: limit,
       offset: offset,
       cookie: cookie

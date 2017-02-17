@@ -1,4 +1,5 @@
 <import src="../../../utils/playlist.wxml" />
+<import src="../../../utils/loading.wxml" />
 <view id="search_input">
   <form bindsubmit="searhFinput">
     <view class="form">
@@ -13,7 +14,7 @@
     </view>
   </form>
 </view>
-<view id="search_tab" wx:if="{{loading}}">
+<view id="search_tab" class="{{!loading?'vhidden':''}}">
   <scroll-view scroll-x="true">
     <view class="tab" style="width:150%">
       <view class="tab-item {{tab.tab==item.type?'tbi-cur':''}}" wx:for-items="{{tabs}}" wx:key="{{item.type}}" wx:for-index="idx" catchtap="tabtype" data-index="{{idx}}" data-tab="{{item.type}}">
@@ -43,29 +44,7 @@
   </view>
   <view class="seare_list" wx:if="{{tab.tab==item.type&&loading}}" wx:for-items="{{tabs}}" wx:index="idx">
     <scroll-view class="search_relist" scroll-y="true" data-typeindex="idx" bindscrolltolower="loadmore">
-
-    <template is="playlist" data="{{list:item.relist.songs}}" />
-    <!-- 
-      <view wx:for="{{item.relist.songs}}"  class="songs {{re.privilege.st<0?'disabled':''}}" wx:for-item="re" wx:key="{{re}}" wx:for-index="idx" >
-      <navigator url="../playing/index?id={{re.id}}&br={{re.privilege.maxbr}}" bindtap="playing" data-idx="{{idx}}" data-st="{{re.privilege.st}}">
-        <view class="flexlist">
-          <view class="flexlist">
-            <view class="flexmain">
-              <view>{{re.name}}</view>
-              <view class="relistdes">{{re.ar[0].name}}-{{re.al.name}}</view>
-            </view>
-            <view class="flexact" wx-if="{{re.mv!=0}}">
-              <view catchtap="mv" data-mvid="{{re.mv}}" class="fa_list fa_mv">
-                <navigator url="../mv/index?id={{re.mv}}">
-                  <image src="../../../image/l0.png" />
-                </navigator>
-              </view>
-            </view>
-          </view>
-        </view>
-        </navigator>
-      </view>
-      -->
+      <template is="playlist" data="{{list:item.relist.songs}}" />
       <view wx:for="{{item.relist.artists}}" class="artists " wx:for-item="re" wx:key="{{re}}">
         <navigator url="../artist/index?id={{re.id}}">
           <view class="flexlist flex-image">
@@ -86,7 +65,7 @@
         <navigator url="../album/index?pid={{re.id}}&from=album">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
+              <image src="{{re.picUrl}}?param=100y100" class="album_cover" />
               <image class="albums_cover" src="../../../image/a6l.png" />
             </view>
             <view class="flexlist">
@@ -106,7 +85,7 @@
         <navigator url="../playlist/index?pid={{re.id}}">
           <view class="flexlist  flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.coverImgUrl}}?param=100y100" class="music_cover" />
+              <image src="{{re.coverImgUrl}}?param=100y100" class="album_cover" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -117,7 +96,7 @@
           </view>
         </navigator>
       </view>
-      <view class="flex-boxlist mvs" wx:if="{{item.relist.mvs}}">
+      <view class="flex-boxlist mvs flex-two" wx:if="{{item.relist.mvs}}">
         <view wx:for="{{item.relist.mvs}}" class="tl_cnt" wx:for-item="re" wx:key="{{re}}">
           <navigator url="../mv/index?id={{re.id}}">
             <view class="cover">
@@ -137,7 +116,7 @@
         <navigator url="../dj/index?pid={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.picUrl}}?param=100y100" class="music_cover" />
+              <image src="{{re.picUrl}}?param=100y100" class="album_cover" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -153,7 +132,7 @@
         <navigator url="../djprogram/index?pid={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
-              <image src="{{re.coverUrl}}?param=100y100" class="music_cover" />
+              <image src="{{re.coverUrl}}?param=100y100" class="album_cover" />
             </view>
             <view class="flexlist">
               <view class="flexmain">
@@ -184,27 +163,15 @@
       </view>
       <view hidden="{{!item.loading}}">
         <view class="cntloading" wx:if="{{'1'==item.type&&!item.relist.songs.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'1'==item.type&&!item.none}}">上拉加载更多</view>
         <view class="cntloading" wx:if="{{'100'==item.type&&!item.relist.artists.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'100'==item.type&&!item.none}}">上拉加载更多</view>
         <view class="cntloading" wx:if="{{'10'==item.type&&!item.relist.albums.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'10'==item.type&&!item.none}}">上拉加载更多</view>
         <view class="cntloading" wx:if="{{'1000'==item.type&&!item.relist.playlists.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'1000'==item.type&&!item.none}}">上拉加载更多</view>
         <view class="cntloading" wx:if="{{'1004'==item.type&&!item.relist.mvs.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'1004'==item.type&&!item.none}}">上拉加载更多</view>
         <view class="cntloading" wx:if="{{'1009'==item.type&&!item.relist.djprograms.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'1009'==item.type&&!item.none}}">上拉加载更多</view>
         <view class="cntloading" wx:if="{{'1002'==item.type&&!item.relist.userprofiles.length}}">暂无结果</view>
         <view class="cntloading" wx:if="{{'1002'==item.type&&!item.none}}">上拉加载更多</view>
       </view>
-      <view hidden="{{item.loading}}" class="cntloading">{{item.name}}-加载中...
-        <view>
-          <text class="cl1"></text>
-          <text class="cl2"></text>
-          <text class="cl3"></text>
-        </view>
-      </view>
+      <template is="loading" wx:if="{{item.loading}}" />
     </scroll-view>
   </view>
 </view>

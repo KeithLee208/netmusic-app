@@ -43,9 +43,9 @@ border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,
 #playing-status .time{width:80rpx ;text-align:center;display: block;font-size: 24rpx;}
 #playing-status slider{position: absolute;left: 0;top:0;width: 100%;margin: 0;opacity: 0;z-index: 10}
 
-.tab{display: flex;border-bottom: 1rpx solid #dfdfdf; background: #f8f8f8;height: 80rpx;line-height: 80rpx; box-sizing: border-box}
+.tab{display: flex;border-bottom: 1rpx solid rgba(200,200,200,.5); background:rgba(240,240,240,.5);height: 80rpx;line-height: 80rpx;}
 .tab .tab-item{text-align: center; flex:1; word-break: keep-all;font-size: 30rpx;}
-.tab .tab-item .tbi-text{display: inline-block;padding: 0 .3em; vertical-align: top;line-height: 76rpx;height: 76rpx;}
+.tab .tab-item .tbi-text{display: inline-block;padding: 0 .3em; vertical-align: top;line-height: 76rpx;height: 77rpx;}
 .tab .tab-item .tbi-des{display: inline;color: #999; border-bottom: none;font-size: 24rpx;line-height: 1;padding-left: .5em}
 .tab .tbi-cur .tbi-text{color: #d33a31; margin-bottom: -1rpx;border-bottom:4rpx solid  #d33a31}
 
@@ -91,15 +91,15 @@ width:100%;z-index: 3;filter: brightness(.1)}
 
 
 .flex-boxlist{overflow: hidden;display: flex;flex-wrap:wrap;}
-.tl_cnt{width: 230rpx;margin:15rpx 0 15rpx 15rpx;box-sizing: border-box;line-height: 1.2}
+.tl_cnt{width: 230rpx;margin:15rpx 0 15rpx 15rpx;box-sizing: border-box;line-height: 1.2;float: left}
 .flex-two .tl_cnt{width: 352.5rpx}
 .tl_cnt text{font-size: 26rpx;color: #666;}
 .tl_cnt .cover .mv_cover,.tl_cnt .cover .music_cover,.cover .album_cover{width: 100%;height: 100%;position: absolute;top:0;left:0}
-.tl_cnt .cover{position: relative;height: 0;padding-top: 100%;overflow: hidden;margin-bottom: 10rpx;}
-.tl_cnt .cover text{position: absolute;right: 0;bottom:0;line-height: 32rpx;color: #fff;
+.cover{position: relative;height: 0;padding-top: 100%;overflow: hidden;margin-bottom: 10rpx;}
+.cover text{position: absolute;right: 0;bottom:0;line-height: 32rpx;color: #fff;
 z-index: 2;width: 100%;padding: 8rpx;font-size: 24rpx; box-sizing: border-box;}
-.tl_cnt .name{line-height: 1.4;overflow: hidden; word-break: break-all;display: block}
-.tl_cnt .cover:after{height: 50%;width:100%;left: 0;top:50%;z-index: 1;content:"";position: absolute;
+.tl_cnt .name{line-height: 1.4;overflow: hidden; word-break: break-all;display: block;max-height: 2.8em;text-overflow: ellipsis;}
+.cover:after{height: 50%;width:100%;left: 0;top:50%;z-index: 1;content:"";position: absolute;
 background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .disabled{color: #aaa;background-color: #fbfbfb}
 .tl_info{font-size: 26rpx;line-height: 1.6}
@@ -112,7 +112,7 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .flexlist{display: flex;margin: 0 0 0 20rpx;align-items: stretch;}
 .flex-center{align-items: center}
 .flexnum{flex: 0 0 60rpx;font-size: 30rpx;color: #999}
-.flexact{flex: 0 0 100rpx; text-align: right}
+.flexact{flex: 0 0 100rpx; text-align: right;font-size: 24rpx;color: #999}
 .flexmain{box-sizing:  border-box;flex: 1;overflow: hidden}
 .fm_tdes{font-size: 24rpx;color: #999}
 .flexmain view{word-break: keep-all;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;line-height: 1.6;width: 100%; word-wrap: break-word}
@@ -131,9 +131,9 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .fl-image{flex:0 0 120rpx;position: relative;padding: 10rpx 0}
 .fl-image image{width: 100rpx;height: 100rpx; vertical-align: middle;position: relative;z-index: 1}
 
-.img_playcount{position: absolute;right: 0;top: 0;color: #fff;z-index: 1;font-size: 24rpx;padding: 5rpx 15rpx;
-background-image: linear-gradient(90deg, rgba(0,0,0,0),rgba(0,0,0,.2));width: 70%; text-align: right}
-.img_playcount image{vertical-align: baseline;margin-right: 5rpx;position: relative;width: 24rpx;height: 24rpx;}
+.img_playcount{position: absolute;right: 0;top: 0;color: #fff;z-index: 1;font-size: 24rpx;padding: 8rpx 15rpx 8rpx 40rpx;
+background-image: linear-gradient(90deg, rgba(0,0,0,0),rgba(0,0,0,.2));max-width: 70%; text-align: right;min-width: 30%}
+.img_playcount image{vertical-align: baseline;margin-right: 10rpx;position: relative;width: 24rpx;height: 24rpx;}
 
 .listheader{margin:25rpx 15rpx 10rpx;}
 .listheader:before{display: inline-block;width: 5rpx;background-color: red;height: .8em;content:"";vertical-align: middle;margin-right: 15rpx;border-radius: 10rpx;}
@@ -144,10 +144,9 @@ background-image: linear-gradient(90deg, rgba(0,0,0,0),rgba(0,0,0,.2));width: 70
 #playall .flexnum{padding:20rpx 0}
 #pa-count text{color: #888;font-size: 24rpx}
 
-.menu{}
 .menu .mn_list{display: flex;flex-flow: row;align-items: stretch;width: 100%;justify-content: space-around}
 .menu .mn_list:last-child .cmain,.menu .mn_list:last-child .rdes{border: none;}
-.menu .cmain{flex: 0 0 490rpx;border-bottom:1rpx solid #e1e2e3; display: flex;align-items: center}
+.menu .cmain{flex:1;border-bottom:1rpx solid #e1e2e3; display: flex;align-items: center}
 .menu .mn_ico{flex: 0 0 140rpx;text-align: center}
 .menu .arrow{display: inline-block;width:16rpx;height: 24rpx;margin: 0 15rpx;vertical-align: middle; }
 .menu image{width: 60rpx;height: 60rpx; vertical-align: top;margin:20rpx auto}

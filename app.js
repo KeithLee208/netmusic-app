@@ -159,6 +159,7 @@ App({
       data: {
         id: m.id,
         br: m.duration ? ((m.hMusic && m.hMusic.bitrate) || (m.mMusic && m.mMusic.bitrate) || (m.lMusicm && m.lMusic.bitrate) || (m.bMusic && m.bMusic.bitrate)) : (m.privilege ? m.privilege.maxbr : ((m.h && m.h.br) || (m.m && m.m.br) || (m.l && m.l.br) || (m.b && m.b.br))),
+        br:128000,
         cookie: that.globalData.cookie
       },
       success: function (a) {
@@ -208,8 +209,10 @@ App({
     hasLogin: false,
     hide: false,
     list_am: [],
+    list_dj:[],
     list_fm: [],
     list_sf: [],
+    index_dj:0,
     index_fm: 0,
     index_am: 0,
     playtype: 1,

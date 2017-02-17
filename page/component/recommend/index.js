@@ -24,15 +24,16 @@ Page({
                 loading: false,
                 rec: data,
                 loading: false,
-                offset: data.comments.length
+                type:type,
+                offset: data.comments?data.comments.length:0
             });
             wx.setNavigationBarTitle({
-                title: '评论(' + data.total + ")"
+                title: '评论(' + (data.total||0) + ")"
             })
         },type)
     },
-    loadmore: function () {
-        if (this.data.rec.more) {
+    onReachBottom: function () {
+        if (this.data.rec.more&&!this.data.loading) {
             var that = this;
             this.setData({
                 loading:true
@@ -48,7 +49,7 @@ Page({
                     loading: false,
                     offset: offset
                 });
-            })
+            },this.data.type)
         }
     }
 

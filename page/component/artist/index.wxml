@@ -73,16 +73,14 @@
       <view class="listheader">
         <text>歌手简介</text>
       </view>
-      <view class="artist_des">
-        {{desc.briefDesc}}
-      </view>
+      <text class="artist_des">{{desc.briefDesc}}
+      </text>
       <block wx:for-items="{{desc.introduction}}">
         <view class="listheader">
           <text>{{item.ti}}</text>
         </view>
-        <view class="artist_des">
-          {{item.txt}}
-        </view>
+        <text class="artist_des">{{item.txt}}
+        </text>
       </block>
       <view class="listheader">
         <text>相似歌手</text>

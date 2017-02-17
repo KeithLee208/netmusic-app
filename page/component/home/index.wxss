@@ -1,13 +1,7 @@
-#search_input{padding:25rpx 20rpx 10rpx;background-color: #f8f8f9;overflow: hidden;height: 60rpx;}
-#search_input .form{display: flex;}
-#search_input .form view{width:100%}
-#search_input input{border:none;color: #515151;background-color: #ececec;
-border-radius:4rpx;font-size: 28rpx;padding: 0 .5em;box-sizing: border-box;height: 60rpx;line-height:60rpx;display: block;}
-#search_input .button{width: 40rpx; flex: 0 0 40rpx;padding-left:10rpx}
-.button button{padding: 0;height:60rpx;border: none;line-height: 60rpx;width: 60rpx;display:block;text-align: center;}
+#lastsearch{flex: 0 0 80rpx;padding-top: 5rpx;}
 
 swiper,swiper image{width: 750rpx;height:290rpx;}
-
+#main{min-height: 1200rpx;}
 #rec_nav{display: flex; text-align: center;width: 100%;border-bottom: 1rpx solid #eee}
 #rec_nav view{flex: 1;position: relative}
 #rec_nav navigator{padding:25rpx 0;font-size: 26rpx;}
@@ -36,3 +30,7 @@ swiper,swiper image{width: 750rpx;height:290rpx;}
 .djcatewrap{display: flex;flex-direction: row;flex-wrap:wrap;}
 .djcatelist{text-align:center;font-size:24rpx;flex: 0 0 187.5rpx;height:145rpx}
 .djcatelist image{width: 80rpx;height: 80rpx;margin-top:20rpx}
+
+.flexlist .cover{width:230rpx;height:230rpx;padding: 0;flex: 0 0 230rpx;margin:10rpx 15rpx 10rpx 0;}
+.sort_fl_list{flex: 0 0 100%;line-height: 2}
+.sortlist .flexlist{flex-flow: wrap; align-content: center;margin-left: 15rpx;}

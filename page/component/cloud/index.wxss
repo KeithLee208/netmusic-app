@@ -1,0 +1,13 @@
+
+#plh_action view text{display: block;padding-bottom:.5em;line-height: 2}
+
+.topindex{color: red}
+.playingidx{width: 38rpx;height:38rpx;}
+.ftp{display: block;color: #888;font-size: 18rpx;padding-top: 10rpx;}
+.ftp image{width:18rpx;display: inline-block;vertical-align: middle;overflow: hidden;margin-right: 5rpx;}
+.ftp image.tpnew{width:38rpx}
+
+
+.pld-mv image {
+	width: 78rpx;height:63rpx;
+}

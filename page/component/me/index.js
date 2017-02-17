@@ -7,6 +7,7 @@ Page({
         loading:true
     },
     onLoad: function () {
+        console.log("me load----------")
         var that=this;
         var id= wx.getStorageSync('user');
         if(!id){
@@ -45,5 +46,7 @@ Page({
             }
         });
     },
-    onShow: function () { }
+    onShow: function () {
+        console.log("me show----------")
+     }
 })

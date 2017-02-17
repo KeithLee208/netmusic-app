@@ -16,6 +16,13 @@
         <view class="arrow"></view>
       </view>
     </navigator>
+    <navigator url="../cloud/index" class="mn_list">
+      <view class="mn_ico"><image src="../../../image/cm2_lay_icn_cloud@2x.png"></image></view>
+      <view class="cmain">我的云盘</view>
+      <view class="rdes">
+        <view class="arrow"></view>
+      </view>
+    </navigator>
     <view class="mn_list">
       <view class="mn_ico"><image src="../../../image/cm2_list_icn_artists_new@2x.png"></image></view>
       <view class="cmain">我的歌手</view>

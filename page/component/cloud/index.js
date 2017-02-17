@@ -3,59 +3,47 @@ var bsurl = require('../../../utils/bsurl.js');
 var id2Url = require('../../../utils/base64md5.js');
 Page({
   data: {
-    list: [],
-    curplay: {},
-    pid: 0,
-    cover: '',
-    loading: true,
-    toplist: false,
-    user:wx.getStorageSync('user')||{}
+    list: {},
+    offset: 0,
+    limit: 20,
+    loading:false,
+    curplay:-1
   },
   onLoad: function (options) {
+    this.getcloud()
+  },
+  getcloud: function (isadd) {
     var that = this;
-    console.log(options)
     wx.request({
-      url: bsurl + 'playlist/detail',
+      url: bsurl + 'user/cloud',
       data: {
-        id: options.pid,
-        limit: 1000,
-        cookie:appInstance.globalData.cookie
+        offset: that.data.offset,
+        limit: that.data.limit,
+        cookie: appInstance.globalData.cookie
       },
       success: function (res) {
-        var canplay = [];
-        console.log(res.data)
-        for (let i = 0; i < res.data.playlist.tracks.length; i++) {
-          if (res.data.privileges[i].st >= 0) {
-            canplay.push(res.data.playlist.tracks[i])
-          }
+        wx.stopPullDownRefresh()
+        if(isadd){
+          that.data.offset+=res.data.data.length
+          res.data.data=that.data.list.data.concat(res.data.data)
+        }
+        else{
+          that.data.offset=res.data.data.length
         }
         that.setData({
-          list: res.data,
-          canplay: canplay,
-          toplist: (options.from == 'stoplist' ? true : false),
-          cover:id2Url.id2Url('' + (res.data.playlist.coverImgId_str||res.data.playlist.coverImgId)) 
+          loading:true,
+          offset:that.data.offset,
+          list: res.data
         });
-
-        wx.setNavigationBarTitle({
-          title: res.data.playlist.name
-        })
-      }, fail: function (res) {
-        wx.navigateBack({
-          delta: 1
-        })
       }
     });
   },
-  onShow: function () {
-    this.setData({
-      curplay: appInstance.globalData.curplay.id
-    })
+  onPullDownRefresh:function(){
+    this.data.offset=0;
+    this.getcloud();
   },
-  userplaylist: function (e) {
-    var userid = e.currentTarget.dataset.userid;
-    wx.redirectTo({
-      url: '../user/index?id=' + userid
-    })
+  onReachBottom:function(){
+    this.data.list.hasMore&&this.getcloud(1);
   },
   playall: function (event) {
     this.setplaylist(this.data.canplay[0], 0);
