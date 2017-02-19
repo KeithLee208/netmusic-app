@@ -113,7 +113,7 @@
       </view>
       <view class="sm_title" wx:if="{{item.type==1009&&item.relist.djRadios.length}}">电台</view>
       <view wx:for="{{item.relist.djRadios}}" class="" wx:for-item="re" wx:key="{{re}}">
-        <navigator url="../dj/index?pid={{re.id}}">
+        <navigator url="../djradio/index?id={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
               <image src="{{re.picUrl}}?param=100y100" class="album_cover" />
@@ -129,7 +129,7 @@
       </view>
       <view class="sm_title" wx:if="{{item.type==1009&&item.relist.djprograms.length}}">节目</view>
       <view wx:for="{{item.relist.djprograms}}" wx:for-item="re" class="" wx:key="{{re}}">
-        <navigator url="../djprogram/index?pid={{re.id}}">
+        <navigator url="../program/index?itemid={{re.id}}">
           <view class="flexlist flex-image">
             <view class="flexleft fl-image">
               <image src="{{re.coverUrl}}?param=100y100" class="album_cover" />
@@ -161,7 +161,7 @@
           </view>
         </navigator>
       </view>
-      <view hidden="{{!item.loading}}">
+      <view wx:if="{{item.loading}}">
         <view class="cntloading" wx:if="{{'1'==item.type&&!item.relist.songs.length}}">暂无结果</view>
         <view class="cntloading" wx:if="{{'100'==item.type&&!item.relist.artists.length}}">暂无结果</view>
         <view class="cntloading" wx:if="{{'10'==item.type&&!item.relist.albums.length}}">暂无结果</view>
@@ -169,9 +169,8 @@
         <view class="cntloading" wx:if="{{'1004'==item.type&&!item.relist.mvs.length}}">暂无结果</view>
         <view class="cntloading" wx:if="{{'1009'==item.type&&!item.relist.djprograms.length}}">暂无结果</view>
         <view class="cntloading" wx:if="{{'1002'==item.type&&!item.relist.userprofiles.length}}">暂无结果</view>
-        <view class="cntloading" wx:if="{{'1002'==item.type&&!item.none}}">上拉加载更多</view>
       </view>
-      <template is="loading" wx:if="{{item.loading}}" />
+      <template is="loading" wx:if="{{!item.loading||!item.none}}" />
     </scroll-view>
   </view>
 </view>

@@ -96,8 +96,9 @@ width:100%;z-index: 3;filter: brightness(.1)}
 .tl_cnt text{font-size: 26rpx;color: #666;}
 .tl_cnt .cover .mv_cover,.tl_cnt .cover .music_cover,.cover .album_cover{width: 100%;height: 100%;position: absolute;top:0;left:0}
 .cover{position: relative;height: 0;padding-top: 100%;overflow: hidden;margin-bottom: 10rpx;}
-.cover text{position: absolute;right: 0;bottom:0;line-height: 32rpx;color: #fff;
-z-index: 2;width: 100%;padding: 8rpx;font-size: 24rpx; box-sizing: border-box;}
+.cover .img_creator{position: absolute;right: 0;bottom:0;line-height: 32rpx;color: #fff;
+z-index: 2;width: 100%;padding:40rpx 10rpx 10rpx;font-size: 24rpx; box-sizing: border-box; background-image: linear-gradient(rgba(255,255,255,0),rgba(0,0,0,.2));overflow: hidden;white-space:nowrap;text-overflow: ellipsis}
+.cover .img_creator image{margin: 0 5rpx;}
 .tl_cnt .name{line-height: 1.4;overflow: hidden; word-break: break-all;display: block;max-height: 2.8em;text-overflow: ellipsis;}
 .cover:after{height: 50%;width:100%;left: 0;top:50%;z-index: 1;content:"";position: absolute;
 background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
@@ -135,7 +136,7 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 background-image: linear-gradient(90deg, rgba(0,0,0,0),rgba(0,0,0,.2));max-width: 70%; text-align: right;min-width: 30%}
 .img_playcount image{vertical-align: baseline;margin-right: 10rpx;position: relative;width: 24rpx;height: 24rpx;}
 
-.listheader{margin:25rpx 15rpx 10rpx;}
+.listheader{margin:25rpx 15rpx 10rpx;overflow: hidden}
 .listheader:before{display: inline-block;width: 5rpx;background-color: red;height: .8em;content:"";vertical-align: middle;margin-right: 15rpx;border-radius: 10rpx;}
 
 

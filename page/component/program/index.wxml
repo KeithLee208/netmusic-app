@@ -27,7 +27,7 @@
 
   <!-- -->
   <scroll-view class="menu" scroll-y="true" id="p_info_menu" bindtap="toggleinfo" hidden="{{!showlrc}}">
-    <view bindtap="linkradio" class="mn_list">
+    <navigator url="../djradio/index?id={{p.radio.id}}" class="mn_list">
       <view class="mn_ico">
         <image src="../../../image/cm2_rdi_icn_name@2x.png"></image>
       </view>
@@ -35,8 +35,8 @@
       <view class="rdes">
         <view class="arrow"></view>
       </view>
-    </view>
-    <navigator class="mn_list">
+    </navigator>
+    <navigator class="mn_list" url="../user/index?id={{p.dj.userId}}">
       <view class="mn_ico">
         <image src="../../../image/cm2_rdi_icn_artist@2x.png"></image>
       </view>

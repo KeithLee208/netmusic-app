@@ -14,11 +14,15 @@ swiper,swiper image{width: 750rpx;height:290rpx;}
 
 #catewrap{padding:0 15rpx;box-sizing: border-box;position: fixed;width: 100%;height: 100%;z-index: 100;left: 0;top:0;background-color: #fff;}
 #closecatelist{margin: 15rpx auto;}
-.catelist{margin-bottom: 20rpx;overflow: hidden;padding: 2rpx 0 0 1rpx;}
-.cl_list{width:179rpx;border: 1rpx solid #eee;text-align: center;float: left;height:90rpx;font-size: 26rpx;line-height:90rpx;overflow: hidden;position: relative;z-index: 1;margin:-1rpx 0 0 -1rpx;}
-.cl_ico{height: 182rpx}.cl_ico image{width: 120rpx;height: 120rpx;margin-top:30rpx;}
+
+.catelist{margin-bottom: 20rpx;overflow: hidden;padding-bottom: 2rpx;}
+.cl_list{width:179rpx;border: 1rpx solid #eee;text-align: center;height:90rpx;font-size: 26rpx;line-height:90rpx;overflow: hidden;position: relative;z-index: 1;flex: 0 0 178rpx;margin: 0 -1rpx -1rpx 0;float: left}
+
+.cl_ico{height: 181rpx}
+.cl_ico image{width: 120rpx;height: 120rpx;margin-top:30rpx;}
 #cateall{float: none;width:auto;margin: 20rpx auto;}
 .cl_ico_checked,.cl_ico_hot{content:"";position:absolute;}
+
 .cl_ico_hot{background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAKAgMAAACs1mQKAAAACVBMVEXTOjHTOjH///+D4gIfAAAAA3RSTlMAgADB9VyVAAAAIklEQVR4XmMIYAgIDQUhVBaYWIDECg0NQGcBCays0FBUFgCqiBgRwkrpkAAAAABJRU5ErkJggg==);width: 34rpx;height: 10rpx ;right: 10rpx;top: 10rpx;background-size: 100% 100%}
 .cl_ico_checked{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAApVBMVEXTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHTOjHDeOSDAAAANnRSTlMAfwEDKfnqwQrZS9on3q6psZjw0I1Q/gxeeiAr8Y77QRDbavy7brg+E4CLHlvOM/WnFeOXTse/voMEAAAA7klEQVRIx+2WyU6DQQyDP/9dWQuUfS/Q0o0d8v6P1kMRMFRKZSROkOvYUiaxrRBm8QMCRv0T/ghBJkGmlmSKT6ZaZcpbph9kGkim42RaVKanZYaAzNSQGTMyc0lmkMlMPplRWeBX6vWNJYQCv7MOuzmhwF+vwsFaSij7P4JqM/1Die9Uyxw3f93abkRERLcNe/sZYY5vwWFERPMYTk6zsb730wLOIs4v4LKX7eGj/yuo3UQfaoNscZ//bdzCcASMs01/nU9zAsA0k0Y5z7s2cP+QEL7r7bHi6TkR36I+X17fErXKvARkng76pePEqxkbC7UpRDWM4wAAAABJRU5ErkJggg==);width: 38rpx;height: 38rpx;background-position: right bottom;right:0;bottom:0;background-size: 48rpx 48rpx;}
 .checked{border-color:#BB2C08;z-index: 2 }

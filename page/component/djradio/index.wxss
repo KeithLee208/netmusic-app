@@ -13,11 +13,13 @@ page{overflow-x: hidden}
 #simiwrap{overflow: hidden}
 
 
-#djradio_info{margin-top:-1rpx;}
+#djradio_info{margin-top:-1rpx;line-height: 1.4}
 #djradio_info view{padding:20rpx;font-size: 28rpx;border-top:1rpx solid #eee;}
 #djradio_info image{width: 80rpx;height: 80rpx;border-radius: 50%;vertical-align: middle;margin-right: 20rpx;}
 
-#ah_wrap{background-image: linear-gradient(rgba(255,255,255,0),rgba(0,0,0,.2));position: absolute;width: 100%;box-sizing: border-box;padding: 120rpx 20rpx 20rpx;z-index: 20;bottom: 0;left: 0;color: #fff;overflow: hidden}
+#ah_wrap{background-image: linear-gradient(rgba(255,255,255,0),rgba(0,0,0,.5));position: absolute;width: 100%;box-sizing: border-box;padding: 120rpx 20rpx 20rpx;z-index: 20;bottom: 0;left: 0;color: #fff;overflow: hidden;display: flex;align-items: center;flex-flow: row;justify-content: space-around;}
 #ah_wrap image{position: relative;left: auto;top: auto;}
-#ah_wrap view{border: 1rpx solid #fff;padding:10rpx 30rpx;float: right;font-size: 28rpx;border-radius:3em;background: rgba(0,0,0,.2)}
+#ah_wrap .ahw_btn{border: 1rpx solid #fff;padding:10rpx 30rpx;float: right;font-size: 28rpx;border-radius:3em;background: rgba(0,0,0,.2)}
 #ah_wrap view image{margin-right: 10rpx;}
+.ahw_btn{}
+.ahw_name{flex: 0 0 500rpx;line-height: 1.2}

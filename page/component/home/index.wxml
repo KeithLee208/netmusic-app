@@ -146,7 +146,7 @@
           <navigator url="../playlist/index?pid={{item.id}}&from=toplist">
             <view class="cover">
               <image src="{{item.coverImgUrl}}?param=200y200" class="music_cover" />
-              <text>{{item.creator.nickname}}</text>
+              <view class="img_creator"><template is="image" data="{{src:'../../../image/cm2_icn_userhead@2x.png',width:24}}"/> {{item.creator.nickname}}</view>
               <view class="img_playcount">
                 <image src="../../../image/p0.png" />{{item.playCount}}</view>
             </view>

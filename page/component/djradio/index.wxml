@@ -5,8 +5,8 @@
   <image src="../../../image/cm2_default_artist_banner@2x.jpg" />
   <image src="{{djradio.picUrl}}?param=750y750" />
   <view id="ah_wrap">
-    <text>{{djradio.name}}</text>
-    <view><template is="image" data="{{src:'../../../image/cm2_list_icn_subscribe@2x.png',width:32}}" />订阅</view>
+    <view class="ahw_name">{{djradio.name}}</view>
+    <view class="ahw_btn" bindtap="djradio_sub"><template wx:if="{{!djrado.subed}}" is="image" data="{{src:'../../../image/cm2_list_icn_subscribe@2x.png',width:32}}" /><template wx:if="{{djrado.subed}}" is="image" data="{{src:'../../../image/cm2_pro_btn_icn_subed@2x.png',width:32}}" /> 订阅({{djradio.subCount}})</view>
   </view>
 </view>
 <view id="djradio_info">

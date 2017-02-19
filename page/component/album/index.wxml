@@ -9,7 +9,7 @@
       </view>
       <view id="plh-cnt">
         <text id="music_h_name">{{result.album.name||""}}</text>
-        <view data-userid="{{list.album.artist.id}}" bindtap="artlist">
+        <view data-userid="{{result.album.artist.id}}" bindtap="artlist">
           歌手：
           <text>{{result.album.artist.name}}</text>
         </view>

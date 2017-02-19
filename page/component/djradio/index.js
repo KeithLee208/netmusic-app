@@ -61,6 +61,9 @@ Page({
     onReachBottom: function () {
         (this.data.programs.more&&this.data.loading)&& this.getprograms(1);
     },
+    djradio_sub:function(){
+        var sub=this.data.djradio.subed;
+    },
     playmusic: function (event) {
         let that = this;
         let music = event.currentTarget.dataset.idx;

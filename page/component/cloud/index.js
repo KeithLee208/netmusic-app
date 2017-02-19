@@ -22,7 +22,16 @@ Page({
         cookie: appInstance.globalData.cookie
       },
       success: function (res) {
-        wx.stopPullDownRefresh()
+        wx.stopPullDownRefresh();
+        if(res.data.code!=200){
+          wx.showToast({
+            title:"云盘数据获取失败！",
+            duration:2000
+          });
+          that.setData({
+          loading:true})
+          return;
+        }
         if(isadd){
           that.data.offset+=res.data.data.length
           res.data.data=that.data.list.data.concat(res.data.data)
