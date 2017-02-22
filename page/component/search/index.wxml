@@ -121,7 +121,7 @@
         </view>
       </navigator>
       <view class="sm_title" wx:if="{{item.type==1009&&item.relist.djprograms.length}}">节目</view>
-      <navigator url="../program/index?itemid={{re.id}}" class="flexlist flex-image" wx:for="{{item.relist.djprograms}}" wx:for-item="re" wx:key="{{re}}">
+      <navigator url="../program/index?id={{re.mainSong.id}}&pid={{re.id}}" class="flexlist flex-image" wx:for="{{item.relist.djprograms}}" wx:for-item="re" wx:key="{{re}}">
         <view class="flexleft fl-image">
           <image src="{{re.coverUrl}}?param=100y100" class="album_cover" />
         </view>

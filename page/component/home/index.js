@@ -9,7 +9,8 @@ Page({
             idx: 0, loading: false,
         },
         music:app.globalData.curplay,
-        playing:app.globalData.play,
+        playing:false,
+        playtype:app.globalData.playtype,
         banner: [4],
         thisday: (new Date()).getDate(),
         cateisShow: false,
@@ -45,7 +46,8 @@ Page({
     music_next:function(r){
         console.log(r)
         this.setData({
-            music:r.music
+            music:r.music,
+            playtype:r.playtype
         })
     },
     music_toggle:function(r){
@@ -58,52 +60,16 @@ Page({
         nt.addNotification("music_next", that.music_next, that);
         nt.addNotification("music_toggle", that.music_toggle, that)
         if(options.share==1){
+            var url='../'+options.st+'/index?id='+options.id
+            console.log(url,options.st,options.id)
             wx.navigateTo({
-              url: 'page/component/'+options.st+'/index?id='+options.id
+              url: url,
+              success:function(){
+                  console.log("tiaozhuan chenggong")
+              }
             })
             return;
-        }
-        var that = this
-        var rec = this.data.rec
-        //banner，
-        wx.request({
-            url: bsurl + 'banner',
-            data: { cookie: app.globalData.cookie },
-            success: function (res) {
-                that.setData({
-                    banner: res.data.banners
-                })
-            }
-        });
-        wx.request({
-            url: bsurl + 'playlist/catlist',
-            complete: function (res) {
-                that.setData({
-                    catelist: {
-                        isShow: false,
-                        res: res.data,
-                        checked: res.data.all
-                    }
-                })
-            }
-        })
-        //个性推荐内容,歌单，新歌，mv，电台
-        async.map(['personalized', 'personalized/newsong', 'personalized/mv', 'personalized/djprogram'], function (item, callback) {
-            wx.request({
-                url: bsurl + item,
-                data: { cookie: app.globalData.cookie },
-                success: function (res) {
-                    callback(null, res.data.result)
-                }
-            })
-        }, function (err, results) {
-            console.log(err)
-            rec.loading = true;
-            rec.re = results
-            that.setData({
-                rec: rec
-            })
-        });
+        };
     },
     switchtab: function (e) {
         var that = this;
@@ -247,5 +213,49 @@ Page({
             });
             return;
         }
+        !this.data.rec.loading&&this.init();
+    },
+    init:function(){
+        var that = this
+        var rec = this.data.rec
+        //banner，
+        wx.request({
+            url: bsurl + 'banner',
+            data: { cookie: app.globalData.cookie },
+            success: function (res) {
+                that.setData({
+                    banner: res.data.banners
+                })
+            }
+        });
+        wx.request({
+            url: bsurl + 'playlist/catlist',
+            complete: function (res) {
+                that.setData({
+                    catelist: {
+                        isShow: false,
+                        res: res.data,
+                        checked: res.data.all
+                    }
+                })
+            }
+        })
+        //个性推荐内容,歌单，新歌，mv，电台
+        async.map(['personalized', 'personalized/newsong', 'personalized/mv', 'personalized/djprogram'], function (item, callback) {
+            wx.request({
+                url: bsurl + item,
+                data: { cookie: app.globalData.cookie },
+                success: function (res) {
+                    callback(null, res.data.result)
+                }
+            })
+        }, function (err, results) {
+            console.log(err)
+            rec.loading = true;
+            rec.re = results
+            that.setData({
+                rec: rec
+            })
+        });
     }
 })

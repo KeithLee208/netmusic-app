@@ -1,5 +1,6 @@
 var common = require('../../../utils/util.js');
 var bsurl = require('../../../utils/bsurl.js');
+var nt = require('../../../utils/nt.js');
 let app = getApp();
 let seek = 0;
 let defaultdata = {
@@ -26,7 +27,7 @@ Page({
     return {
       title: this.data.share.title,
       desc: this.data.share.des,
-      path: 'page/component/home/index?share=1&st=song&id=' + this.data.share.id+'&br='+this.data.share.br
+      path: 'page/component/home/index?share=1&st=playing&id=' + this.data.share.id+'&br='+this.data.share.br
     }
   },
   playmusic: function (that, id, br) {
@@ -51,6 +52,7 @@ Page({
           duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
         });
         wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
+    
         app.seekmusic(1);
         common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
           that.setData({

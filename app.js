@@ -139,6 +139,7 @@ App({
         that.globalData.list_fm = res.data.data;
         that.globalData.index_fm = 0;
         that.globalData.curplay = res.data.data[0];
+        
         that.seekmusic(2);
       }
     })
@@ -181,6 +182,10 @@ App({
         that.globalData.playtype = type;
         nt.postNotificationName("music_toggle", {
           playing: true
+        });
+        nt.postNotificationName("music_next", {
+          music: that.globalData.curplay,
+          playtype:that.globalData.playtype
         });
         cb && cb();
       },
@@ -244,7 +249,8 @@ App({
     this.globalData.hide = false
   },
   onHide: function () {
-    this.globalData.hide = true
+    this.globalData.hide = true;
+    console.log("home hide")
     wx.setStorageSync('globalData', this.globalData);
   },
   globalData: {

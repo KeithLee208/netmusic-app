@@ -18,11 +18,11 @@
 <view class="sm_title">共{{programs.count}}期</view>
 <view wx:for-items="{{programs.programs}}" wx:for-index="idx" wx:key="{{item.id}}" wx:for-item="re">
   <view class="songs {{(re.id==curplay)?'cur':''}}">
-    <navigator url="{{'../program/index?id='+re.id}}" bindtap="playmusic" data-idx="{{idx}}">
+    <navigator url="{{'../program/index?id='+re.mainSong.id+'&that.globalData.curplaypid='+re.id}}" bindtap="playmusic" data-idx="{{idx}}">
       <view class="flexlist flex-center">
         <view class="flexleft flexnum ">
           <block wx:if="{{re.id===curplay}}">
-            <image src="../../../image/aal.png" mode="aspectFill" class="playingidx" />
+            <template is="image" data="{{src:'../../../image/aal.png',width:36}}"/>
           </block>
           <block wx:else>
             <text>{{idx+1}}</text>

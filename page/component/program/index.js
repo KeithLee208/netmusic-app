@@ -1,5 +1,6 @@
 var common = require('../../../utils/util.js');
 var bsurl = require('../../../utils/bsurl.js');
+var nt = require('../../../utils/nt.js');
 var app = getApp();
 var seek = 0;
 var defaultdata = {
@@ -58,6 +59,10 @@ Page({
 					duration: common.formatduration(app.globalData.curplay.duration)
 				});
 				wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
+				nt.postNotificationName("music_next", {
+					music:app.globalData.curplay,
+					playtype: 3
+				});
 				app.seekmusic(3);
 				common.loadrec(app.globalData.cookie, 0, 0, res.id, function (res) {
 					that.setData({
@@ -130,15 +135,15 @@ Page({
 		this.setData({
 			shuffle: app.globalData.shuffle
 		});
-		var curp=app.globalData.list_dj[app.globalData.index_dj]||{}
-		if (curp.id != options.id) {
+		var curp = app.globalData.list_dj[app.globalData.index_dj] || {}
+		if (!curp.mainSong || (curp.mainSong.id != options.id)) {
 			//播放不在列表中的单曲
-			this.playmusic(that, options.id);
+			this.playmusic(that, options.pid);
 		} else {
 			that.setData({
 				start: 0,
-				music:curp.mainSong,
-				p:curp,
+				music: curp.mainSong,
+				p: curp,
 				duration: common.formatduration(app.globalData.curplay.duration),
 				share: {
 					id: app.globalData.curplay.id,

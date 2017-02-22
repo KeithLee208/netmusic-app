@@ -18,9 +18,8 @@ Page({
     },
     onLoad: function () {
         var music = app.globalData.list_fm[app.globalData.index_fm];
-        app.globalData.playtype = 2;
         var that = this;
-        if (music) {
+        if (music&&app.globalData.playtype ==2) {
             this.setData({
                 music: music,
                 duration: common.formatduration(music.duration),
@@ -38,7 +37,7 @@ Page({
         return {
             title: this.data.music.name,
             desc: this.data.music.artists[0].name,
-            path: 'page/component/fm/index'
+            path: 'page/component/home/index?share=1&st=playing&id='+this.data.music.id
         }
     },
     loadlrc: function () {

@@ -15,7 +15,7 @@ Page({
         var that = this
         nt.addNotification("testNotificationName", that.testNotificationFn, that)
     },
-    testNotificationFn:function(r){
+    testNotificationFn: function (r) {
         console.log(r)
     },
     inputext: function (e) {
@@ -77,6 +77,13 @@ Page({
                 prevalue: name
             });
 
+        }, function () {
+            curtab.loading = true;
+            curtab.none = true;
+            tl[index] = curtab;
+            that.setData({
+                tabs: tl
+            })
         })
     },
     searhFrecent: function (e) {
@@ -115,9 +122,16 @@ Page({
             that.setData({
                 tabs: tl
             })
+        }, function () {
+            curtab.loading = true;
+            curtab.none = true;
+            tl[that.data.tab.index] = curtab
+            that.setData({
+                tabs: tl
+            })
         })
     },
-    httpsearch: function (name, offset, type, cb) {
+    httpsearch: function (name, offset, type, cb, err) {
         wx.request({
             url: bsurl + 'search',
             data: {
@@ -129,6 +143,9 @@ Page({
             method: 'GET',
             success: function (res) {
                 cb && cb(res.data.result)
+            },
+            fail: function () {
+                err && err();
             }
         })
     },
@@ -137,6 +154,7 @@ Page({
         var curtab = this.data.tabs[index];
         var type = e.currentTarget.dataset.tab;
         var that = this;
+        var tl = that.data.tabs;
         if (!curtab.loading) {
             this.httpsearch(this.data.prevalue, curtab.offset, type, function (res) {
                 curtab.relist = res;
@@ -147,7 +165,14 @@ Page({
                 size = size ? size : 0;
                 curtab.none = curtab.offset >= size ? true : false;
                 console.log(size, curtab.offset)
-                var tl = that.data.tabs;
+                
+                tl[index] = curtab;
+                that.setData({
+                    tabs: tl
+                })
+            }, function () {
+                curtab.loading = true;
+                curtab.none = true;
                 tl[index] = curtab;
                 that.setData({
                     tabs: tl
@@ -161,9 +186,9 @@ Page({
             }
         })
     },
-    clear_kw:function(){
+    clear_kw: function () {
         this.setData({
-            value:""
+            value: ""
         })
     },
     del_research: function (e) {

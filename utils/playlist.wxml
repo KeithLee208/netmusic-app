@@ -50,7 +50,7 @@
         <view class="flexlist flex-center">
           <view class="flexleft flexnum ">
             <block wx:if="{{re.id===curplay}}">
-              <image src="../../../image/aal.png" mode="aspectFill" class="playingidx" />
+              <template is="image" data="{{src:'../../../image/aal.png',width:36}}"/>
             </block>
             <block wx:else>
               <text class="{{toplist&&idx<3?'topindex':''}}">{{idx
