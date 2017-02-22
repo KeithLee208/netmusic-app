@@ -1,0 +1,21 @@
+<template name="pp">
+  <view id="pageplay">
+    <view id="pp_pic">
+      <image src="{{music.al.picUrl||music.album.picUrl}}?param=60y60"></image>
+    </view>
+    <view id='pp_name'>{{music.name||'暂无播放'}}
+      <view>{{music.ar[0].name||music.artists[0].name}}-{{music.al.name||music.album.name}}</view>
+    </view>
+    <view id='pp_action'>
+      <view class="pa-baction" hidden="{{!playing}}" bindtap="toggleplay" data-p="{{playing}}">
+        <image id='pa-playing' src="../../../image/ajd.png" style="width:80rpx;height:80rpx;"  />
+      </view>
+      <view class="pa-baction" hidden="{{playing}}" bindtap="toggleplay" data-p="{{playing}}">
+        <image id='pa-pause' src="../../../image/ajf.png" style="width:80rpx;height:80rpx;" />
+      </view>
+      <view class="pa-baction" bindtap="playnext">
+        <image src="../../../image/ajb.png" id="pp_next" style="width:60rpx;height:60rpx;"  />
+      </view>
+    </view>
+  </view>
+</template>

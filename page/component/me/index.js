@@ -7,13 +7,13 @@ Page({
         loading:true
     },
     onLoad: function () {
-        console.log("me load----------")
         var that=this;
         var id= wx.getStorageSync('user');
         if(!id){
             wx.redirectTo({
               url: '../login/index'
-            })
+            });
+            return;
         }
         id=id.account.id;
         this.setData({uid:id})

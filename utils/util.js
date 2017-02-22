@@ -90,7 +90,6 @@ function playAlrc(that, app) {
     return;
   }
   if (that.data.music.id != app.globalData.curplay.id) {
-
     that.setData({
       music: app.globalData.curplay,
       lrc: [],
@@ -99,7 +98,6 @@ function playAlrc(that, app) {
       duration: formatduration(app.globalData.curplay.duration || app.globalData.curplay.dt)
     });
     wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
-    console.log("util next then load rec")
     loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
       that.setData({
         commentscount: res.total
@@ -125,6 +123,7 @@ function playAlrc(that, app) {
       } if (res.status == 1) {
         playing = true;
       }
+      app.globalData.play=playing;
       that.setData({
         playtime: formatduration(playtime * 1000),
         percent: time,
@@ -139,7 +138,7 @@ function loadrec(cookie, offset, limit, id, cb, type) {
   wx.request({
     url: bsurl + 'comments',
     data: {
-      id: (type == 1 ? '' :(type==3?'A_DJ_1_': 'R_SO_4_')) + id,
+      id: (type == 1 ? '' : (type == 3 ? 'A_DJ_1_' : 'R_SO_4_')) + id,
       limit: limit,
       offset: offset,
       cookie: cookie
@@ -156,6 +155,23 @@ function loadrec(cookie, offset, limit, id, cb, type) {
       cb && cb(data)
     }
   })
+}
+function toggleplay(that,app){
+   if (that.data.disable) {
+      return;
+    }
+    if (that.data.playing) {
+      console.log("暂停播放");
+      that.setData({ playing: false });
+      app.stopmusic(1);
+    } else {
+      console.log("继续播放")
+      app.seekmusic(1, function () {
+        that.setData({
+          playing: true
+        });
+      }, app.globalData.currentPosition);
+    }
 }
 function loadlrc(that) {
   if (that.data.showlrc) {
@@ -196,7 +212,7 @@ function songheart(that, cookie, cb, t, d) {
       cookie: cookie
     },
     success: function (res) {
-      cb && cb(res.data.code)
+      cb && cb(res.data.code);
     }
   })
 }
@@ -207,5 +223,6 @@ module.exports = {
   playAlrc: playAlrc,
   loadlrc: loadlrc,
   loadrec: loadrec,
-  songheart: songheart
+  songheart: songheart,
+  toggleplay:toggleplay
 }

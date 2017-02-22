@@ -1,24 +1,33 @@
 var bsurl = require('utils/bsurl.js');
+var nt = require('utils/nt.js')
 App({
   onLaunch: function () {
     var cookie = wx.getStorageSync('cookie') || '';
+    var gb = wx.getStorageSync("globalData");
+    console.log(gb)
+    gb && (this.globalData = gb)
     this.globalData.cookie = cookie
     var that = this;
     //播放列表中下一首
     wx.onBackgroundAudioStop(function () {
-      console.log("音乐停止")
+      nt.postNotificationName("music_toggle", {
+        playing: false
+      });
       if (that.globalData.globalStop) {
         return;
       }
-      if (that.globalData.playtype == 1) {
-        that.nextplay(1);
+      if (that.globalData.playtype != 2) {
+        that.nextplay(that.globalData.playtype);
       } else {
         that.nextfm();
       }
     });
     this.likelist();
+    //this.loginrefresh();
     wx.onBackgroundAudioPause(function () {
-      console.log("音乐暂停");
+      nt.postNotificationName("music_toggle", {
+        playing: false
+      });
       that.globalData.globalStop = that.globalData.hide ? true : false;
       wx.getBackgroundAudioPlayerState({
         complete: function (res) {
@@ -27,9 +36,19 @@ App({
       })
     })
   },
+  loginrefresh: function () {
+    wx.request({
+      url: bsurl + 'login/refresh',
+      data: { cookie: this.globalData.cookie },
+      success: function (res) {
+        // success
+        console.log(res)
+      }
+    })
+  },
   likelist: function () {
     var that = this
-   this.globalData.cookie&& wx.request({
+    this.globalData.cookie && wx.request({
       url: bsurl + 'likelist',
       data: { cookie: this.globalData.cookie },
       success: function (res) {
@@ -37,18 +56,23 @@ App({
       }
     })
   },
-  nextplay: function (t,cb) {
+  nextplay: function (t, cb) {
+
     //播放列表中下一首
     this.preplay();
-    var list = this.globalData.list_am;
-    var index = this.globalData.index_am;
+    if (this.globalData.playtype == 2) {
+      this.nextfm();
+      return;
+    }
+    var list = this.globalData.playtype == 1 ? this.globalData.list_am : this.globalData.list_dj;
+    var index = this.globalData.playtype == 1 ? this.globalData.index_am : this.globalData.index_dj;
     if (t == 1) {
       index++;
     } else {
       index--;
     }
     index = index > list.length - 1 ? 0 : (index < 0 ? list.length - 1 : index);
-    this.globalData.curplay = list[index] || {};
+    this.globalData.curplay = (this.globalData.playtype == 1 ? list[index] : list[index].mainSong) || {};
     for (var i = 0; i < this.globalData.staredlist.length; i++) {
       if (this.globalData.staredlist[i] == this.globalData.curplay.id) {
         this.globalData.curplay.starred = true;
@@ -56,10 +80,18 @@ App({
       }
     }
     if (!this.globalData.curplay.id) return;
-    this.globalData.index_am = index;
-    console.log("歌单下一首", this.globalData.curplay, list)
-    this.seekmusic(1);
-    cb&&cb();
+    if (this.globalData.playtype == 1) {
+      this.globalData.index_am = index;
+    } else {
+      this.globalData.index_dj = index;
+    }
+    nt.postNotificationName("music_next", {
+      music: this.globalData.curplay,
+      playtype: this.globalData.playtype,
+      index: this.globalData.playtype == 1 ? this.globalData.index_am : this.globalData.index_dj
+    });
+    this.seekmusic(this.globalData.playtype);
+    cb && cb();
   },
   nextfm: function (cb) {
     //下一首fm
@@ -83,14 +115,17 @@ App({
         }
       }
       that.seekmusic(2);
-      cb&&cb();
+      cb && cb();
     }
 
   },
   preplay: function () {
     //歌曲切换 停止当前音乐
+    nt.postNotificationName("music_toggle", {
+      playing: false
+    });
     this.globalData.globalStop = true;
-    wx.stopBackgroundAudio();
+    //  wx.stopBackgroundAudio();
   },
   getfm: function () {
     var that = this;
@@ -111,6 +146,9 @@ App({
   stopmusic: function (type, cb) {
     var that = this;
     wx.pauseBackgroundAudio();
+    nt.postNotificationName("music_toggle", {
+      playing: false
+    });
     wx.getBackgroundAudioPlayerState({
       complete: function (res) {
         that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
@@ -122,7 +160,8 @@ App({
     var m = this.globalData.curplay;
     if (!m.id) return;
     this.globalData.playtype = type;
-    if (cb) {
+
+    if (cb || this.globalData.playtype == 3) {
       this.playing(type, cb, seek);
     } else {
       this.geturl(function () { that.playing(type, cb, seek); })
@@ -132,18 +171,21 @@ App({
     var that = this
     var m = that.globalData.curplay
     wx.playBackgroundAudio({
-      dataUrl: m.url,
+      dataUrl: type == 1 ? m.url : m.mp3Url,
       title: m.name,
       success: function (res) {
         if (seek != undefined) {
           wx.seekBackgroundAudio({ position: seek })
         };
         that.globalData.globalStop = false;
-        that.globalData.playtype = type
+        that.globalData.playtype = type;
+        nt.postNotificationName("music_toggle", {
+          playing: true
+        });
         cb && cb();
       },
       fail: function () {
-        if (type == 1) {
+        if (type != 2) {
           that.nextplay(1)
         } else {
           that.nextfm();
@@ -159,7 +201,7 @@ App({
       data: {
         id: m.id,
         br: m.duration ? ((m.hMusic && m.hMusic.bitrate) || (m.mMusic && m.mMusic.bitrate) || (m.lMusicm && m.lMusic.bitrate) || (m.bMusic && m.bMusic.bitrate)) : (m.privilege ? m.privilege.maxbr : ((m.h && m.h.br) || (m.m && m.m.br) || (m.l && m.l.br) || (m.b && m.b.br))),
-        br:128000,
+        br: 128000,
         cookie: that.globalData.cookie
       },
       success: function (a) {
@@ -209,10 +251,10 @@ App({
     hasLogin: false,
     hide: false,
     list_am: [],
-    list_dj:[],
+    list_dj: [],
     list_fm: [],
     list_sf: [],
-    index_dj:0,
+    index_dj: 0,
     index_fm: 0,
     index_am: 0,
     playtype: 1,

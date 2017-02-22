@@ -1,11 +1,15 @@
 var bsurl = require('../../../utils/bsurl.js');
-var async = require("../../../utils/async.js")
+var common = require('../../../utils/util.js');
+var async = require("../../../utils/async.js");
+var nt = require("../../../utils/nt.js")
 var app = getApp();
 Page({
     data: {
         rec: {
             idx: 0, loading: false,
         },
+        music:app.globalData.curplay,
+        playing:app.globalData.play,
         banner: [4],
         thisday: (new Date()).getDate(),
         cateisShow: false,
@@ -32,8 +36,33 @@ Page({
         },
         tabidx: 0
     },
-    
-    onLoad: function () {
+    toggleplay:function(){
+        common.toggleplay(this,app);
+    },
+    playnext:function(){
+        app.nextplay(1)
+    },
+    music_next:function(r){
+        console.log(r)
+        this.setData({
+            music:r.music
+        })
+    },
+    music_toggle:function(r){
+        this.setData({
+            playing:r.playing
+        })
+    },
+    onLoad: function (options) {
+         var that = this
+        nt.addNotification("music_next", that.music_next, that);
+        nt.addNotification("music_toggle", that.music_toggle, that)
+        if(options.share==1){
+            wx.navigateTo({
+              url: 'page/component/'+options.st+'/index?id='+options.id
+            })
+            return;
+        }
         var that = this
         var rec = this.data.rec
         //banner，
@@ -78,6 +107,7 @@ Page({
     },
     switchtab: function (e) {
         var that = this;
+        nt.postNotificationName("testNotificationName",'nt----------------------');
         var t = e.currentTarget.dataset.t;
         this.setData({ tabidx: t });
         if (t == 1 && !this.data.playlist.loading) {

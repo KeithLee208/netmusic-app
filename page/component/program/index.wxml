@@ -3,10 +3,10 @@
 <view id="playingpage" class=" {{playing?'playing':''}}">
   <image src="../../../image/cm2_default_play_bg-ip6@2x.jpg" id="coverbg" style="z-index:-2" />
   <image id="playing-bg" class="blurbg" mode="aspectFill" src="{{p.mainSong.album.picUrl}}?param=750y750" />
-  <view hidden="{{showlrc}}">
+  <view hidden="{{tgpinfo}}">
     <image src="../../../image/cm2_play_disc_radio-ip6@2x.png" id="coverbg" />
   </view>
-  <view class="flexlist flex-center" id="program_radio_info" hidden="{{showlrc}}">
+  <view class="flexlist flex-center" id="program_radio_info" hidden="{{tgpinfo}}">
     <image class="flexleft flexnum " id="radio_cover" src="{{p.radio.picUrl}}" />
     <view class="flexlist">
       <view class="flexmain">
@@ -20,20 +20,20 @@
       </view>
     </view>
   </view>
-  <view id="playing-main" hidden="{{showlrc}}" bindtap="toggleinfo">
+  <view id="playing-main" hidden="{{tgpinfo}}" bindtap="toggleinfo">
     <image id="playingmainbg" src="../../../image/play.png" />
     <image src="{{p.mainSong.album.picUrl}}?param=400y400" bindtap="loadlrc" id="pmaincover" />
   </view>
 
   <!-- -->
-  <scroll-view class="menu" scroll-y="true" id="p_info_menu" bindtap="toggleinfo" hidden="{{!showlrc}}">
+  <scroll-view class="menu" scroll-y="true" id="p_info_menu" bindtap="toggleinfo" hidden="{{!tgpinfo}}">
     <navigator url="../djradio/index?id={{p.radio.id}}" class="mn_list">
       <view class="mn_ico">
         <image src="../../../image/cm2_rdi_icn_name@2x.png"></image>
       </view>
       <view class="cmain">{{p.radio.name}}</view>
       <view class="rdes">
-        <view class="arrow"></view>
+        <view class="arrow arrow-white"></view>
       </view>
     </navigator>
     <navigator class="mn_list" url="../user/index?id={{p.dj.userId}}">
@@ -42,7 +42,7 @@
       </view>
       <view class="cmain">{{p.dj.nickname}}</view>
       <view class="rdes">
-        <view class="arrow"></view>
+        <view class="arrow arrow-white"></view>
       </view>
     </navigator>
     <view class="mn_list" wx:if="{{p.songs.length}}">
@@ -52,7 +52,7 @@
       <view class="cmain">包含的歌曲</view>
       <view class="rdes">
         <text>{{p.songs.length}}</text>
-        <view class="arrow"></view>
+        <view class="arrow arrow-white"></view>
       </view>
     </view>
     <view id="p_info">

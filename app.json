@@ -42,12 +42,6 @@
         "iconPath": "image/cm2_btm_icn_music.png",
         "selectedIconPath": "image/cm2_btm_icn_music_prs.png",
         "text": "我的音乐"
-      },
-      {
-        "pagePath": "",
-        "iconPath": "image/cm2_btm_icn_account.png",
-        "selectedIconPath": "image/cm2_btm_icn_account_prs.png",
-        "text": "账号"
       }
     ]
   },

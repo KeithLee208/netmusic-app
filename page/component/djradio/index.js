@@ -6,6 +6,7 @@ Page({
         djradio: {},
         loading: false,
         programs: {},
+        curplay:-1,
         base: {
             id: 0,
             offset: 0,
@@ -36,7 +37,7 @@ Page({
     },
     getprograms: function (isadd) {
         var that = this;
-        this.setData({loading:false})
+        this.setData({ loading: false })
         wx.request({
             url: bsurl + 'dj/program',
             data: {
@@ -59,15 +60,23 @@ Page({
         });
     },
     onReachBottom: function () {
-        (this.data.programs.more&&this.data.loading)&& this.getprograms(1);
+        (this.data.programs.more && this.data.loading) && this.getprograms(1);
     },
-    djradio_sub:function(){
-        var sub=this.data.djradio.subed;
+    djradio_sub: function () {
+        var sub = this.data.djradio.subed;
     },
     playmusic: function (event) {
         let that = this;
-        let music = event.currentTarget.dataset.idx;
-        music = this.data.programs.programs[music];
+        let idx = event.currentTarget.dataset.idx;
+        var music = that.data.programs.programs[idx];
         app.globalData.curplay = music.mainSong
+        app.globalData.list_dj = this.data.programs.programs
+        app.globalData.index_dj = idx;
+        var shuffle = app.globalData.shuffle;
+        app.shuffleplay(shuffle);
+        this.setData({
+            curplay: music.id
+        })
+        app.seekmusic(3)
     }
 })

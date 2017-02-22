@@ -37,10 +37,11 @@ white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-size: 28rpx}
 .widgets__info-info{color:#aaa;font-size:22rpx;display: block;border-bottom:1rpx solid #eee;padding-bottom: 20rpx;margin-left: 115rpx}
 
 
-#user{position: relative;height:0;padding-top:55%;width:100%;background-size:cover;background-position: center center;
+#user{position: relative;height:0;padding-top:70%;width:100%;background-size:cover;background-position: center center;
 background-repeat: no-repeat;background-color: #eee;border-bottom:1rpx solid #fff;}
 #usergender{width: 32rpx;height: 32rpx;margin:0 10rpx}
-#user_info{position: absolute;left:60rpx;bottom:110rpx;color: #fff;overflow: hidden}
+#user_info{position: absolute;left:60rpx;bottom:110rpx;color: #fff;overflow: hidden;right:60rpx;font-size: 28rpx;}
+#user_sig{padding-top: .5em;}
 #user_ava{width:80rpx;height:80rpx;border-radius: 50%;border:2rpx solid #fff;vertical-align: middle;margin-right:20rpx;}
 
 .tab{position: absolute;left: 0;bottom:0;width: 100%;border: none;background-color: rgba(0,0,0,.5);color: #fff;background-image: linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.5),rgba(0,0,0,.3));}

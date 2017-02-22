@@ -1,4 +1,5 @@
 <import src="../../../utils/pl.wxml" />
+<import src="../../../utils/loading.wxml" />
 <view class="index">
   <view id="user" style="background-image:url({{user.profile.backgroundUrl}})">
     <view id="user_info">
@@ -24,8 +25,7 @@
     </view>
   </view>
   <view class="playlist" wx:if="{{!loading}}">
-    <text class="sm_title">{{user.profile.nickname}}创建的歌单<text>({{user.profile.playlistCount}})</text>
-      <text class='fr'>共被收藏{{user.profile.playlistBeSubscribedCount}}次</text>
+    <text class="sm_title">{{user.profile.nickname}}创建的歌单<text>({{user.profile.playlistCount}})</text> <text class='fr'>共被收藏{{user.profile.playlistBeSubscribedCount}}次</text>
     </text>
     <navigator url="../record/index?uid={{user.profile.userId}}">
       <view class="flexlist flex-image">
@@ -41,30 +41,9 @@
       </view>
     </navigator>
     <template is="pl" data="{{list:list1}}" />
-    <!-- 
-    <block wx:for-items="{{list}}" class="artists " wx:key="{{item.id}}">
-      <navigator url="../playlist/index?pid={{item.id}}&img='{{item.coverImgUrl}}" wx:if="{{item.userId==user.profile.userId}}">
-        <view class="flexlist flex-image">
-          <view class="flexleft fl-image">
-            <image src="{{item.coverImgUrl}}?param=100y100" class="music_cover" />
-          </view>
-          <view class="flexlist">
-            <view class="flexmain">
-              <view>{{item.name}}</view>
-              <view class="relistdes">{{item.trackCount}}首，播放{{item.playCount}}次</view>
-            </view>
-          </view>
-        </view>
-      </navigator>
-    </block>-->
-    <text class="sm_title">{{user.profile.nickname}}收藏的歌单 <text>{{list2.length}}</text> </text>
+    <view class="sm_title">{{user.profile.nickname}}收藏的歌单 <text>({{list2.length}})</text>
+    </view>
     <template is="pl" data="{{list:list2}}" />
   </view>
-  <view wx:else class="cntloading">加载中...
-    <view>
-      <text class="cl1"></text>
-      <text class="cl2"></text>
-      <text class="cl3"></text>
-    </view>
-  </view>
+  <template is="loading" wx:else />
 </view>

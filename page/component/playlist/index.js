@@ -1,6 +1,7 @@
 var appInstance = getApp();
 var bsurl = require('../../../utils/bsurl.js');
 var id2Url = require('../../../utils/base64md5.js');
+var nt=require("../../../utils/nt.js")
 Page({
   data: {
     list: [],
@@ -11,9 +12,13 @@ Page({
     toplist: false,
     user:wx.getStorageSync('user')||{}
   },
+  testNotificationFn:function(r){
+    console.log(r)
+  },
   onLoad: function (options) {
     var that = this;
     console.log(options)
+    nt.addNotification("pause",that.testNotificationFn,that)
     wx.request({
       url: bsurl + 'playlist/detail',
       data: {

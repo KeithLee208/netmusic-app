@@ -3,9 +3,16 @@ var app = getApp();
 Page({
     data: {
         phone: "",
-        pwd: ""
+        pwd: "",
+        linktype: 1,
+        url: ''
     },
-    onLoad: function () {
+    onLoad: function (options) {
+        //登录成功后跳转类型(1,2,3) navgitorback , redirect ,switchTab
+        this.setData({
+            linktype: options.t || 3,
+            url: options.url || '../home/index'
+        })
 
     },
     textinput: function (event) {
@@ -37,7 +44,7 @@ Page({
             complete: function (res) {
                 console.log(res);
                 wx.hideToast();
-                if (res.code) {
+                if (res.data.code) {
                     wx.showModal({
                         title: '提示',
                         content: '登录失败，请重试！'
@@ -47,13 +54,23 @@ Page({
                 wx.setStorageSync('cookie', res.data.c);
                 wx.setStorageSync('user', res.data.i)
                 app.globalData.cookie = res.data.c
-                // wx.redirectTo({
-                //     url: '../index'
-                // })
+
                 app.likelist();
-                wx.switchTab({
-                    url: '../home/index'
-                });
+                if (that.data.linktype == 1) {
+                    wx.navigateBack({
+                        delta: 1
+                    })
+                }
+                else if (that.data.linktype == 2) {
+                     wx.redirectTo({
+                         url: that.data.url
+                     })
+                } else {
+                    wx.switchTab({
+                        url: '../home/index'
+                    });
+                }
+
             }
         })
     }

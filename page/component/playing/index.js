@@ -26,7 +26,7 @@ Page({
     return {
       title: this.data.share.title,
       desc: this.data.share.des,
-      path: 'page/component/playing/index?id=' + this.data.share.id+'&br='+this.data.share.br
+      path: 'page/component/home/index?share=1&st=song&id=' + this.data.share.id+'&br='+this.data.share.br
     }
   },
   playmusic: function (that, id, br) {
@@ -183,21 +183,7 @@ Page({
     };
   },
   playingtoggle: function (event) {
-    if (this.data.disable) {
-      return;
-    }
-    var that = this
-    if (this.data.playing) {
-      console.log("暂停播放");
-      that.setData({ playing: false });
-      app.stopmusic(1);
-    } else {
-      console.log("继续播放")
-      app.seekmusic(1, function () {
-        that.setData({
-          playing: true
-        });
-      }, app.globalData.currentPosition);
-    }
+    common.toggleplay(this,app)
+   
   }
 })

@@ -10,8 +10,8 @@ var defaultdata = {
 	percent: 1,
 	lrc: [],
 	commentscount: 0,
-	lrcindex: 0,
 	disable: false,
+	tgpinfo: false,
 	downloadPercent: 0,
 	share: {
 		title: "一起来听",
@@ -19,17 +19,16 @@ var defaultdata = {
 	},
 	p: {}
 };
-
 Page({
 	data: defaultdata,
 	onShareAppMessage: function () {
 		return {
 			title: this.data.share.title,
 			desc: this.data.share.des,
-			path: 'page/component/program/index?id=' + this.data.share.id + '&br=' + this.data.share.br
+			path: 'page/component/home/index?share=1&st=program&id=' + this.data.share.id
 		}
 	},
-	playmusic: function (that, id, br) {
+	playmusic: function (that, id) {
 		wx.request({
 			url: bsurl + 'program/detail',
 			data: {
@@ -47,7 +46,7 @@ Page({
 				}
 				res = res.data.program
 				app.globalData.curplay = res.mainSong;
-				!app.globalData.list_dj.length && (app.globalData.list_dj.push(res.mainSong));
+				!app.globalData.list_dj.length && (app.globalData.list_dj.push(res));
 				that.setData({
 					p: res,
 					share: {
@@ -59,7 +58,7 @@ Page({
 					duration: common.formatduration(app.globalData.curplay.duration)
 				});
 				wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
-				app.seekmusic(1);
+				app.seekmusic(3);
 				common.loadrec(app.globalData.cookie, 0, 0, res.id, function (res) {
 					that.setData({
 						commentscount: res.total
@@ -69,9 +68,9 @@ Page({
 		})
 
 	},
-	toggleinfo:function(){
+	toggleinfo: function () {
 		this.setData({
-			showlrc:!this.data.showlrc
+			tgpinfo: !this.data.tgpinfo
 		})
 	},
 	playother: function (e) {
@@ -80,6 +79,7 @@ Page({
 		var that = this;
 		app.nextplay(type, function () {
 			that.setData({
+				p: app.globalData.list_dj[app.globalData.index_dj],
 				share: {
 					id: app.globalData.curplay.id,
 					title: app.globalData.curplay.name
@@ -99,22 +99,11 @@ Page({
 	songheart: function () {
 		var that = this;
 		var music = this.data.music;
-		common.songheart(this, app.globalData.cookie, function (t) {
-			if (t == 200) {
-				music.st = !music.st;
-				that.setData({ music: music });
-				app.likelist();
-			} else {
-				wx.navigateTo({
-					url: '../login/index'
-				})
-			}
-		}, 0, music.st)
 	},
 	museek: function (e) {
 		var nextime = e.detail.value
 		var that = this
-		nextime = app.globalData.curplay.dt * nextime / 100000;
+		nextime = app.globalData.curplay.duration * nextime / 100000;
 		app.globalData.currentPosition = nextime
 		app.seekmusic(1, function () {
 			that.setData({
@@ -123,9 +112,7 @@ Page({
 		}, app.globalData.currentPosition);
 	},
 	onShow: function () {
-		console.log("playing show ---------------")
 		var that = this;
-		app.globalData.playtype = 1;
 		common.playAlrc(that, app);
 		seek = setInterval(function () {
 			common.playAlrc(that, app);
@@ -139,16 +126,19 @@ Page({
 	},
 	onLoad: function (options) {
 		var that = this;
+		app.globalData.playtype = 3;
 		this.setData({
 			shuffle: app.globalData.shuffle
 		});
-		if (app.globalData.curplay.id != options.id) {
+		var curp=app.globalData.list_dj[app.globalData.index_dj]||{}
+		if (curp.id != options.id) {
 			//播放不在列表中的单曲
 			this.playmusic(that, options.id);
 		} else {
 			that.setData({
 				start: 0,
-				music: app.globalData.curplay,
+				music:curp.mainSong,
+				p:curp,
 				duration: common.formatduration(app.globalData.curplay.duration),
 				share: {
 					id: app.globalData.curplay.id,
@@ -169,12 +159,10 @@ Page({
 		}
 		var that = this
 		if (this.data.playing) {
-			console.log("暂停播放");
 			that.setData({ playing: false });
-			app.stopmusic(1);
+			app.stopmusic(3);
 		} else {
-			console.log("继续播放")
-			app.seekmusic(1, function () {
+			app.seekmusic(3, function () {
 				that.setData({
 					playing: true
 				});

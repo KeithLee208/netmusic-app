@@ -1,5 +1,6 @@
 var bsurl = require('../../../utils/bsurl.js');
 var typelist = require('../../../utils/searchtypelist.js');
+var nt = require("../../../utils/nt.js")
 var app = getApp();
 Page({
     data: {
@@ -11,7 +12,11 @@ Page({
         prevalue: ""
     },
     onLoad: function (options) {
-
+        var that = this
+        nt.addNotification("testNotificationName", that.testNotificationFn, that)
+    },
+    testNotificationFn:function(r){
+        console.log(r)
     },
     inputext: function (e) {
         var name = e.detail.value;
@@ -43,7 +48,8 @@ Page({
         this.setData({
             tabs: tl,
             prevalue: name,
-            value: name
+            value: name,
+            loading: true
         });
         var curtab = this.data.tabs[index]
         var that = this;
@@ -79,7 +85,7 @@ Page({
     searhFinput: function (e) {
         this.search(e.detail.value.name)
     },
-    loadmore: function (e) {
+    onReachBottom: function (e) {
         var tl = this.data.tabs,
             that = this;
         var curtab = tl[this.data.tab.index];
@@ -153,6 +159,11 @@ Page({
                 tab: type,
                 index: index
             }
+        })
+    },
+    clear_kw:function(){
+        this.setData({
+            value:""
         })
     },
     del_research: function (e) {

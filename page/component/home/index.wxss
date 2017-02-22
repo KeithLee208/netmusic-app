@@ -1,7 +1,8 @@
-#lastsearch{flex: 0 0 80rpx;padding-top: 5rpx;}
-
+#header{position: fixed;top: 0;width: 100%; z-index: 10;-webkit-backdrop-filter: blur(15px); /* Safari for macOS & iOS*/
+	backdrop-filter: blur(15px); /* Google Chrome */}
+#lastsearch{line-height: 1;padding-top: 20rpx;flex: 0 0 80rpx;}
 swiper,swiper image{width: 750rpx;height:290rpx;}
-#main{min-height: 1200rpx;}
+#main{min-height: 1200rpx;padding-top: 80rpx;}
 #rec_nav{display: flex; text-align: center;width: 100%;border-bottom: 1rpx solid #eee}
 #rec_nav view{flex: 1;position: relative}
 #rec_nav navigator{padding:25rpx 0;font-size: 26rpx;}
@@ -16,7 +17,7 @@ swiper,swiper image{width: 750rpx;height:290rpx;}
 #closecatelist{margin: 15rpx auto;}
 
 .catelist{margin-bottom: 20rpx;overflow: hidden;padding-bottom: 2rpx;}
-.cl_list{width:179rpx;border: 1rpx solid #eee;text-align: center;height:90rpx;font-size: 26rpx;line-height:90rpx;overflow: hidden;position: relative;z-index: 1;flex: 0 0 178rpx;margin: 0 -1rpx -1rpx 0;float: left}
+.cl_list{width:179rpx;border: 1rpx solid #eee;text-align: center;height:90rpx;font-size: 26rpx;line-height:90rpx;overflow: hidden;position: relative;z-index: 1;margin: 0 -1rpx -1rpx 0;float: left}
 
 .cl_ico{height: 181rpx}
 .cl_ico image{width: 120rpx;height: 120rpx;margin-top:30rpx;}
