@@ -105,12 +105,9 @@ Page({
             that.setData({ playing: false });
             app.stopmusic(1);
         } else {
-            app.seekmusic(2, function () {
-                that.setData({
-                    playing: true
-                });
-            }, app.globalData.currentPosition);
+            app.seekmusic(2,app.globalData.currentPosition,function(){});
         }
+        common.toggleplay(this, app, function () { })
     },
     nextplay: function () {
         this.setData({
@@ -122,5 +119,6 @@ Page({
             duration: "00:00"
         })
         app.nextfm();
+        
     }
 })

@@ -27,7 +27,7 @@ Page({
     return {
       title: this.data.share.title,
       desc: this.data.share.des,
-      path: 'page/component/home/index?share=1&st=playing&id=' + this.data.share.id+'&br='+this.data.share.br
+      path: 'page/component/home/index?share=1&st=playing&id=' + this.data.share.id + '&br=' + this.data.share.br
     }
   },
   playmusic: function (that, id, br) {
@@ -45,14 +45,13 @@ Page({
           share: {
             id: id,
             title: app.globalData.curplay.name,
-            br:res.data.privileges[0].maxbr,
-            des:(app.globalData.curplay.ar||app.globalData.curplay.artists)[0].name
+            br: res.data.privileges[0].maxbr,
+            des: (app.globalData.curplay.ar || app.globalData.curplay.artists)[0].name
           },
           music: app.globalData.curplay,
           duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration)
         });
         wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
-    
         app.seekmusic(1);
         common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
           that.setData({
@@ -69,13 +68,13 @@ Page({
   playother: function (e) {
     var type = e.currentTarget.dataset.other;
     this.setData(defaultdata);
-    var that=this;
-    app.nextplay(type,function(){
+    var that = this;
+    app.nextplay(type, function () {
       that.setData({
-        share:{
-          id:app.globalData.curplay.id,
-          title:app.globalData.curplay.name,
-          des:(app.globalData.curplay.ar||app.globalData.curplay.artists)[0].name
+        share: {
+          id: app.globalData.curplay.id,
+          title: app.globalData.curplay.name,
+          des: (app.globalData.curplay.ar || app.globalData.curplay.artists)[0].name
         }
       })
     });
@@ -116,7 +115,6 @@ Page({
     }, app.globalData.currentPosition);
   },
   onShow: function () {
-    console.log("playing show ---------------")
     var that = this;
     app.globalData.playtype = 1;
     common.playAlrc(that, app);
@@ -125,7 +123,8 @@ Page({
     }, 1000);
   },
   onUnload: function () {
-    clearInterval(seek)
+    clearInterval(seek);
+    nt.removeNotification("music_next", this)
   },
   onHide: function () {
     clearInterval(seek)
@@ -154,9 +153,18 @@ Page({
       }
     })
   },
+  music_next: function () {
+    var that = this
+    console.log("playing next")
+    common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
+      that.setData({
+        commentscount: res.total
+      })
+    })
+  },
   onLoad: function (options) {
     var that = this;
-    console.log("playing onload -------",this.data.music)
+    nt.addNotification("music_next", this.music_next, this);
     this.setData({
       shuffle: app.globalData.shuffle
     });
@@ -164,20 +172,19 @@ Page({
       //播放不在列表中的单曲
       this.playmusic(that, options.id, options.br);
     } else {
-      
       that.setData({
         start: 0,
         music: app.globalData.curplay,
         duration: common.formatduration(app.globalData.curplay.dt || app.globalData.curplay.duration),
         share: {
-            id: app.globalData.curplay.id,
-            br:options.br,
-            title: app.globalData.curplay.name,
-            des:(app.globalData.curplay.ar||app.globalData.curplay.artists)[0].name
-          },
+          id: app.globalData.curplay.id,
+          br: options.br,
+          title: app.globalData.curplay.name,
+          des: (app.globalData.curplay.ar || app.globalData.curplay.artists)[0].name
+        },
       });
       wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
-      common.loadrec(app.globalData.cookie,0, 0, that.data.music.id, function (res) {
+      common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
         that.setData({
           commentscount: res.total
         })
@@ -185,7 +192,6 @@ Page({
     };
   },
   playingtoggle: function (event) {
-    common.toggleplay(this,app)
-   
+    common.toggleplay(this, app, function () { })
   }
 })

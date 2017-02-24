@@ -98,11 +98,6 @@ function playAlrc(that, app) {
       duration: formatduration(app.globalData.curplay.duration || app.globalData.curplay.dt)
     });
     wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
-    loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
-      that.setData({
-        commentscount: res.total
-      })
-    })
   }
   wx.getBackgroundAudioPlayerState({
     complete: function (res) {
@@ -156,7 +151,8 @@ function loadrec(cookie, offset, limit, id, cb, type) {
     }
   })
 }
-function toggleplay(that,app){
+function toggleplay(that,app,cb){
+  cb=cb||null;
    if (that.data.disable) {
       return;
     }
@@ -166,11 +162,10 @@ function toggleplay(that,app){
       app.stopmusic(1);
     } else {
       console.log("继续播放")
-      app.seekmusic(1, function () {
-        that.setData({
+      that.setData({
           playing: true
         });
-      }, app.globalData.currentPosition);
+      app.seekmusic(app.globalData.playtype, app.globalData.currentPosition,cb);
     }
 }
 function loadlrc(that) {

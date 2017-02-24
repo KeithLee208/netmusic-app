@@ -124,6 +124,7 @@ App({
     nt.postNotificationName("music_toggle", {
       playing: false
     });
+    this.globalData.playing = false;
     this.globalData.globalStop = true;
     //  wx.stopBackgroundAudio();
   },
@@ -139,7 +140,6 @@ App({
         that.globalData.list_fm = res.data.data;
         that.globalData.index_fm = 0;
         that.globalData.curplay = res.data.data[0];
-        
         that.seekmusic(2);
       }
     })
@@ -150,13 +150,14 @@ App({
     nt.postNotificationName("music_toggle", {
       playing: false
     });
+    that.globalData.playing = false;
     wx.getBackgroundAudioPlayerState({
       complete: function (res) {
         that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
       }
     })
   },
-  seekmusic: function (type, cb, seek) {
+  seekmusic: function (type,seek,cb) {
     var that = this;
     var m = this.globalData.curplay;
     if (!m.id) return;
@@ -180,13 +181,16 @@ App({
         };
         that.globalData.globalStop = false;
         that.globalData.playtype = type;
+        that.globalData.playing = true;
         nt.postNotificationName("music_toggle", {
-          playing: true
+          playing: true,
+           music: that.globalData.curplay,
+           playtype:that.globalData.playtype
         });
-        nt.postNotificationName("music_next", {
-          music: that.globalData.curplay,
-          playtype:that.globalData.playtype
-        });
+        // nt.postNotificationName("music_next", {
+        //   music: that.globalData.curplay,
+        //   playtype:that.globalData.playtype
+        // });
         cb && cb();
       },
       fail: function () {
@@ -263,6 +267,7 @@ App({
     index_dj: 0,
     index_fm: 0,
     index_am: 0,
+    playing:false,
     playtype: 1,
     curplay: {},
     shuffle: 1,

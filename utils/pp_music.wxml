@@ -1,0 +1,20 @@
+<template name="pp_music">
+	<view id="pp_overlay"></view>
+	<view id="pp_main">
+		<view id='ppm_header'></view>
+		<view id='ppm_content'>
+			<view class="menu">
+				<view class="mn_list">
+					<view class="mn_ico">
+						<image src="../../../image/cm2_list_icn_dld_new@2x.png"></image>
+					</view>
+					<view class="cmain">我的下载</view>
+					<view class="rdes">
+						<view class="arrow"></view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view id='ppm_footer' wx:if="{{close}}"></view>
+	</view>
+</template>

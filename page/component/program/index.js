@@ -167,11 +167,11 @@ Page({
 			that.setData({ playing: false });
 			app.stopmusic(3);
 		} else {
-			app.seekmusic(3, function () {
+			app.seekmusic(3,app.globalData.currentPosition,function () {
 				that.setData({
 					playing: true
 				});
-			}, app.globalData.currentPosition);
+			}, );
 		}
 	}
 })

@@ -40,8 +40,11 @@ Page({
     toggleplay:function(){
         common.toggleplay(this,app);
     },
-    playnext:function(){
-        app.nextplay(1)
+    a:function(e){
+        return "ssssss"
+    },
+    playnext:function(e){
+        app.nextplay(e.currentTarget.dataset.pt)
     },
     music_next:function(r){
         console.log(r)
@@ -56,9 +59,8 @@ Page({
         })
     },
     onLoad: function (options) {
-         var that = this
-        nt.addNotification("music_next", that.music_next, that);
-        nt.addNotification("music_toggle", that.music_toggle, that)
+        nt.addNotification("music_next", this.music_next, this);
+        nt.addNotification("music_toggle", this.music_toggle, this)
         if(options.share==1){
             var url='../'+options.st+'/index?id='+options.id
             console.log(url,options.st,options.id)

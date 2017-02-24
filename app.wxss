@@ -212,8 +212,8 @@ overflow: hidden;}
 #pp_name{flex: 1;overflow: hidden;line-height: 1.6;color: #fff;font-size:28rpx;}
 #pp_name view{height: 1.6em;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;word-break: keep-all}
 #pp_name #ppn_des{font-size: 22rpx;color: #eee;}
-#pp_action{display: flex;flex: 0 0 170rpx;align-items: center}
-#pp_action .pa-baction{padding-left: 10rpx;flex: 1}
+#pp_action{display: flex;flex: 0 0 170rpx;align-items: center;padding: 0 5rpx}
+#pp_action .pa-baction{padding: 0 5rpx;flex: 1}
 #pageplay #pp_next{width: 60rpx;height: 60rpx}
 
 .page_pp{padding-bottom:100rpx; }
