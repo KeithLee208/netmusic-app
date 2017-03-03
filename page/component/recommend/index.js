@@ -32,6 +32,9 @@ Page({
             })
         },type)
     },
+    onPullDownRefresh:function(){
+        wx.stopPullDownRefresh();
+    },
     onReachBottom: function () {
         if (this.data.rec.more&&!this.data.loading) {
             var that = this;

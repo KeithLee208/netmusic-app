@@ -22,14 +22,14 @@
       </view>
     </form>
   </view>
-  <view id="search_tab" class="{{!loading?'vhidden':''}} tab">
+  <view id="search_tab" class="{{!loading||!value?'vhidden':''}} tab">
     <view class="tab-item {{tab.tab==item.type?'tbi-cur':''}}" wx:for-items="{{tabs}}" wx:key="{{item.type}}" wx:for-index="idx" catchtap="tabtype" data-index="{{idx}}" data-tab="{{item.type}}">
       <text class="tbi-text">{{item.name}}</text>
     </view>
   </view>
 </view>
 <view id="search_result">
-  <view class="seare_list" id="re_search_wrap" wx:if="{{!loading}}">
+  <view class="seare_list" id="re_search_wrap" wx:if="{{!loading||!value}}">
     <view id="search_recent" wx:if="{{recent.length}}">
       <view id="search_hot"></view>
       <text class="sm_title">历史搜索</text>
@@ -48,7 +48,7 @@
       </view>
     </view>
   </view>
-  <view class="seare_list" hidden="{{tab.tab!=item.type||!loading}}" wx:for-items="{{tabs}}" wx:index="idx">
+  <view class="seare_list" hidden="{{tab.tab!=item.type||!loading||!value}}" wx:for-items="{{tabs}}" wx:index="idx">
       <template is="playlist" data="{{list:item.relist.songs}}" />
       <view wx:for="{{item.relist.artists}}" class="artists " wx:for-item="re" wx:key="{{re}}">
         <navigator url="../artist/index?id={{re.id}}" class="flexlist flex-image">

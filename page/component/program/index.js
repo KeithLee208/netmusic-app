@@ -60,7 +60,7 @@ Page({
 				});
 				wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
 				nt.postNotificationName("music_next", {
-					music:app.globalData.curplay,
+					music: app.globalData.curplay,
 					playtype: 3
 				});
 				app.seekmusic(3);
@@ -103,7 +103,23 @@ Page({
 	},
 	songheart: function () {
 		var that = this;
-		var music = this.data.music;
+		var p = this.data.p;
+		wx.request({
+		  url:bsurl+'resource/like',
+		  data: {
+			id:p.commentThreadId,
+			t:p.liked?0:1,
+			cookie:app.globalData.cookie
+		  },
+		  success: function(res){
+			if(res.data.code==200){
+				p.liked=!p.liked
+				that.setData({
+					p:p
+				})
+			}
+		  }
+		})
 	},
 	museek: function (e) {
 		var nextime = e.detail.value
@@ -119,15 +135,26 @@ Page({
 	onShow: function () {
 		var that = this;
 		common.playAlrc(that, app);
+		nt.addNotification("music_next", this.music_next, this);
 		seek = setInterval(function () {
 			common.playAlrc(that, app);
 		}, 1000);
 	},
 	onUnload: function () {
-		clearInterval(seek)
+		clearInterval(seek);
+		nt.removeNotification("music_next", this)
 	},
 	onHide: function () {
 		clearInterval(seek)
+		nt.removeNotification("music_next", this)
+	},
+	music_next: function (r) {
+		var that = this
+		common.loadrec(app.globalData.cookie, 0, 0, r.p.id, function (res) {
+			that.setData({
+				commentscount: res.total
+			})
+		},3)
 	},
 	onLoad: function (options) {
 		var that = this;
@@ -151,7 +178,7 @@ Page({
 				},
 			});
 			wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
-			common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
+			common.loadrec(app.globalData.cookie, 0, 0, that.data.p.id, function (res) {
 				that.setData({
 					commentscount: res.total
 				})
@@ -167,7 +194,7 @@ Page({
 			that.setData({ playing: false });
 			app.stopmusic(3);
 		} else {
-			app.seekmusic(3,app.globalData.currentPosition,function () {
+			app.seekmusic(3, app.globalData.currentPosition, function () {
 				that.setData({
 					playing: true
 				});

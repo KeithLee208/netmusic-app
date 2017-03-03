@@ -1,8 +1,7 @@
 <import src="../../../utils/loading.wxml" />
 <import src="../../../utils/image.wxml" />
 <import src="../../../utils/pageplay.wxml" />
-
-<template is="pp" data="{{music:music,playing:playing,playtype:playtype}}"/>
+<template is="pp" data="{{music:music,playing:playing,playtype:playtype}}" />
 <view id="header" class="tab">
   <view class="tab-item  {{rec.idx==tabidx?'tbi-cur':''}}" bindtap="switchtab" data-t="0">
     <text class="tbi-text">个性推荐</text>
@@ -132,6 +131,7 @@
           </navigator>
         </view>
       </view>
+
       <!--end -->
     </view>
   </view>
@@ -269,11 +269,12 @@
   <view class="close" bindtap="togglePtype" id="closecatelist"></view>
   <view id="cateall" data-catype="{{catelist.res.all}}" bindtap="cateselect" class="cl_list {{catelist.checked.name==catelist.res.all.name?'checked':''}}">
     <text class="cl_ico_checked cl_ico" wx:if="{{catelist.checked.name==catelist.res.all.name}}"></text>{{catelist.res.all.name}}</view>
-  <view class="catelist" id="c{{idx}}" wx:for-items="{{catelist.res.categories}}" wx:for-index="idx">
+  <view class="catelist" id="c{{idx}}" wx:key="{{item}}" wx:for-items="{{catelist.res.categories}}" wx:for-index="idx">
     <view class="cl_list cl_ico">
       <image src="../../../image/cm2_discover_icn_{{idx}}@2x.png"></image>
+        <text>{{item}}</text>
     </view>
-    <view class="cl_list {{catelist.checked.name==re.name?'checked':''}} " wx:if="{{re.category==idx}}" bindtap="cateselect" data-catype="{{re}}" data-catname="{{re.name}}" wx:for-items="{{catelist.res.sub}}" wx:for-item="re">
+    <view class="cl_list {{catelist.checked.name==re.name?'checked':''}} " wx:if="{{re.category==idx}}" bindtap="cateselect" data-catype="{{re}}" data-catname="{{re.name}}" wx:for-items="{{catelist.res.sub}}" wx:key="{{item.name}}" wx:for-item="re">
       <text class="cl_ico_hot cl_ico" wx:if="{{re.hot}}"></text>
       <text class="cl_ico_checked cl_ico" wx:if="{{catelist.checked.name==re.name}}"></text>
       {{re.name}}</view>

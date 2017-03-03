@@ -2,7 +2,7 @@
 	<view id="pp_overlay"></view>
 	<view id="pp_main">
 		<view id='ppm_header'></view>
-		<view id='ppm_content'>
+<view id='ppm_content'>
 			<view class="menu">
 				<view class="mn_list">
 					<view class="mn_ico">

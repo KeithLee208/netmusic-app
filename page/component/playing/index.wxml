@@ -25,7 +25,7 @@
         <navigator url="../recommend/index?id={{music.id}}&from=song">
           <image wx:if="{{!commentscount}}" src="../../../image/cm2_play_icn_cmt@2x.png" />
           <image wx:if="{{commentscount}}" src="../../../image/cm2_play_icn_cmt_num@2x.png" />
-          <text wx:if="{{commentscount}}">{{commentscount>999?'999+':(commentscount>99?'99+':commentscount)}}</text>
+          <text wx:if="{{commentscount}}">{{commentscount>999?'999+':commentscount}}</text>
         </navigator>
       </view>
       <view class="pi-act">

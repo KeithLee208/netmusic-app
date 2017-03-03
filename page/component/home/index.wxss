@@ -19,8 +19,8 @@ swiper,swiper image{width: 750rpx;height:290rpx;}
 .catelist{margin-bottom: 20rpx;overflow: hidden;padding-bottom: 2rpx;}
 .cl_list{width:179rpx;border: 1rpx solid #eee;text-align: center;height:90rpx;font-size: 26rpx;line-height:90rpx;overflow: hidden;position: relative;z-index: 1;margin: 0 -1rpx -1rpx 0;float: left}
 
-.cl_ico{height: 181rpx}
-.cl_ico image{width: 120rpx;height: 120rpx;margin-top:30rpx;}
+.cl_ico{height: 182rpx;color:#BB2C08;line-height: 1 }
+.cl_ico image{width: 80rpx;height:80rpx;margin:35rpx auto 15rpx;display: block;}
 #cateall{float: none;width:auto;margin: 20rpx auto;}
 .cl_ico_checked,.cl_ico_hot{content:"";position:absolute;}
 
@@ -36,6 +36,6 @@ swiper,swiper image{width: 750rpx;height:290rpx;}
 .djcatelist{text-align:center;font-size:24rpx;flex: 0 0 187.5rpx;height:145rpx}
 .djcatelist image{width: 80rpx;height: 80rpx;margin-top:20rpx}
 
-.flexlist .cover{width:230rpx;height:230rpx;padding: 0;flex: 0 0 230rpx;margin:10rpx 15rpx 10rpx 0;}
+.flexlist .cover{width:230rpx;height:230rpx;padding: 0;flex: 0 0 230rpx;margin:10rpx 20rpx 10rpx 10rpx;}
 .sort_fl_list{flex: 0 0 100%;line-height: 2}
-.sortlist .flexlist{flex-flow: wrap; align-content: center;margin-left: 15rpx;}
+.sortlist .flexlist{flex-flow: wrap; align-content: center;}

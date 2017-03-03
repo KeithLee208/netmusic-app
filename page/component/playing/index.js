@@ -86,37 +86,41 @@ Page({
     this.setData({
       shuffle: shuffle
     })
+    var msg="";
+    switch(shuffle){
+      case 1:
+      msg="顺序播放";
+      break;
+      case 2:
+      msg="单曲播放";
+      break;
+      case 3:
+      msg="随机播放"
+    }
+    wx.showToast({
+      title:msg,
+      duration:2000
+    })
     app.shuffleplay(shuffle);
   },
   songheart: function () {
-    var that = this;
-    var music = this.data.music;
-    common.songheart(this, app.globalData.cookie, function (t) {
-      if (t == 200) {
-        music.st = !music.st;
-        that.setData({ music: music });
-        app.likelist();
-      } else {
-        wx.navigateTo({
-          url: '../login/index'
-        })
-      }
-    }, 0, music.st)
+    common.songheart(this,app, 0, this.data.music.st)
   },
   museek: function (e) {
     var nextime = e.detail.value
     var that = this
     nextime = app.globalData.curplay.dt * nextime / 100000;
     app.globalData.currentPosition = nextime
-    app.seekmusic(1, function () {
+    app.seekmusic(1,app.globalData.currentPosition, function () {
       that.setData({
         percent: e.detail.value
       })
-    }, app.globalData.currentPosition);
+    });
   },
   onShow: function () {
     var that = this;
     app.globalData.playtype = 1;
+    nt.addNotification("music_next", this.music_next, this);
     common.playAlrc(that, app);
     seek = setInterval(function () {
       common.playAlrc(that, app);
@@ -128,35 +132,11 @@ Page({
   },
   onHide: function () {
     clearInterval(seek)
+    nt.removeNotification("music_next", this)
   },
-  downmusic: function () {
-    var url = this.data.music.url;
-    var that = this;
-    wx.downloadFile({
-      url: url,
-      success: function (res) {
-        wx.saveFile({
-          tempFilePath: res.tempFilePath,
-          success: function (res) {
-            console.log("下载成功");
-            var saved = wx.getStorageSync('downmusic');
-            saved[this.data.music.id] = res.tempFilePath;
-            wx.setStorage({
-              key: 'downmusic',
-              data: saved,
-              success: function (res) {
-                console.log("保存成功");
-              }
-            })
-          }
-        })
-      }
-    })
-  },
-  music_next: function () {
+  music_next: function (r) {
     var that = this
-    console.log("playing next")
-    common.loadrec(app.globalData.cookie, 0, 0, that.data.music.id, function (res) {
+    common.loadrec(app.globalData.cookie, 0, 0, r.music.id, function (res) {
       that.setData({
         commentscount: res.total
       })
@@ -164,7 +144,7 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
-    nt.addNotification("music_next", this.music_next, this);
+
     this.setData({
       shuffle: app.globalData.shuffle
     });

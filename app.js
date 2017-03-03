@@ -4,15 +4,11 @@ App({
   onLaunch: function () {
     var cookie = wx.getStorageSync('cookie') || '';
     var gb = wx.getStorageSync("globalData");
-    console.log(gb)
     gb && (this.globalData = gb)
     this.globalData.cookie = cookie
     var that = this;
     //播放列表中下一首
     wx.onBackgroundAudioStop(function () {
-      nt.postNotificationName("music_toggle", {
-        playing: false
-      });
       if (that.globalData.globalStop) {
         return;
       }
@@ -22,19 +18,21 @@ App({
         that.nextfm();
       }
     });
-    this.likelist();
-    //this.loginrefresh();
+    //监听音乐暂停，保存播放进度广播暂停状态
     wx.onBackgroundAudioPause(function () {
       nt.postNotificationName("music_toggle", {
         playing: false
       });
+      that.globalData.playing = false;
       that.globalData.globalStop = that.globalData.hide ? true : false;
       wx.getBackgroundAudioPlayerState({
         complete: function (res) {
           that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
         }
       })
-    })
+    });
+    this.likelist();
+    //this.loginrefresh();
   },
   loginrefresh: function () {
     wx.request({
@@ -73,11 +71,10 @@ App({
     }
     index = index > list.length - 1 ? 0 : (index < 0 ? list.length - 1 : index);
     this.globalData.curplay = (this.globalData.playtype == 1 ? list[index] : list[index].mainSong) || {};
-    for (var i = 0; i < this.globalData.staredlist.length; i++) {
-      if (this.globalData.staredlist[i] == this.globalData.curplay.id) {
-        this.globalData.curplay.starred = true;
-        this.globalData.curplay.st = true;
-      }
+    if (this.globalData.staredlist.indexOf(this.globalData.curplay.id) != -1) {
+      this.globalData.curplay.starred = true;
+      this.globalData.curplay.st = true;
+
     }
     if (!this.globalData.curplay.id) return;
     if (this.globalData.playtype == 1) {
@@ -88,6 +85,7 @@ App({
     nt.postNotificationName("music_next", {
       music: this.globalData.curplay,
       playtype: this.globalData.playtype,
+      p: list[index],
       index: this.globalData.playtype == 1 ? this.globalData.index_am : this.globalData.index_dj
     });
     this.seekmusic(this.globalData.playtype);
@@ -108,13 +106,16 @@ App({
       console.log("获取下一首fm")
       that.globalData.index_fm = index;
       that.globalData.curplay = list[index];
-      for (var i = 0; i < this.globalData.staredlist.length; i++) {
-        if (this.globalData.staredlist[i] == this.globalData.curplay.id) {
-          this.globalData.curplay.starred = true;
-          this.globalData.curplay.st = true;
-        }
+      if (this.globalData.staredlist.indexOf(this.globalData.curplay.id) != -1) {
+        this.globalData.curplay.starred = true;
+        this.globalData.curplay.st = true;
       }
       that.seekmusic(2);
+      nt.postNotificationName("music_next", {
+        music: this.globalData.curplay,
+        playtype: 2,
+        index: index
+      });
       cb && cb();
     }
 
@@ -135,29 +136,27 @@ App({
       data: {
         cookie: that.globalData.cookie
       },
-      method: 'GET',
       success: function (res) {
         that.globalData.list_fm = res.data.data;
         that.globalData.index_fm = 0;
         that.globalData.curplay = res.data.data[0];
+        if (that.globalData.staredlist.indexOf(that.globalData.curplay.id) != -1) {
+          that.globalData.curplay.starred = true;
+          that.globalData.curplay.st = true;
+        }
         that.seekmusic(2);
+        nt.postNotificationName("music_next", {
+          music: that.globalData.curplay,
+          playtype: 2,
+          index: 0
+        });
       }
     })
   },
   stopmusic: function (type, cb) {
-    var that = this;
     wx.pauseBackgroundAudio();
-    nt.postNotificationName("music_toggle", {
-      playing: false
-    });
-    that.globalData.playing = false;
-    wx.getBackgroundAudioPlayerState({
-      complete: function (res) {
-        that.globalData.currentPosition = res.currentPosition ? res.currentPosition : 0
-      }
-    })
   },
-  seekmusic: function (type,seek,cb) {
+  seekmusic: function (type, seek, cb) {
     var that = this;
     var m = this.globalData.curplay;
     if (!m.id) return;
@@ -184,8 +183,8 @@ App({
         that.globalData.playing = true;
         nt.postNotificationName("music_toggle", {
           playing: true,
-           music: that.globalData.curplay,
-           playtype:that.globalData.playtype
+          music: that.globalData.curplay,
+          playtype: that.globalData.playtype
         });
         // nt.postNotificationName("music_next", {
         //   music: that.globalData.curplay,
@@ -267,7 +266,7 @@ App({
     index_dj: 0,
     index_fm: 0,
     index_am: 0,
-    playing:false,
+    playing: false,
     playtype: 1,
     curplay: {},
     shuffle: 1,

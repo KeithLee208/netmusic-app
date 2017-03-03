@@ -196,7 +196,7 @@ function loadlrc(that) {
   }
 }
 //歌曲加心心，取消心，fm trash
-function songheart(that, cookie, cb, t, d) {
+function songheart(that, app, t, d) {
   var music = that.data.music
   wx.request({
     url: bsurl + 'song/tracks',
@@ -204,10 +204,23 @@ function songheart(that, cookie, cb, t, d) {
       id: music.id,
       r: !d ? '' : 'del',
       op: !t ? 'like' : 'trash',
-      cookie: cookie
+      cookie: app.globalData.cookie
     },
     success: function (res) {
-      cb && cb(res.data.code);
+      if (res.data.code == 200) {
+        if(t){
+          app.nextfm();
+          return;
+        }
+        music.st = !music.st;
+        music.starred = !music.starred;
+        that.setData({ music: music });
+        app.likelist();
+      } else {
+        wx.navigateTo({
+          url: '../login/index'
+        })
+      }
     }
   })
 }

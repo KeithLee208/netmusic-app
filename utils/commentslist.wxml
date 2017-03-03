@@ -1,24 +1,25 @@
 <template name="commentslist">
   <block wx:if="{{rec.hotComments.length}}">
     <view class="sm_title">热门评论</view>
-    <view class="limg_list rec_list" wx:for-items="{{rec.hotComments}}" wx:key="{{item.commentId}}">
+    <view class="limg_list rec_list" wx:for-items="{{rec.hotComments}}" wx:for-index="idx" wx:key="{{item.commentId}}">
       <view class="rec_avatar">
         <navigator>
           <image class="user_avator" src="{{item.user.avatarUrl}}?param=60y60" />
         </navigator>
       </view>
-      <view class="rec_main" data-commentId="{{item.commentId}}">
+      <view class="rec_main" data-index="{{idx}}" bindtap="commentlike" data-t="0">
         <view class="rm_header">
           <view>
             <text>{{item.likedCount}}</text>
             <image src="../../../image/xg.png" wx:if="{{!item.liked}}" />
-             <image src="../../../image/xi.png" wx:if="{{item.liked}}" />
+            <image src="../../../image/xi.png" wx:if="{{item.liked}}" />
           </view>
           <text class="fmh_name">{{item.user.nickname}}</text>
           <text class="fmh_time">{{item.time}}</text>
         </view>
         <view class="rm_cnt">
-          <text wx:if="{{item.beReplied.length}}">回复<text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
+          <text wx:if="{{item.beReplied.length}}">回复
+            <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
           {{item.content}}
           <view class="rmc_reply" wx:if="{{item.beReplied.length}}">
             <text>
@@ -31,13 +32,13 @@
   </block>
   <block wx:if="{{rec.comments}}">
     <view class="sm_title">精彩评论({{rec.total}})</view>
-    <view class="limg_list rec_list" wx:for-items="{{rec.comments}}" wx:key="{{item.commentId}}">
+    <view class="limg_list rec_list" wx:for-items="{{rec.comments}}" wx:for-index="idx" wx:key="{{item.commentId}}">
       <view class="rec_avatar">
         <navigator>
           <image class="user_avator" src="{{item.user.avatarUrl}}?param=60y60" />
         </navigator>
       </view>
-      <view class="rec_main" data-commentId="{{item.commentId}}">
+      <view class="rec_main" data-index="{{idx}}" bindtap="commentlike" data-t="1">
         <view class="rm_header">
           <view>
             <text>{{item.likedCount}}</text>
@@ -47,7 +48,8 @@
           <text class="fmh_time">{{item.time}}</text>
         </view>
         <view class="rm_cnt">
-          <text wx:if="{{item.beReplied.length}}">回复<text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
+          <text wx:if="{{item.beReplied.length}}">回复
+            <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
           {{item.content}}
           <view class="rmc_reply" wx:if="{{item.beReplied.length}}">
             <text>
