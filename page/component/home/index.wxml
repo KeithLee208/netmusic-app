@@ -123,7 +123,7 @@
       </view>
       <view class='flex-boxlist'>
         <view class="tl_cnt" wx:for-items="{{rec.re[3]}}" wx:key="{{item.id}}">
-          <navigator url="../program/index?id={{item.id}}">
+          <navigator url="../program/index?pid={{item.id}}">
             <view class="cover">
               <image src="{{item.picUrl}}?param=200y200" class="music_cover" />
             </view>

@@ -42,7 +42,7 @@
             <view>{{item}}</view>
           </view>
           <view class="flexact" catchtap="del_research" data-index="{{idx}}">
-            <image src="../../../image/aah.png" />
+            <image src="../../../image/cm2_playlist_icn_dlt@2x.png" />
           </view>
         </view>
       </view>
@@ -140,8 +140,8 @@
           <view class="flexlist">
             <view class="flexmain">
               <view>{{re.nickname}}
-                <image src="../../../image/cm2_pro_icn_boy@2x.png" wx:if="{{re.gender!=1}}" />
-                <image src="../../../image/cm2_pro_icn_girl@2x.png" wx:if="{{re.gender==1}}" />
+                <image src="../../../image/cm2_pro_icn_boy@2x.png" wx:if="{{re.gender==1}}" />
+                <image src="../../../image/cm2_pro_icn_girl@2x.png" wx:if="{{re.gender!=1}}" />
               </view>
               <view class="relistdes">{{re.signature}}</view>
             </view>

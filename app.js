@@ -21,7 +21,9 @@ App({
     //监听音乐暂停，保存播放进度广播暂停状态
     wx.onBackgroundAudioPause(function () {
       nt.postNotificationName("music_toggle", {
-        playing: false
+        playing: false,
+        playtype: that.globalData.playtype,
+        music: that.globalData.curplay || {}
       });
       that.globalData.playing = false;
       that.globalData.globalStop = that.globalData.hide ? true : false;
@@ -54,7 +56,7 @@ App({
       }
     })
   },
-  nextplay: function (t, cb) {
+  nextplay: function (t, cb,pos) {
 
     //播放列表中下一首
     this.preplay();
@@ -70,13 +72,13 @@ App({
       index--;
     }
     index = index > list.length - 1 ? 0 : (index < 0 ? list.length - 1 : index);
-    this.globalData.curplay = (this.globalData.playtype == 1 ? list[index] : list[index].mainSong) || {};
+    index=pos!=undefined?pos:index;
+    this.globalData.curplay = (this.globalData.playtype == 1 ? list[index] : list[index].mainSong) || this.globalData.curplay;
     if (this.globalData.staredlist.indexOf(this.globalData.curplay.id) != -1) {
       this.globalData.curplay.starred = true;
       this.globalData.curplay.st = true;
 
     }
-    if (!this.globalData.curplay.id) return;
     if (this.globalData.playtype == 1) {
       this.globalData.index_am = index;
     } else {
@@ -85,7 +87,7 @@ App({
     nt.postNotificationName("music_next", {
       music: this.globalData.curplay,
       playtype: this.globalData.playtype,
-      p: list[index],
+      p: this.globalData.playtype == 1?[]:list[index],
       index: this.globalData.playtype == 1 ? this.globalData.index_am : this.globalData.index_dj
     });
     this.seekmusic(this.globalData.playtype);
@@ -122,12 +124,9 @@ App({
   },
   preplay: function () {
     //歌曲切换 停止当前音乐
-    nt.postNotificationName("music_toggle", {
-      playing: false
-    });
     this.globalData.playing = false;
     this.globalData.globalStop = true;
-    //  wx.stopBackgroundAudio();
+    wx.pauseBackgroundAudio();
   },
   getfm: function () {
     var that = this;
@@ -161,7 +160,6 @@ App({
     var m = this.globalData.curplay;
     if (!m.id) return;
     this.globalData.playtype = type;
-
     if (cb || this.globalData.playtype == 3) {
       this.playing(type, cb, seek);
     } else {
@@ -186,10 +184,6 @@ App({
           music: that.globalData.curplay,
           playtype: that.globalData.playtype
         });
-        // nt.postNotificationName("music_next", {
-        //   music: that.globalData.curplay,
-        //   playtype:that.globalData.playtype
-        // });
         cb && cb();
       },
       fail: function () {

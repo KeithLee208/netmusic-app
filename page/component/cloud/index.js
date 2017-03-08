@@ -77,12 +77,6 @@ Page({
       curplay: music.id
     })
   },
-  mv: function (e) {
-    var id = e.currentTarget.dataset.mvid;
-    wx.navigateTo({
-      url: '../mv/index?id=' + id
-    })
-  },
   playmusic: function (event) {
     var that = this;
     let music = event.currentTarget.dataset.idx;

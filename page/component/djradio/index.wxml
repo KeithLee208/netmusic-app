@@ -4,7 +4,7 @@
 <import src="../../../utils/loading.wxml" />
 <template is="pp" data="{{music:music,playing:playing,playtype:playtype}}" />
 <view id="artist_header">
-  <image src="../../../image/cm2_default_artist_banner@2x.jpg" />
+  <image src="../../../image/cm2_default_act_320@2x.jpg" />
   <image src="{{djradio.picUrl}}?param=750y750" />
   <view id="ah_wrap">
     <view class="ahw_name">{{djradio.name}}</view>
@@ -39,7 +39,7 @@
               <view>{{re.name}}</view>
               <view class="relistdes">
                 <text>{{re.createTime}} </text>
-                <template is="image" data="{{src:'../../../image/xg.png',width:32}}" />
+                <template is="image" wx:if="{{re.liked}}" data="{{src:'../../../image/xg.png',width:32}}" />
                 <text> {{re.likedCount}}</text>
                 <template is="image" data="{{src:'../../../image/cm2_list_icn_play24@2x.png',width:32}}" />
                 <text> {{re.listenerCount}}</text>

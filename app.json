@@ -17,7 +17,8 @@
     "page/component/me/index",
     "page/component/cloud/index",
     "page/component/program/index",
-     "page/component/djradio/index"
+     "page/component/djradio/index",
+     "page/component/simi/index"
   ],
   "window": {
     "navigationBarTextStyle": "#fff",

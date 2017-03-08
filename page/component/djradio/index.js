@@ -45,7 +45,7 @@ Page({
 		nt.addNotification("music_next", this.music_next, this);
 		nt.addNotification("music_toggle", this.music_toggle, this);
 		this.setData({
-			curplay: app.globalData.list_dj[app.globalData.index_dj].id,
+			curplay: (app.globalData.list_dj[app.globalData.index_dj]||{}).id,
 			music: app.globalData.curplay,
 			playing: app.globalData.playing,
 			playtype: app.globalData.playtype

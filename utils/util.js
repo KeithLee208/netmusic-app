@@ -218,7 +218,7 @@ function songheart(that, app, t, d) {
         app.likelist();
       } else {
         wx.navigateTo({
-          url: '../login/index'
+          url: '../login/index?t=1'
         })
       }
     }

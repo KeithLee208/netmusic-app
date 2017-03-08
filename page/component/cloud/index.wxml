@@ -4,9 +4,10 @@
   <block wx:if="{{loading}}">
     <view class="flexlist flex-center">
       <view class="flexlist flexnum">
-        <text id="pa-count">云盘容量：　</text>
-        <text>{{list.size}}G-{{list.maxSize}}G</text>
-        <progress class="flexmain" stroke-width="3" percent="{{list.percent}}" color="#BB2C08"/>
+        <text id="pa-count">　云盘容量：</text>
+        <view id="cloud_percent"><text>{{list.size}}G/{{list.maxSize}}G</text>
+          <view style="width:{{list.percent*100}}%"></view>
+        </view>
         </view>
       
     </view>
@@ -27,8 +28,8 @@
                 <view>{{re.simpleSong.name}}<text wx:if="{{re.simpleSong.alia.length}}">（{{re.simpleSong.alia[0]}}）</text></view>
                 <view class="relistdes">{{re.simpleSong.ar[0].name}}-{{re.simpleSong.al.name}}</view>
               </view>
-              <view class="flexact" wx-if="{{re.simpleSong.mv!=0}}">
-                <view catchtap="mv" data-mvid="{{re.simpleSong.mv}}" class="fa_list fa_mv">
+              <view class="flexact">
+                <view wx-if="{{re.simpleSong.mv!=0}}" data-mvid="{{re.simpleSong.mv}}" class="fa_list fa_mv">
                   <navigator url="../mv/index?id={{re.simpleSong.mv}}">
                     <image src="../../../image/l0.png" mode="widthFix" />
                   </navigator>

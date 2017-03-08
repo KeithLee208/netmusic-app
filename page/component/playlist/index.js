@@ -110,12 +110,6 @@ Page({
     app.shuffleplay(shuffle);
     app.globalData.globalStop = false;
   },
-  mv: function (e) {
-    var id = e.currentTarget.dataset.mvid;
-    wx.navigateTo({
-      url: '../mv/index?id=' + id
-    })
-  },
   playmusic: function (event) {
     let music = event.currentTarget.dataset.idx;
     let st = event.currentTarget.dataset.st;

@@ -61,6 +61,7 @@ Page({
 				wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
 				nt.postNotificationName("music_next", {
 					music: app.globalData.curplay,
+					p:res,
 					playtype: 3
 				});
 				app.seekmusic(3);
