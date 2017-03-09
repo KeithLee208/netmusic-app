@@ -7,9 +7,9 @@
           <image class="user_avator" src="{{item.user.avatarUrl}}?param=60y60" />
         </navigator>
       </view>
-      <view class="rec_main" data-index="{{idx}}" bindtap="commentlike" data-t="0">
+      <view class="rec_main" data-index="{{idx}}" data-t="0">
         <view class="rm_header">
-          <view>
+          <view bindtap="commentlike" data-cid="{{item.id}}">
             <text>{{item.likedCount}}</text>
             <image src="../../../image/xg.png" wx:if="{{!item.liked}}" />
             <image src="../../../image/xi.png" wx:if="{{item.liked}}" />
@@ -18,12 +18,25 @@
           <text class="fmh_time">{{item.time}}</text>
         </view>
         <view class="rm_cnt">
-          <text wx:if="{{item.beReplied.length}}">回复
-            <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
-          {{item.content}}
+          <text wx:if="{{item.beReplied.length}}">回复 <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
+          <view class="WxEmojiView">
+            <block wx:for="{{item.content}}" wx:for-item="re" wx:key="">
+              <block wx:if="{{re.node == 'text'}}">{{re.text}}</block>
+              <block wx:elif="{{re.node == 'element'}}">
+                <image class="wxEmoji" src="http://s1.music.126.net/style/web2/emt//emoji_{{re.text}}.png" />
+              </block>
+            </block>
+          </view>
           <view class="rmc_reply" wx:if="{{item.beReplied.length}}">
-            <text>
-              <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：{{item.beReplied[0].content}}</text>
+            <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：
+              <view class="WxEmojiView">
+                <block wx:for="{{item.beReplied[0].content}}" wx:for-item="re" wx:key="">
+                  <block wx:if="{{re.node == 'text'}}">{{re.text}}</block>
+                  <block wx:elif="{{re.node == 'element'}}">
+                    <image class="wxEmoji" src="http://s1.music.126.net/style/web2/emt//emoji_{{re.text}}.png" />
+                  </block>
+                </block>
+              </view>
           </view>
         </view>
       </view>
@@ -38,9 +51,9 @@
           <image class="user_avator" src="{{item.user.avatarUrl}}?param=60y60" />
         </navigator>
       </view>
-      <view class="rec_main" data-index="{{idx}}" bindtap="commentlike" data-t="1">
+      <view class="rec_main" data-index="{{idx}}" data-t="1">
         <view class="rm_header">
-          <view>
+          <view bindtap="commentlike" data-cid="{{item.id}}">
             <text>{{item.likedCount}}</text>
             <image src="../../../image/xg.png" />
           </view>
@@ -48,12 +61,25 @@
           <text class="fmh_time">{{item.time}}</text>
         </view>
         <view class="rm_cnt">
-          <text wx:if="{{item.beReplied.length}}">回复
-            <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
-          {{item.content}}
+          <text wx:if="{{item.beReplied.length}}">回复 <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：</text>
+          <view class="WxEmojiView">
+            <block wx:for="{{item.content}}" wx:for-item="re" wx:key="">
+              <block wx:if="{{re.node == 'text'}}">{{re.text}}</block>
+              <block wx:elif="{{re.node == 'element'}}">
+                <image class="wxEmoji" src="http://s1.music.126.net/style/web2/emt//emoji_{{re.text}}.png" />
+              </block>
+            </block>
+          </view>
           <view class="rmc_reply" wx:if="{{item.beReplied.length}}">
-            <text>
-              <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：{{item.beReplied[0].content}}</text>
+           <text class="replyname">@{{item.beReplied[0].user.nickname}}</text>：
+              <view class="WxEmojiView">
+                <block wx:for="{{item.beReplied[0].content}}" wx:for-item="r" wx:key="">
+                  <block wx:if="{{r.node == 'text'}}">{{r.text}}</block>
+                  <block wx:elif="{{r.node == 'element'}}">
+                    <image class="wxEmoji" src="http://s1.music.126.net/style/web2/emt//emoji_{{r.text}}.png" />
+                  </block>
+                </block>
+              </view>
           </view>
         </view>
       </view>

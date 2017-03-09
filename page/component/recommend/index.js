@@ -43,7 +43,7 @@ Page({
             })
             common.loadrec(app.globalData.cookie,this.data.offset, this.data.limit, this.data.recid, function (data) {
                 var rec = that.data.rec;
-                var offset = that.data.offset + data.comments.length
+                var offset = that.data.offset + (data.comments||[]).length
                 data.comments = rec.comments.concat(data.comments);
                 data.hotComments=rec.hotComments;
                 that.setData({

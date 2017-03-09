@@ -18,7 +18,7 @@
         <image id='pa-playing' src="../../../image/cm2_play_icn_love@2x.png" style="width:80rpx;height:80rpx;" />
       </view>
       <view class="pa-baction" wx:if="{{playtype!=3}}" hidden="{{!music.st&&!music.starred}}" bindtap="lovesong" data-p="{{playing}}">
-        <image id='pa-pause' src="../../../image/cm2_play_icn_loved@2x.png" style="width:80rpx;height:80rpx;" />
+        <image src="../../../image/cm2_play_icn_loved@2x.png" style="width:80rpx;height:80rpx;" />
       </view>
       <view class="pa-baction" bindtap="playnext" data-pt="1">
         <image src="../../../image/ajb.png" id="pp_next" style="width:60rpx;height:60rpx;" />

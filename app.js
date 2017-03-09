@@ -56,7 +56,7 @@ App({
       }
     })
   },
-  nextplay: function (t, cb,pos) {
+  nextplay: function (t, cb, pos) {
 
     //播放列表中下一首
     this.preplay();
@@ -72,12 +72,11 @@ App({
       index--;
     }
     index = index > list.length - 1 ? 0 : (index < 0 ? list.length - 1 : index);
-    index=pos!=undefined?pos:index;
+    index = pos != undefined ? pos : index;
     this.globalData.curplay = (this.globalData.playtype == 1 ? list[index] : list[index].mainSong) || this.globalData.curplay;
     if (this.globalData.staredlist.indexOf(this.globalData.curplay.id) != -1) {
       this.globalData.curplay.starred = true;
       this.globalData.curplay.st = true;
-
     }
     if (this.globalData.playtype == 1) {
       this.globalData.index_am = index;
@@ -87,7 +86,7 @@ App({
     nt.postNotificationName("music_next", {
       music: this.globalData.curplay,
       playtype: this.globalData.playtype,
-      p: this.globalData.playtype == 1?[]:list[index],
+      p: this.globalData.playtype == 1 ? [] : list[index],
       index: this.globalData.playtype == 1 ? this.globalData.index_am : this.globalData.index_dj
     });
     this.seekmusic(this.globalData.playtype);
@@ -212,7 +211,11 @@ App({
           err && err()
         } else {
           that.globalData.curplay.url = a.url;
-          console.log(that.globalData.curplay)
+          that.globalData.curplay.getutime=(new Date()).getTime()
+          if (that.globalData.staredlist.indexOf(that.globalData.curplay.id) != -1) {
+            that.globalData.curplay.starred = true;
+            that.globalData.curplay.st = true;
+          }
           suc && suc()
         }
       }

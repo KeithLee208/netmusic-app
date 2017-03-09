@@ -143,13 +143,15 @@ Page({
     //播放列表中单曲删除
     var i=e.currentTarget.dataset.index;
     app.globalData.list_sf.splice(i,1);
-    app.globalData.list_am=app.globalData.list_sf
+    app.globalData.list_am=app.globalData.list_sf;
+    app.globalData.index_am=app.globalData.index_am>i?(app.globalData.index_am-1):app.globalData.index_am;
     this.setData({
       curpl:app.globalData.list_am
     })
   },
   del_all:function(){
     app.globalData.list_am=app.globalData.list_sf=[];
+    app.globalData.index_am=0
     this.setData({
       curpl:[]
     })

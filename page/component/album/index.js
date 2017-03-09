@@ -6,9 +6,9 @@ Page({
 	data: {
 		result: {},
 		curplay: 0,
-		music:{},
-		playing:false,
-		playtype:1,
+		music: {},
+		playing: false,
+		playtype: 1,
 		loading: true,
 		music: {},
 		playing: false,
@@ -39,9 +39,12 @@ Page({
 			curplay: r.music.id
 		})
 	},
-	onHide:function(){
+	onHide: function () {
 		nt.removeNotification("music_next", this)
-        nt.removeNotification("music_toggle", this)
+		nt.removeNotification("music_toggle", this)
+	},
+	lovesong: function () {
+		common.songheart(this, app, 0, (this.data.playtype == 1 ? this.data.music.st : this.data.music.starred));
 	},
 	onLoad: function (options) {
 

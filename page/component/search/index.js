@@ -22,8 +22,7 @@ Page({
     playmusic: function (event) {
         let that = this;
         let music = event.currentTarget.dataset.idx;
-        let st = event.currentTarget.dataset.st;
-        console.log(st)
+        let st = event.currentTarget.dataset.st; 
         if (st * 1 < 0) {
             wx.showToast({
                 title: '歌曲已下架',
