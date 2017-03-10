@@ -60,7 +60,7 @@
       <!--playlist-->
       <view class="st_title">
         <image width="30" mode="widthFix" src="../../../image/cm2_discover_icn_recmd@2x.png" />推荐歌单
-        <view bindtap="switchtab" data-t="1">更多></view>
+        <view class="rbtn"  bindtap="switchtab" data-t="1">更多></view>
       </view>
       <view class='flex-boxlist'>
         <view class="tl_cnt" wx:for-items="{{rec.re[0]}}" wx:key="{{item.id}}">
@@ -78,7 +78,7 @@
       <!--newsongs-->
       <view class="st_title">
         <image width="30" mode="widthFix" src="../../../image/cm2_discover_icn_newest@2x.png" />最新音乐
-        <view url="../songsa">更多></view>
+        <navigator class="rbtn" url="../new/index">更多></navigator>
       </view>
       <view class='flex-boxlist'>
         <view class="tl_cnt" wx:for-items="{{rec.re[1]}}" wx:for-index="idx" wx:if="{{idx<6}}" wx:for-item="re" wx:key="{{re.id}}">
@@ -98,7 +98,7 @@
       <!--mv-->
       <view class="st_title">
         <image width="30" mode="widthFix" src="../../../image/cm2_discover_icn_mv@2x.png" />推荐Mv
-        <view url="../songsa">更多></view>
+        <view class="rbtn" >更多></view>
       </view>
       <view class='flex-boxlist mvs flex-two'>
         <view wx:for="{{rec.re[2]}}" class="tl_cnt" wx:for-item="re" wx:key="{{re}}">
@@ -119,7 +119,7 @@
       <!--dj-->
       <view class="st_title">
         <image width="30" mode="widthFix" src="../../../image/cm2_discover_icn_radio@2x.png" />主播电台
-        <view bindtap="switchtab" data-t="2">更多></view>
+        <view class="rbtn"  bindtap="switchtab" data-t="2">更多></view>
       </view>
       <view class='flex-boxlist'>
         <view class="tl_cnt" wx:for-items="{{rec.re[3]}}" wx:key="{{item.id}}">

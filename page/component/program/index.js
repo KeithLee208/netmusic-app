@@ -14,11 +14,13 @@ var defaultdata = {
 	disable: false,
 	tgpinfo: false,
 	downloadPercent: 0,
+	showpinfo: false,
 	share: {
 		title: "一起来听",
 		des: ""
 	},
-	p: {}
+	p: {},
+	curpl: []
 };
 Page({
 	data: defaultdata,
@@ -61,7 +63,7 @@ Page({
 				wx.setNavigationBarTitle({ title: app.globalData.curplay.name });
 				nt.postNotificationName("music_next", {
 					music: app.globalData.curplay,
-					p:res,
+					p: res,
 					playtype: 3
 				});
 				app.seekmusic(3);
@@ -73,6 +75,11 @@ Page({
 			}
 		})
 
+	},
+	togpinfo: function () {
+		this.setData({
+			showpinfo: !this.data.showpinfo
+		})
 	},
 	toggleinfo: function () {
 		this.setData({
@@ -106,20 +113,20 @@ Page({
 		var that = this;
 		var p = this.data.p;
 		wx.request({
-		  url:bsurl+'resource/like',
-		  data: {
-			id:p.commentThreadId,
-			t:p.liked?0:1,
-			cookie:app.globalData.cookie
-		  },
-		  success: function(res){
-			if(res.data.code==200){
-				p.liked=!p.liked
-				that.setData({
-					p:p
-				})
+			url: bsurl + 'resource/like',
+			data: {
+				id: p.commentThreadId,
+				t: p.liked ? 0 : 1,
+				cookie: app.globalData.cookie
+			},
+			success: function (res) {
+				if (res.data.code == 200) {
+					p.liked = !p.liked
+					that.setData({
+						p: p
+					})
+				}
 			}
-		  }
 		})
 	},
 	museek: function (e) {
@@ -127,11 +134,12 @@ Page({
 		var that = this
 		nextime = app.globalData.curplay.duration * nextime / 100000;
 		app.globalData.currentPosition = nextime
-		app.seekmusic(1, function () {
+
+		app.seekmusic(1, app.globalData.currentPosition, function () {
 			that.setData({
 				percent: e.detail.value
 			})
-		}, app.globalData.currentPosition);
+		});
 	},
 	onShow: function () {
 		var that = this;
@@ -155,13 +163,14 @@ Page({
 			that.setData({
 				commentscount: res.total
 			})
-		},3)
+		}, 3)
 	},
 	onLoad: function (options) {
 		var that = this;
 		app.globalData.playtype = 3;
 		this.setData({
-			shuffle: app.globalData.shuffle
+			shuffle: app.globalData.shuffle,
+			curpl: app.globalData.list_dj
 		});
 		var curp = app.globalData.list_dj[app.globalData.index_dj] || {}
 		if (!curp.mainSong || (curp.mainSong.id != options.id)) {
