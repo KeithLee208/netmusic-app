@@ -89,7 +89,6 @@ Page({
     },
     switchtab: function (e) {
         var that = this;
-        nt.postNotificationName("testNotificationName", 'nt----------------------');
         var t = e.currentTarget.dataset.t;
         this.setData({ tabidx: t });
         if (t == 1 && !this.data.playlist.loading) {

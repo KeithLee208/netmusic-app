@@ -28,28 +28,10 @@
     </navigator>
     <view class="mn_list">
       <view class="mn_ico">
-      <template is="image" data="{{src:'../../../image/cm2_list_icn_artists_new@2x.png',width:60}}"/></view>
-      <view class="cmain">我的歌手</view>
+      <template is="image" data="{{src:'../../../image/cm4_my_icn_fav@2x.png',width:60}}"/></view>
+      <view class="cmain">我的收藏</view>
       <view class="rdes">
         <text>{{subcount.artistCount}}</text>
-        <view class="arrow"></view>
-      </view>
-    </view>
-    <view class="mn_list">
-      <view class="mn_ico">
-      <template is="image" data="{{src:'../../../image/cm2_list_icn_mymv_new@2x.png',width:60}}"/></view>
-      <view class="cmain">Mv</view>
-      <view class="rdes">
-        <text>{{subcount.mvCount}}</text>
-        <view class="arrow"></view>
-      </view>
-    </view>
-    <view class="mn_list">
-      <view class="mn_ico">
-      <template is="image" data="{{src:'../../../image/cm2_list_icn_rdi_new@2x.png',width:60}}"/></view>
-      <view class="cmain">我的电台</view>
-      <view class="rdes">
-        <text>{{subcount.djRadioCount}}</text>
         <view class="arrow"></view>
       </view>
     </view>

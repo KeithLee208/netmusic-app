@@ -45,7 +45,7 @@ border:12rpx solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,
 #playing-status slider{position: absolute;left: 0;top:0;width: 100%;margin: 0;opacity: 0;z-index: 10}
 
 .tab{display: flex;border-bottom: 1rpx solid rgba(200,200,200,.5); background:rgba(240,240,240,.8);height: 80rpx;line-height: 80rpx;}
-.tab .tab-item{text-align: center; flex:1; word-break: keep-all;font-size: 30rpx;}
+.tab .tab-item{text-align: center; flex:auto; word-break: keep-all;font-size: 30rpx;}
 .tab .tab-item .tbi-text{display: inline-block;padding: 0 .3em; vertical-align: top;line-height: 76rpx;height: 77rpx;}
 .tab .tab-item .tbi-des{display: inline;color: #999; border-bottom: none;font-size: 24rpx;line-height: 1;padding-left: .5em}
 .tab .tbi-cur .tbi-text{color: #d33a31; margin-bottom: -1rpx;border-bottom:4rpx solid  #d33a31}
@@ -142,7 +142,7 @@ background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));opacity: .5}
 .albums_wrap .al-image{position: absolute;height: 100%;width: 85.33%;z-index: 10;left: 0;top: 0}
 .albums .fl-image .albums_cover{position: absolute;width: 118rpx;height: 100rpx;left: 0;top: 0;z-index: 0}
 .fa_list{margin-left:10rpx}
-.fa_mv image{width:52rpx;height: 42rpx;}
+.fa_mv image{width:56rpx;height:56rpx;}
 .fl-image{position: relative;padding: 10rpx 0;margin:0 20rpx}
 .flexlist .flexlist .fl-image{padding: 0;margin: 0 10rpx}
 .fl-image image{width: 100rpx;height: 100rpx; vertical-align: middle;position: relative;z-index: 1}
