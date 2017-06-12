@@ -35,8 +35,7 @@ Page({
 		wx.request({
 			url: bsurl + 'program/detail',
 			data: {
-				id: id,
-				cookie: app.globalData.cookie
+				id: id
 			},
 			success: function (res) {
 				if (res.data.code != 200) {

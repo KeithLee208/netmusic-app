@@ -19,9 +19,6 @@ Page({
         this.setData({uid:id})
         wx.request({
             url: bsurl + 'user/subcount?id=' + id,
-            data: {
-                cookie: app.globalData.cookie
-            },
             success: function (res) {
                 that.setData({
                     
@@ -34,8 +31,7 @@ Page({
             data: {
                 uid: id,
                 offset: 0,
-                limit: 1000,
-                cookie: app.globalData.cookie
+                limit: 1000
             },
             success: function (res) {
                 that.setData({

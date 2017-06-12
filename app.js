@@ -33,8 +33,19 @@ App({
         }
       })
     });
+    this.mine();
     this.likelist();
     //this.loginrefresh();
+  },
+  mine: function(){
+    var that = this;
+    wx.request({
+      url: bsurl + 'mine',
+      success: function (res) {
+        that.globalData.user=res.data;
+        wx.setStorageSync('user',res.data)
+      }
+    })
   },
   loginrefresh: function () {
     wx.request({
@@ -50,7 +61,6 @@ App({
     var that = this
     this.globalData.cookie && wx.request({
       url: bsurl + 'likelist',
-      data: { cookie: this.globalData.cookie },
       success: function (res) {
         that.globalData.staredlist = res.data.ids
       }
@@ -131,9 +141,6 @@ App({
     var that = this;
     wx.request({
       url: bsurl + 'fm',
-      data: {
-        cookie: that.globalData.cookie
-      },
       success: function (res) {
         that.globalData.list_fm = res.data.data;
         that.globalData.index_fm = 0;
@@ -202,8 +209,7 @@ App({
       data: {
         id: m.id,
         br: m.duration ? ((m.hMusic && m.hMusic.bitrate) || (m.mMusic && m.mMusic.bitrate) || (m.lMusicm && m.lMusic.bitrate) || (m.bMusic && m.bMusic.bitrate)) : (m.privilege ? m.privilege.maxbr : ((m.h && m.h.br) || (m.m && m.m.br) || (m.l && m.l.br) || (m.b && m.b.br))),
-        br: 128000,
-        cookie: that.globalData.cookie
+        br: 128000
       },
       success: function (a) {
         a = a.data.data[0];
@@ -211,7 +217,7 @@ App({
           err && err()
         } else {
           that.globalData.curplay.url = a.url;
-          that.globalData.curplay.getutime=(new Date()).getTime()
+          that.globalData.curplay.getutime = (new Date()).getTime()
           if (that.globalData.staredlist.indexOf(that.globalData.curplay.id) != -1) {
             that.globalData.curplay.starred = true;
             that.globalData.curplay.st = true;
@@ -270,6 +276,7 @@ App({
     globalStop: true,
     currentPosition: 0,
     staredlist: [],
-    cookie: ""
+    cookie: "",
+    user: {}
   }
 })

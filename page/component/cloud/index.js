@@ -6,8 +6,8 @@ Page({
     list: {},
     offset: 0,
     limit: 20,
-    loading:false,
-    curplay:-1
+    loading: false,
+    curplay: -1
   },
   onLoad: function (options) {
     this.getcloud()
@@ -18,45 +18,45 @@ Page({
       url: bsurl + 'user/cloud',
       data: {
         offset: that.data.offset,
-        limit: that.data.limit,
-        cookie: appInstance.globalData.cookie
+        limit: that.data.limit
       },
       success: function (res) {
         wx.stopPullDownRefresh();
-        if(res.data.code!=200){
+        if (res.data.code != 200) {
           wx.showToast({
-            title:"云盘数据获取失败！",
-            duration:2000
+            title: "云盘数据获取失败！",
+            duration: 2000
           });
           that.setData({
-          loading:true})
+            loading: true
+          })
           return;
         }
-        if(isadd){
-          that.data.offset+=res.data.data.length
-          res.data.data=that.data.list.data.concat(res.data.data)
+        if (isadd) {
+          that.data.offset += res.data.data.length
+          res.data.data = that.data.list.data.concat(res.data.data)
         }
-        else{
-          that.data.offset=res.data.data.length
+        else {
+          that.data.offset = res.data.data.length
         }
-        var list=res.data;
-        list.size=(res.data.size/1073741824).toFixed(2)
-         list.maxSize=(res.data.maxSize/1073741824)
-        list.percent=(list.size/list.maxSize).toFixed(2)
+        var list = res.data;
+        list.size = (res.data.size / 1073741824).toFixed(2)
+        list.maxSize = (res.data.maxSize / 1073741824)
+        list.percent = (list.size / list.maxSize).toFixed(2)
         that.setData({
-          loading:true,
-          offset:that.data.offset,
+          loading: true,
+          offset: that.data.offset,
           list: list
         });
       }
     });
   },
-  onPullDownRefresh:function(){
-    this.data.offset=0;
+  onPullDownRefresh: function () {
+    this.data.offset = 0;
     this.getcloud();
   },
-  onReachBottom:function(){
-    this.data.list.hasMore&&this.getcloud(1);
+  onReachBottom: function () {
+    this.data.list.hasMore && this.getcloud(1);
   },
   playall: function (event) {
     this.setplaylist(this.data.canplay[0], 0);

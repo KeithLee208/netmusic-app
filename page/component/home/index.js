@@ -79,7 +79,7 @@ Page({
             playing: app.globalData.playing,
             playtype: app.globalData.playtype,
         })
-        if (wx.getStorageSync('cookie') == '') {
+        if (!wx.getStorageSync('user')) {
             wx.redirectTo({
                 url: '../login/index'
             });
@@ -99,7 +99,6 @@ Page({
             async.map(['djradio/catelist', 'program/recommend', 'djradio/recommend', 'djradio/hot'], function (item, callback) {
                 wx.request({
                     url: bsurl + item,
-                    data: { cookie: app.globalData.cookie },
                     success: function (res) {
                         callback(null, res.data)
                     }
