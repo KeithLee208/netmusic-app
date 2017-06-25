@@ -12,6 +12,7 @@ let defaultdata = {
   lrc: [],
   commentscount: 0,
   lrcindex: 0,
+  shuffle:1,
   showlrc: false,
   disable: false,
   downloadPercent: 0,
