@@ -60,8 +60,7 @@ Page({
       url: bsurl + 'playlist/detail',
       data: {
         id: options.pid,
-        limit: 1000,
-        cookie: app.globalData.cookie
+        limit: 1000
       },
       success: function (res) {
         var canplay = [];

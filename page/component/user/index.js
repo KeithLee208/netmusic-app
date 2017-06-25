@@ -1,14 +1,14 @@
 var bsurl = require('../../../utils/bsurl.js');
-var app=getApp();
+var app = getApp();
 Page({
   data: {
     list1: [],
-    list2:[],
+    list2: [],
     user: {},
-    id:-1,
-    offset:0,
-    more:true,
-    loading:true
+    id: -1,
+    offset: 0,
+    more: true,
+    loading: true
   },
 
   onLoad: function (options) {
@@ -16,12 +16,9 @@ Page({
     var that = this;
     wx.request({
       url: bsurl + 'user/detail?uid=' + id,
-      data:{
-        cookie:app.globalData.cookie
-      },
       success: function (res) {
         that.setData({
-          id:id,
+          id: id,
           user: res.data
         });
         wx.setNavigationBarTitle({
@@ -29,41 +26,41 @@ Page({
         });
       }
     });
-    this.loadplaylist(false,id)
+    this.loadplaylist(false, id)
   },
-  onReachBottom:function(){
+  onReachBottom: function () {
     this.loadplaylist(1)
   },
-  loadplaylist:function(isadd,id){
-    var that=this;
-    if(!this.data.more||!this.data.loading){return}
+  loadplaylist: function (isadd, id) {
+    var that = this;
+    if (!this.data.more || !this.data.loading) { return }
     this.setData({
-      loading:true
+      loading: true
     })
     wx.request({
       url: bsurl + 'user/playlist',
       data: {
-        uid:id|| that.data.id,
-        offset:that.data.offset,
+        uid: id || that.data.id,
+        offset: that.data.offset,
         limit: 2,
-        cookie:app.globalData.cookie
+        cookie: app.globalData.cookie
       },
       complete: function (res) {
-        var a=res.data.playlist||[];
-        var offset=a.length;
-        var list1=a.filter(function(item){return item.userId==id})
-        var list2=a.filter(function(item){return item.userId!=id})
-        if(isadd){
-          offset=that.data.offset+a.length
-          list1=that.data.list1.concat(list1);
-          list2=that.data.list2.concat(list2);
+        var a = res.data.playlist || [];
+        var offset = a.length;
+        var list1 = a.filter(function (item) { return item.userId == id })
+        var list2 = a.filter(function (item) { return item.userId != id })
+        if (isadd) {
+          offset = that.data.offset + a.length
+          list1 = that.data.list1.concat(list1);
+          list2 = that.data.list2.concat(list2);
         }
         that.setData({
-          loading:false,
-          more:res.data.more,
-          offset:offset,
-          list1:list1,
-          list2:list2
+          loading: false,
+          more: res.data.more,
+          offset: offset,
+          list1: list1,
+          list2: list2
         });
       }
     });

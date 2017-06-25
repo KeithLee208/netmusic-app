@@ -5,7 +5,7 @@ var app = getApp();
 Page({
   data: {
     list: [],
-    curplay:-1,
+    curplay: -1,
     music: {},
     playing: false,
     playtype: 1,
@@ -53,7 +53,6 @@ Page({
     var that = this;
     wx.request({
       url: bsurl + 'recommend/songs',
-      data: { cookie: wx.getStorageSync('cookie') || '' },
       success: function (res) {
         that.setData({
           songs: res.data.recommend,

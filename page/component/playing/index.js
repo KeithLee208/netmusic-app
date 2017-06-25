@@ -229,8 +229,7 @@ Page({
       data: {
         uid: id,
         offset: 0,
-        limit: 1000,
-        cookie: app.globalData.cookie
+        limit: 1000
       },
       success: function (res) {
         that.setData({

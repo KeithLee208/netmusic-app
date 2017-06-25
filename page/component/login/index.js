@@ -44,17 +44,14 @@ Page({
             complete: function (res) {
                 console.log(res);
                 wx.hideToast();
-                if (res.data.code) {
+                if (res.data.code!=200) {
                     wx.showModal({
                         title: '提示',
                         content: '登录失败，请重试！'
                     })
                     return;
                 }
-                wx.setStorageSync('cookie', res.data.c);
-                wx.setStorageSync('user', res.data.i)
-                app.globalData.cookie = res.data.c
-
+                app.mine();
                 app.likelist();
                 if (that.data.linktype == 1) {
                     wx.navigateBack({
